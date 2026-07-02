@@ -1,0 +1,352 @@
+type: vertical-stack
+cards:
+  - type: custom:mushroom-template-card
+    primary: >-
+      {{ states('input_text.dynamic_scene_selected') | replace('_', ' ') | title }}
+    secondary: Select a room to apply this scene
+    icon: mdi:palette
+    color: >-
+      {% if states('input_text.dynamic_scene_selected') != '' %}
+        #f6bd60
+      {% else %}
+        #aaaaaa
+      {% endif %}
+  - type: custom:simple-tabs
+    pre-load: true
+    active-background: var(--md-sys-color-primary)
+    active-text-color: var(--md-sys-color-on-primary)
+    text-color: var(--primary-text-color)
+    tabs:
+      - title: Living Area
+        icon: mdi:sofa
+        id: living
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:streamline-card
+              template: title_card
+              variables:
+                title: Area
+                title_font_size: 20px
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: dynamic_scene_room_card
+                  variables:
+                    icon: m3of:table-restaurant
+                    primary: Dining
+                    scene_tracker: input_text.dining_table_dynamic_scene_active
+                    room_lights:
+                      - light.light_one_dt
+                      - light.light_two_dt
+                      - light.light_three_dt
+                      - light.light_one_ktc_dt
+                      - light.light_two_ktc_dt
+                      - light.light_three_ktc_dt
+                    presence_automation:
+                      - automation.room_presence_dining_table
+                    room_boolean: input_boolean.dining_table_dynamic_scene
+                    color_active: "#f6bd60"
+
+                - type: custom:streamline-card
+                  template: dynamic_scene_room_card
+                  variables:
+                    icon: mdi:sofa
+                    primary: Sofa
+                    scene_tracker: input_text.sofa_dynamic_scene_active
+                    room_lights:
+                      - light.light_one_sofa
+                      - light.light_two_sofa
+                      - light.light_three_sofa
+                      - light.light_four_sofa
+                    presence_automation:
+                      - automation.room_presence_sofa
+                    room_boolean: input_boolean.sofa_dynamic_scene
+                    color_active: "#f7ede2"
+
+                - type: custom:streamline-card
+                  template: dynamic_scene_room_card
+                  variables:
+                    icon: mdi:countertop
+                    primary: Kitchen
+                    scene_tracker: input_text.kitchen_dynamic_scene_active
+                    room_lights:
+                      - light.light_one_ktc
+                      - light.light_two_ktc
+                    presence_automation:
+                      - automation.room_presence_kitchen
+                    room_boolean: input_boolean.kitchen_dynamic_scene
+                    color_active: "#f5cac3"
+
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: dynamic_scene_room_card
+                  variables:
+                    icon: mdi:cookie
+                    primary: Scullery
+                    scene_tracker: input_text.scullery_dynamic_scene_active
+                    room_lights:
+                      - light.light_scr
+                    presence_automation:
+                      - automation.room_presence_scullery
+                    room_boolean: input_boolean.scullery_dynamic_scene
+                    color_active: "#84a59d"
+
+                - type: custom:streamline-card
+                  template: dynamic_scene_room_card
+                  variables:
+                    icon: mdi:image-frame
+                    primary: Hallway
+                    scene_tracker: input_text.hallway_dynamic_scene_active
+                    room_lights:
+                      - light.light_one_hw
+                      - light.light_two_hw
+                      - light.light_three_hw
+                      - light.light_four_hw
+                      - light.light_five_hw
+                      - light.light_six_hw
+                    presence_automation:
+                      - automation.room_presence_hallway
+                    room_boolean: input_boolean.hallway_dynamic_scene
+                    color_active: "#f28482"
+
+      - title: Bedroom
+        icon: m3of:bed
+        badge: ""
+        id: bedroom
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:streamline-card
+              template: title_card
+              variables:
+                title: Area
+                title_font_size: 20px
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: dynamic_scene_room_card
+                  variables:
+                    icon: m3of:bed
+                    primary: Master
+                    scene_tracker: input_text.master_bedroom_dynamic_scene_active
+                    room_lights:
+                      - light.light_one_mbr
+                      - light.light_two_mbr
+                    presence_automation: automation.room_presence_master_bedroom
+                    room_boolean: input_boolean.master_bedroom_dynamic_scene
+                    color_active: "#cdb4db"
+
+                - type: custom:streamline-card
+                  template: dynamic_scene_room_card
+                  variables:
+                    icon: mdi:wardrobe
+                    primary: Wardrobe
+                    scene_tracker: input_text.wardrobe_dynamic_scene_active
+                    room_lights:
+                      - light.light_one_wr
+                      - light.light_two_wr
+                    presence_automation: automation.room_presence_wardrobe
+                    room_boolean: input_boolean.wardrobe_dynamic_scene
+                    color_active: "#ffc8dd"
+
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: dynamic_scene_room_card
+                  variables:
+                    icon: m3of:stroller
+                    primary: Baby
+                    scene_tracker: input_text.baby_room_dynamic_scene_active
+                    room_lights:
+                      - light.light_one_br
+                      - light.light_two_br
+                      - light.ava_bed_led
+                      - light.iyla_bed_led
+                    presence_automation: automation.room_presence_baby_room
+                    room_boolean: input_boolean.baby_room_dynamic_scene
+                    color_active: "#ffafcc"
+
+                - type: custom:streamline-card
+                  template: dynamic_scene_room_card
+                  variables:
+                    icon: m3of:person-3
+                    primary: Single
+                    scene_tracker: input_text.single_guest_room_dynamic_scene_active
+                    room_lights:
+                      - light.light_one_sgr
+                      - light.light_two_sgr
+                      - light.bed_led_sgr
+                    presence_automation: automation.room_presence_single_guest_room
+                    room_boolean: input_boolean.single_guest_room_dynamic_scene
+                    color_active: "#bde0fe"
+
+                - type: custom:streamline-card
+                  template: dynamic_scene_room_card
+                  variables:
+                    icon: m3of:groups-2
+                    primary: Multiple
+                    scene_tracker: input_text.multiple_guest_room_dynamic_scene_active
+                    room_lights:
+                      - light.light_one_mgr
+                      - light.light_two_mgr
+                      - light.bed_led_mgr
+                    presence_automation: automation.room_presence_multiple_guest_room
+                    room_boolean: input_boolean.multiple_guest_room_dynamic_scene
+                    color_active: "#a2d2ff"
+
+      - title: Bathroom
+        icon: m3of:water-drop
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:streamline-card
+              template: title_card
+              variables:
+                title: Area
+                title_font_size: 20px
+            - type: custom:streamline-card
+              template: dynamic_scene_room_card
+              variables:
+                icon: m3of:bed
+                primary: Master Bathroom
+                scene_tracker: input_text.master_bathroom_dynamic_scene_active
+                room_lights:
+                  - light.light_one_mbrt
+                  - light.light_two_mbrt
+                  - light.vanity_led_mbrt
+                presence_automation: automation.room_presence_master_bathroom
+                room_boolean: input_boolean.master_bathroom_dynamic_scene
+                color_active: "#ffa69e"
+
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: dynamic_scene_room_card
+                  variables:
+                    icon: m3of:faucet
+                    primary: Vanity
+                    scene_tracker: input_text.guest_bathroom_vanity_dynamic_scene_active
+                    room_lights:
+                      - light.light_one_gbrv
+                      - light.light_two_gbrv
+                      - light.vanity_led_gbrv
+                    presence_automation:
+                      - automation.room_presence_guest_bathroom_vanity
+                    room_boolean: input_boolean.guest_bathroom_vanity_dynamic_scene
+                    color_active: "#faf3dd"
+
+                - type: custom:streamline-card
+                  template: dynamic_scene_room_card
+                  variables:
+                    icon: mdi:shower
+                    primary: Bathing
+                    scene_tracker: input_text.guest_bathroom_bathing_dynamic_scene_active
+                    room_lights:
+                      - light.light_one_gbrb
+                      - light.light_two_gbrb
+                    presence_automation: automation.room_presence_guest_bathroom_bathing
+                    room_boolean: input_boolean.guest_bathroom_bathing_dynamic_scene
+                    color_active: "#b8f2e6"
+
+                - type: custom:streamline-card
+                  template: dynamic_scene_room_card
+                  variables:
+                    icon: m3of:water-drop
+                    primary: Toilet
+                    scene_tracker: input_text.guest_bathroom_toilet_dynamic_scene_active
+                    room_lights:
+                      - light.light_gbrt
+                    presence_automation: automation.room_presence_guest_bathroom_toilet
+                    room_boolean: input_boolean.guest_bathroom_toilet_dynamic_scene
+                    color_active: "#aed9e0"
+
+      - title: Outdoor
+        icon: mdi:light-flood-down
+        id: outdoor
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:streamline-card
+              template: title_card
+              variables:
+                title: Area
+                title_font_size: 20px
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: dynamic_scene_room_card
+                  variables:
+                    icon: mdi:garage-variant
+                    primary: Garage
+                    scene_tracker: input_text.garage_outdoor_dynamic_scene_active
+                    room_lights:
+                      - light.light_one_outdoor_grg
+                      - light.light_two_outdoor_grg
+                    presence_automation: automation.outdoor_presence_driveway
+                    room_boolean: input_boolean.garage_outdoor_dynamic_scene
+                    color_active: "#e76f51"
+
+                - type: custom:streamline-card
+                  template: dynamic_scene_room_card
+                  variables:
+                    icon: hue:wall-appear
+                    primary: Wall
+                    scene_tracker: input_text.wall_dynamic_scene_active
+                    room_lights:
+                      - light.left_porch_light_drw
+                      - light.right_porch_light_drw
+                      - light.side_porch_light_drw
+                      - light.wall_light_one_grg
+                      - light.wall_light_two_grg
+                    presence_automation: automation.outdoor_presence_driveway
+                    room_boolean: input_boolean.wall_dynamic_scene
+                    color_active: "#f4a261"
+
+                - type: custom:streamline-card
+                  template: dynamic_scene_room_card
+                  variables:
+                    icon: mdi:home-roof
+                    primary: Roof
+                    scene_tracker: input_text.roof_dynamic_scene_active
+                    room_lights:
+                      - light.light_one_left_roof_drw
+                      - light.light_two_left_roof_drw
+                      - light.light_one_ceiling_porch_drw
+                      - light.light_two_ceiling_porch_drw
+                      - light.light_one_right_roof_drw
+                      - light.light_two_right_roof_drw
+                    presence_automation: automation.outdoor_presence_driveway
+                    room_boolean: input_boolean.roof_dynamic_scene
+                    color_active: "#e76f51"
+  - type: custom:streamline-card
+    template: title_card
+    variables:
+      title: Scenes Control
+      title_font_size: 20px
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: number_slider_card
+        variables:
+          entity: input_number.dynamic_scene_brightness
+          name: Brightness
+          icon: mdi:brightness-6
+        grid_options:
+          columns: 6
+      - type: custom:streamline-card
+        template: number_slider_card
+        variables:
+          entity: input_number.dynamic_scene_interval
+          name: Interval
+          icon: mdi:timer
+        grid_options:
+          columns: 6
+  - type: custom:mushroom-entity-card
+    entity: input_boolean.dynamic_scene_stop
+    name: Stop Scenes
+    icon: mdi:stop-circle
+    tap_action:
+      action: toggle
+    fill_container: true

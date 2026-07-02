@@ -1,0 +1,17 @@
+type: vertical-stack
+cards:
+  - type: custom:streamline-card
+    template: open_doors_card
+    variables:
+      title: Doors
+      door_1: binary_sensor.rear_door_sensor_grg_contact
+      door_2: binary_sensor.door_sensor_grg_contact
+      door_3: binary_sensor.door_sensor_atc_contact
+  - type: custom:streamline-card
+    template: open_windows_card
+    variables:
+      title: Windows
+      window_1: binary_sensor.left_rear_window_sensor_grg_contact
+      window_2: binary_sensor.right_rear_window_sensor_grg_contact
+      window_3: binary_sensor.left_outdoor_window_sensor_grg_contact
+      window_4: binary_sensor.right_outdoor_window_sensor_grg_contact

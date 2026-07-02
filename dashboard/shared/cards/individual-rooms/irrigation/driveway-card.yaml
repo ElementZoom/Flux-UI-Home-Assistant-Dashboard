@@ -1,0 +1,17 @@
+type: vertical-stack
+cards:
+  - type: custom:streamline-card
+    template: title_subtitle_card
+    variables:
+      title: Driveway
+      subtitle: "{{ states('sensor.driveway_water_tap_status') }}"
+  - type: custom:streamline-card
+    template: irrigation_card
+    variables:
+      switch_entity: switch.driveway_water_tap
+      flow_sensor: sensor.driveway_water_tap_flow
+      timer_entity: timer.driveway_sprinkler_timer
+      soil_moisture_sensor: sensor.average_driveway_soil_moisture
+      soil_temperature_sensor: sensor.average_driveway_soil_temperature
+      zone: driveway
+      session_sensor_prefix: sensor.driveway_water_tap

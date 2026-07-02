@@ -1,0 +1,8 @@
+type: custom:streamline-card
+template: camera_generic_with_chips_card
+variables:
+  camera_entity: camera.left_walkway_camera_fluent
+  entity_id_light_one: light.outdoor_light_lr
+  light_one_icon: mdi:outdoor-lamp
+  entity_id_light_two: switch.rear_light_switch_grg
+  light_two_icon: mdi:outdoor-lamp

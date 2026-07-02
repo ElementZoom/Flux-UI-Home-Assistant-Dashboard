@@ -1,0 +1,188 @@
+type: conditional
+conditions:
+  - condition: numeric_state
+    entity: sensor.current_wind_speed
+    above: 30
+card:
+  type: custom:simple-swipe-card
+  auto_hide_pagination: 0
+  auto_height: false
+  enable_auto_swipe: true
+  auto_swipe_interval: 4000
+  cards:
+    - type: vertical-stack
+      cards:
+        - type: custom:paper-buttons-row
+          styles:
+            justify-content: flex-start
+            flex-wrap: wrap
+            font-size: 0.9em
+            line-height: 1.2em
+            margin: 6px 0 2px 0
+            width: 100%
+          buttons:
+            - layout: name|icon
+              entity: weather.home
+              name: >-
+                {% set temp =
+                states('sensor.temperature_sensor_otd_temperature') | float |
+                round(1) %} {% set unit = state_attr('weather.home',
+                'temperature_unit') %} {% set condition = states('weather.home')
+                | title %} {% if
+                is_state('binary_sensor.outdoor_rain_sensor_dry', 'off') %}
+                  {{ temp }} {{ unit }}, Raining
+                {% else %}
+                  {{ temp }} {{ unit }}, {{ condition }}
+                {% endif %}
+              icon: >-
+                {% if is_state('binary_sensor.outdoor_rain_sensor_water_leak',
+                'on') %}
+                  mdi:weather-pouring
+                {% else %}
+                  {{ states('sensor.weather_condition_icon') }}
+                {% endif %}
+              tap_action:
+                action: navigate
+                navigation_path: "?tab=forecast#weather-panel"
+              styles:
+                icon:
+                  color: var(--md-sys-color-primary)
+                name:
+                  color: var(--md-sys-color-primary)
+                  font-weight: bold
+                button:
+                  padding: 2px 8px
+                  background-color: >-
+                    color-mix(in srgb, var(--md-sys-color-on-primary) 25%,
+                    transparent)
+                  border-radius: 24px
+                  flex-basis: 1
+                  flex-shrink: 0
+                  display: flex
+            - layout: name
+              name: ·
+              styles:
+                button:
+                  flex-basis: 1
+                  flex-shrink: 0
+                  animation: fadeIn 0.8s ease-out 1.1s both
+                name:
+                  color: var(--primary-text-color)
+              tap_action:
+                action: none
+            - layout: name
+              entity: weather.home
+              name: >-
+                💨 {{ states('sensor.current_wind_speed') }} {{
+                state_attr('weather.home', 'wind_speed_unit') }}
+              tap_action:
+                action: navigate
+                navigation_path: "?tab=wind#weather-panel"
+              styles:
+                name:
+                  color: var(--md-sys-color-primary)
+                  font-weight: bold
+                button:
+                  padding: 2px 8px
+                  background-color: >-
+                    color-mix(in srgb, var(--md-sys-color-on-primary) 25%,
+                    transparent)
+                  border-radius: 24px
+                  flex-basis: 1
+                  flex-shrink: 0
+                  display: flex
+        - type: custom:streamline-card
+          template: spacer_card
+          variables:
+            padding: 15px
+    - type: vertical-stack
+      cards:
+        - type: custom:paper-buttons-row
+          styles:
+            justify-content: flex-start
+            flex-wrap: wrap
+            font-size: 0.9em
+            line-height: 1.2em
+            margin: 6px 0 2px 0
+            width: 100%
+          buttons:
+            - layout: name|icon
+              entity: weather.home
+              name: >-
+                {% set temp =
+                states('sensor.temperature_sensor_otd_temperature') | float |
+                round(1) %} {% set unit = state_attr('weather.home',
+                'temperature_unit') %} {% set condition = states('weather.home')
+                | title %} {% if
+                is_state('binary_sensor.outdoor_rain_sensor_dry', 'off') %}
+                  {{ temp }} {{ unit }}, Raining
+                {% else %}
+                  {{ temp }} {{ unit }}, {{ condition }}
+                {% endif %}
+              icon: >-
+                {% if is_state('binary_sensor.outdoor_rain_sensor_water_leak',
+                'on') %}
+                  mdi:weather-pouring
+                {% else %}
+                  {{ states('sensor.weather_condition_icon') }}
+                {% endif %}
+              tap_action:
+                action: navigate
+                navigation_path: "?tab=forecast#weather-panel"
+              styles:
+                icon:
+                  color: var(--md-sys-color-primary)
+                name:
+                  color: var(--md-sys-color-primary)
+                  font-weight: bold
+                button:
+                  padding: 2px 8px
+                  background-color: >-
+                    color-mix(in srgb, var(--md-sys-color-on-primary) 25%,
+                    transparent)
+                  border-radius: 24px
+                  flex-basis: 1
+                  flex-shrink: 0
+                  display: flex
+            - layout: name
+              name: ·
+              styles:
+                button:
+                  flex-basis: 1
+                  flex-shrink: 0
+                  animation: fadeIn 0.8s ease-out 1.0s both
+                name:
+                  color: var(--primary-text-color)
+              tap_action:
+                action: none
+            - layout: name
+              entity: weather.home
+              name: >-
+                {% set forecast =
+                state_attr('sensor.daily_weather_data_google_weather',
+                'forecast_data') %}  {% if forecast is defined and
+                forecast.temperature is defined %}
+                  {{ forecast.temperature | round(0) | int }}°🔺 / {{ forecast.templow | round(0) | int }}° {{ state_attr('weather.home', 'temperature_unit') }}🔻
+                {% else %}
+                  N/A {{ state_attr('weather.home', 'temperature_unit') }}
+                {% endif %}
+              tap_action:
+                action: navigate
+                navigation_path: "?tab=forecast#weather-panel"
+              styles:
+                name:
+                  color: var(--md-sys-color-primary)
+                  font-weight: bold
+                button:
+                  padding: 2px 8px
+                  background-color: >-
+                    color-mix(in srgb, var(--md-sys-color-on-primary) 25%,
+                    transparent)
+                  border-radius: 24px
+                  flex-basis: 1
+                  flex-shrink: 0
+                  display: flex
+        - type: custom:streamline-card
+          template: spacer_card
+          variables:
+            padding: 15px

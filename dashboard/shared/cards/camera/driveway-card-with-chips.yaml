@@ -1,0 +1,79 @@
+type: custom:mushroom-chips-card
+chips:
+  - type: template
+    entity: automation.driveway_camera_vehicle_notification
+    icon: >
+      {{ 'mdi:car' if
+      is_state('automation.driveway_camera_vehicle_notification',
+      'on') else 'mdi:car-off' }}
+    tap_action:
+      action: toggle
+    uix:
+      style:
+        .: |
+          ha-card {
+            --text-color: {{ 'var(--primary-text-color)' if is_state('automation.driveway_camera_vehicle_notification', 'on') else '#a8a8a8' }};
+            --color: {{ 'var(--primary-text-color)' if is_state('automation.driveway_camera_vehicle_notification', 'on') else '#a8a8a8' }};
+            animation: slideDown 1.0s ease-out 1.0s both;
+          }
+          @keyframes slideDown {
+            from { 
+              opacity: 1;
+              transform: translateY(-4px);
+            }
+            to { 
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        mushroom-chip$: |
+          .chip {
+            transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+          }
+        mushroom-chip$mushroom-state-icon$: |
+          ha-state-icon {
+            transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+          }
+  - type: template
+    entity: automation.driveway_camera_person_notification
+    icon: >
+      {{ 'm3of:sensor-occupied' if
+      is_state('automation.driveway_camera_person_notification',
+      'on') else 'm3o:sensors-krx-off' }}
+    tap_action:
+      action: toggle
+    uix:
+      style:
+        .: |
+          ha-card {
+            --text-color: {{ 'var(--primary-text-color)' if is_state('automation.driveway_camera_person_notification', 'on') else '#a8a8a8' }};
+            --color: {{ 'var(--primary-text-color)' if is_state('automation.driveway_camera_person_notification', 'on') else '#a8a8a8' }};
+            animation: slideDown 1.0s ease-out 1.3s both;
+          }
+          @keyframes slideDown {
+            from { 
+              opacity: 1;
+              transform: translateY(-4px);
+            }
+            to { 
+              opacity: 1;
+              transform: translateY(0);
+            }
+          }
+        mushroom-chip$: |
+          .chip {
+            transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+          }
+        mushroom-chip$mushroom-state-icon$: |
+          ha-state-icon {
+            transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+          }
+uix:
+  style: |
+    ha-card {
+      position: absolute;
+      top: 22px;
+      right: 2px;
+    }

@@ -1,0 +1,13 @@
+type: custom:streamline-card
+template: room_card
+variables:
+  name: Entrance
+  icon: mdi:table-furniture
+  entity_id_temperature: sensor.living_room_temperature
+  entity_id_humidity: sensor.living_area_humidity
+  entity_id_lights: light.lights_etr_all
+  lights_count_sensor: sensor.lights_etr_count
+  lights_icon: mdi:lightbulb-group
+  entity_id_doors: binary_sensor.door_sensor_etr_contact
+  doors_count_sensor: sensor.doors_etr_count
+  navigation_path: /mobile-dashboard/entrance/

@@ -1,0 +1,8 @@
+type: custom:streamline-card
+template: camera_generic_with_chips_card
+variables:
+  camera_entity: camera.road_camera_clear
+  entity_id_light_one: light.lights_ceiling
+  light_one_icon: hue:recessed-ceiling
+  entity_id_light_two: light.lights_wall
+  light_two_icon: hue:wall-appear

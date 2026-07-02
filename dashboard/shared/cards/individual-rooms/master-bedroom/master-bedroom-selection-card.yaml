@@ -1,0 +1,235 @@
+type: custom:vertical-stack-in-card
+cards:
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_boolean.lights_mbr
+        state: "on"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: count_all_entity_card
+          variables:
+            entity: sensor.lights_mbr_count
+            title: Lights
+            icon: m3of:lightbulb
+            color: "#FFBF00"
+        - type: custom:streamline-card
+          template: light_card
+          variables:
+            entity: light.lights_mbr
+            name: null
+            icon: null
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: button_card
+              variables:
+                entity: switch.left_bedside_light_switch_mbr
+                icon: m3of:face-2
+                background_color: rgba(238, 220, 130, 0.5)
+            - type: custom:streamline-card
+              template: button_card
+              variables:
+                entity: switch.right_bedside_light_switch_mbr
+                icon: m3of:face
+                background_color: rgba(238, 220, 130, 0.5)
+        - type: custom:streamline-card
+          template: light_card
+          variables:
+            entity: light.makeup_table_led_mbr
+            name: null
+            icon: hue:lightstrip
+        - type: custom:expander-card
+          title: Expander Card
+          cards:
+            - type: vertical-stack
+              cards:
+                - type: custom:streamline-card
+                  template: spacer_card
+                  variables:
+                    padding: 4px
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: curtain_slider_card
+                  variables:
+                    entity_id: cover.left_blackout_curtain_mbr
+                    label: Left Curtain
+                    icon: mdi:curtains
+                - type: custom:streamline-card
+                  template: curtain_slider_card
+                  variables:
+                    entity_id: cover.right_blackout_curtain_mbr
+                    label: Right Curtain
+                    icon: mdi:curtains
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: curtain_open_close_card
+                  variables:
+                    entity_id: cover.left_blackout_curtain_mbr
+                - type: custom:streamline-card
+                  template: curtain_open_close_card
+                  variables:
+                    entity_id: cover.right_blackout_curtain_mbr
+          title-card:
+            type: custom:streamline-card
+            template: title_card
+            variables:
+              title: Curtains
+              title_font_size: 20px
+          title-card-clickable: true
+          title-card-button-overlay: false
+          padding: "1"
+          animations: true
+          expanded: false
+        - type: custom:expander-card
+          title: Expander Card
+          cards:
+            - type: vertical-stack
+              cards:
+                - type: custom:streamline-card
+                  template: spacer_card
+                  variables:
+                    padding: 4px
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:streamline-card
+                      template: button_card
+                      variables:
+                        entity: switch.other_left_switch_mbr
+                        icon: m3of:plug-connect
+                        background_color: rgba(207, 159, 255, 0.5)
+                    - type: custom:streamline-card
+                      template: button_card
+                      variables:
+                        entity: switch.baby_monitor_switch_mbr
+                        icon: mdi:monitor-cellphone
+                        background_color: rgba(207, 159, 255, 0.5)
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:streamline-card
+                      template: button_card
+                      variables:
+                        entity: switch.other_right_switch_mbr
+                        icon: m3of:plug-connect
+                        background_color: rgba(207, 159, 255, 0.5)
+                    - type: custom:streamline-card
+                      template: button_card
+                      variables:
+                        entity: switch.rey_s_watch_charger_mbr
+                        icon: m3of:plug-connect
+                        background_color: rgba(207, 159, 255, 0.5)
+          title-card:
+            type: custom:streamline-card
+            template: title_card
+            variables:
+              title: Switches
+              title_font_size: 20px
+          title-card-clickable: true
+          title-card-button-overlay: false
+          padding: "1"
+          animations: true
+          expanded: false
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_boolean.other_lights_mbr
+        state: "on"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: count_all_entity_card
+          variables:
+            entity: sensor.lights_wr_count
+            title: Lights
+            icon: m3of:lightbulb
+            color: "#FFBF00"
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: light_card
+              variables:
+                entity: light.lights_wr
+                name: null
+                icon: null
+            - type: custom:streamline-card
+              template: button_card
+              variables:
+                entity: switch.patio_switch_mbr
+                icon: mdi:outdoor-lamp
+                background_color: rgba(238, 220, 130, 0.5)
+        - type: custom:streamline-card
+          template: light_card
+          variables:
+            entity: light.floor_led_wr
+            name: null
+            icon: hue:lightstrip
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_boolean.master_bathroom
+        state: "on"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: count_all_entity_card
+          variables:
+            entity: sensor.lights_mbrt_count
+            title: Lights
+            icon: m3of:lightbulb
+            color: "#FFBF00"
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: light_card
+              variables:
+                entity: light.lights_mbrt
+                name: null
+                icon: null
+            - type: custom:streamline-card
+              template: button_card
+              variables:
+                entity: switch.master_bathroom_mirror_light
+                icon: mdi:lightbulb-fluorescent-tube
+                background_color: rgba(238, 220, 130, 0.5)
+        - type: custom:streamline-card
+          template: light_card
+          variables:
+            entity: light.vanity_led_mbrt
+            name: null
+            icon: hue:lightstrip
+        - type: custom:streamline-card
+          template: title_card
+          variables:
+            title: Switches
+            title_font_size: 20px
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: button_card
+              variables:
+                entity: switch.portable_heater_plug_mbrt
+                icon: mdi:radiator
+                background_color: rgba(210, 43, 43, 0.5)
+            - type: custom:streamline-card
+              template: button_card
+              variables:
+                entity: switch.towel_switch_mbrt
+                icon: mdi:heating-coil
+                background_color: rgba(210, 43, 43, 0.5)
+        - type: custom:streamline-card
+          template: title_card
+          variables:
+            title: Fan
+            title_font_size: 20px
+        - type: custom:streamline-card
+          template: button_card
+          variables:
+            entity: fan.master_bathroom_fan
+            icon: mdi:fan-off
+            background_color: rgba(137, 207, 240, 0.5)

@@ -1,0 +1,187 @@
+type: vertical-stack
+cards:
+  - type: custom:mushroom-template-card
+    primary: >-
+      {{ states('input_text.dynamic_scene_selected') | replace('_',
+      ' ') | title }}
+    secondary: Select a light to apply this scene
+    icon: mdi:palette
+  - type: vertical-stack
+    cards:
+      - type: custom:streamline-card
+        template: title_card
+        variables:
+          title: Lights
+          title_font_size: 20px
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-template-card
+            primary: Table Light
+            secondary: >-
+              {{
+              states('select.rey_s_table_light_or_gradient_scene') |
+              replace('_',' ') | title }}
+            icon: mdi:desktop-tower-monitor
+            tap_action:
+              action: perform-action
+              data:
+                select_entity: select.rey_s_table_light_or_gradient_scene
+                light_entity: light.rey_s_table_light_or
+                speed_entity: number.rey_s_table_light_or_effect_speed
+              perform_action: script.toggle_or_apply_gradient_scene
+              target: {}
+            color: >-
+              {% set scene_colors = {
+                'narcissa':        '#ffc624',
+                'sunday_morning':  '#ffc496',
+                'blossom':         '#5f9fff',
+                'glitz_and_glam':  '#ff079d',
+                'spring_blossom':  '#ffb6d6',
+                'crystalline':     '#ff8161',
+                'crocus':          '#d1ff34',
+                'nebula':          '#ff70ce',
+                'soho':            '#ff0331',
+                'starlight':       '#ff8e52',
+                'motown':          '#0a00ff',
+                'artic_aurora':    '#29ff84',
+                'blue_lagoon':     '#0cdfff',
+                'mountain_breeze': '#4455ff',
+                'ocean_dawn':      '#ffa64d',
+                'horizon':         '#ff7114',
+                'palm_beach':      '#37f9ff',
+                'emerald_isle':    '#96e2ff',
+                'spring_lake':     '#f8ffcd',
+                'winter_beauty':   '#1dccff'
+              } %} {% set active =
+              states('select.rey_s_table_light_or_gradient_scene')
+              %} {% if is_state('light.rey_s_table_light_or', 'on')
+              %}
+                {{ scene_colors.get(active, '#f6bd60') }}
+              {% else %}
+                #aaaaaa
+              {% endif %}
+            vertical: true
+            features_position: bottom
+          - type: custom:mushroom-template-card
+            primary: TV Table
+            secondary: >-
+              {{ states('select.tv_table_led_la_gradient_scene') |
+              replace('_',' ') | title }}
+            icon: mdi:television
+            tap_action:
+              action: perform-action
+              data:
+                select_entity: select.tv_table_led_la_gradient_scene
+                light_entity: light.tv_table_led_la
+                speed_entity: number.tv_table_led_la_effect_speed
+              perform_action: script.toggle_or_apply_gradient_scene
+              target: {}
+            color: >-
+              {% set scene_colors = {
+                'narcissa':        '#ffc624',
+                'sunday_morning':  '#ffc496',
+                'blossom':         '#5f9fff',
+                'glitz_and_glam':  '#ff079d',
+                'spring_blossom':  '#ffb6d6',
+                'crystalline':     '#ff8161',
+                'crocus':          '#d1ff34',
+                'nebula':          '#ff70ce',
+                'soho':            '#ff0331',
+                'starlight':       '#ff8e52',
+                'motown':          '#0a00ff',
+                'artic_aurora':    '#29ff84',
+                'blue_lagoon':     '#0cdfff',
+                'mountain_breeze': '#4455ff',
+                'ocean_dawn':      '#ffa64d',
+                'horizon':         '#ff7114',
+                'palm_beach':      '#37f9ff',
+                'emerald_isle':    '#96e2ff',
+                'spring_lake':     '#f8ffcd',
+                'winter_beauty':   '#1dccff'
+              } %} {% set active =
+              states('select.tv_table_led_la_gradient_scene') %} {%
+              if is_state('light.tv_table_led_la', 'on') %}
+                {{ scene_colors.get(active, '#cdb4db') }}
+              {% else %}
+                #aaaaaa
+              {% endif %}
+            vertical: true
+            features_position: bottom
+          - type: custom:mushroom-template-card
+            primary: Makeup Table
+            secondary: >-
+              {{
+              states('select.makeup_table_led_mbr_gradient_scene')
+              | replace('_',' ') | title }}
+            icon: mdi:vanity-light
+            tap_action:
+              action: perform-action
+              data:
+                select_entity: select.makeup_table_led_mbr_gradient_scene
+                light_entity: light.makeup_table_led_mbr
+                speed_entity: number.makeup_table_led_mbr_effect_speed
+              perform_action: script.toggle_or_apply_gradient_scene
+              target: {}
+            color: >-
+              {% set scene_colors = {
+                'narcissa':        '#ffc624',
+                'sunday_morning':  '#ffc496',
+                'blossom':         '#5f9fff',
+                'glitz_and_glam':  '#ff079d',
+                'spring_blossom':  '#ffb6d6',
+                'crystalline':     '#ff8161',
+                'crocus':          '#d1ff34',
+                'nebula':          '#ff70ce',
+                'soho':            '#ff0331',
+                'starlight':       '#ff8e52',
+                'motown':          '#0a00ff',
+                'artic_aurora':    '#29ff84',
+                'blue_lagoon':     '#0cdfff',
+                'mountain_breeze': '#4455ff',
+                'ocean_dawn':      '#ffa64d',
+                'horizon':         '#ff7114',
+                'palm_beach':      '#37f9ff',
+                'emerald_isle':    '#96e2ff',
+                'spring_lake':     '#f8ffcd',
+                'winter_beauty':   '#1dccff'
+              } %} {% set active =
+              states('select.makeup_table_led_mbr_gradient_scene')
+              %} {% if is_state('light.makeup_table_led_mbr',
+              'on') %}
+                {{ scene_colors.get(active, '#ffc8dd') }}
+              {% else %}
+                #aaaaaa
+              {% endif %}
+            vertical: true
+            features_position: bottom
+  - type: custom:streamline-card
+    template: title_card
+    variables:
+      title: Scenes Control
+      title_font_size: 20px
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: number_slider_card
+        variables:
+          entity: number.rey_s_table_light_or_effect_speed
+          name: Office Speed
+          icon: mdi:brightness-6
+        grid_options:
+          columns: 4
+      - type: custom:streamline-card
+        template: number_slider_card
+        variables:
+          entity: number.tv_table_led_la_effect_speed
+          name: Animation Speed
+          icon: mdi:brightness-6
+        grid_options:
+          columns: 4
+      - type: custom:streamline-card
+        template: number_slider_card
+        variables:
+          entity: number.makeup_table_led_mbr_effect_speed
+          name: Animation Speed
+          icon: mdi:brightness-6
+        grid_options:
+          columns: 4

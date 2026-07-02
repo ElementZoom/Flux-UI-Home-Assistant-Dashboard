@@ -1,0 +1,14 @@
+type: custom:streamline-card
+template: room_card
+variables:
+  name: Laundry
+  icon: m3of:laundry
+  entity_id_lights: light.lights_lr_all
+  lights_icon: hue:recessed-ceiling
+  lights_count_sensor: sensor.lights_lr_count
+  entity_id_fans: fan.laundry_room_fan
+  fans_count_sensor: sensor.fans_lr_count
+  entity_id_doors: binary_sensor.outdoor_door_sensor_lr_contact
+  doors_count_sensor: sensor.doors_lr_count
+  room_background: "#ebd9a9"
+  navigation_path: /mobile-dashboard/laundry/

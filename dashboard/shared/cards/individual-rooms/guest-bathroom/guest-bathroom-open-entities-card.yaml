@@ -1,0 +1,15 @@
+type: conditional
+conditions:
+  - condition: state
+    entity: group.windows_gbr
+    state: "on"
+card:
+  type: vertical-stack
+  cards:
+    - type: custom:streamline-card
+      template: open_windows_card
+      variables:
+        title: Windows
+        window_1: binary_sensor.top_window_sensor_gbrt_contact
+        window_2: binary_sensor.bottom_window_sensor_gbrt_contact
+        window_3: binary_sensor.window_sensor_gbrb_contact

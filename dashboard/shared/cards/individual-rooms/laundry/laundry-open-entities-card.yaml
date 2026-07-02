@@ -1,0 +1,13 @@
+type: conditional
+conditions:
+  - condition: state
+    entity: binary_sensor.outdoor_door_sensor_lr_contact
+    state: "on"
+card:
+  type: vertical-stack
+  cards:
+    - type: custom:streamline-card
+      template: open_doors_card
+      variables:
+        title: Door
+        door_1: binary_sensor.outdoor_door_sensor_lr_contact

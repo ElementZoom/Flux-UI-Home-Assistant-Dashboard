@@ -1,0 +1,61 @@
+type: vertical-stack
+cards:
+  - type: custom:streamline-card
+    template: count_all_entity_card
+    variables:
+      entity: sensor.lights_br_count
+      title: Lights
+      icon: m3of:lightbulb
+      color: "#FFBF00"
+  - type: custom:streamline-card
+    template: light_card
+    variables:
+      entity: light.lights_br
+      name: Room Lights
+      icon: null
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: light_card
+        variables:
+          entity: light.ava_bed_led
+          name: Ava Bed LED
+          icon: hue:lightstrip
+      - type: custom:streamline-card
+        template: light_card
+        variables:
+          entity: light.iyla_bed_led
+          name: Iyla Bed LED
+          icon: hue:lightstrip
+  - type: custom:expander-card
+    title: Expander Card
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:streamline-card
+            template: spacer_card
+            variables:
+              padding: 4px
+          - type: horizontal-stack
+            cards:
+              - type: custom:streamline-card
+                template: button_card
+                variables:
+                  entity: switch.baby_camera_switch_br
+                  icon: m3of:camera-video
+                  background_color: rgba(207, 159, 255, 0.5)
+              - type: custom:streamline-card
+                template: button_card
+                variables:
+                  entity: switch.other_switch_br
+                  icon: m3of:plug-connect
+                  background_color: rgba(207, 159, 255, 0.5)
+    title-card:
+      type: custom:streamline-card
+      template: title_card
+      variables:
+        title: Switches
+        title_font_size: 20px
+    title-card-clickable: true
+    title-card-button-overlay: false
+    padding: "1"

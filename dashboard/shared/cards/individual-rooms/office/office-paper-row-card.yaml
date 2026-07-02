@@ -1,0 +1,14 @@
+type: custom:paper-buttons-row
+styles: !include ../../../styling/paper-buttons-row-styles.yaml
+extra_styles: !include ../../../styling/paper-buttons-row-extra-styles.yaml
+buttons:
+  - entity: automation.room_presence_office
+    state_icons:
+      "on": m3of:sensor-occupied
+      "off": m3o:sensors-krx-off
+    layout: icon_name
+    name: Presence Sensor
+    tap_action:
+      action: toggle
+    styles: !include ../../..//styling/toggle-button-styles.yaml
+    state_styles: !include ../../..//styling/toggle-button-state-styles.yaml

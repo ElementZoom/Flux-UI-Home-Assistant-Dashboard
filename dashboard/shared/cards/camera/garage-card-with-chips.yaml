@@ -1,0 +1,38 @@
+type: custom:mushroom-chips-card
+chips:
+  - type: template
+    entity: binary_sensor.door_sensor_grg_contact
+    icon: >
+      {% if
+      is_state('binary_sensor.door_sensor_grg_contact',
+      'on') %}
+        mdi:garage-open-variant
+      {% else %}
+        mdi:garage-variant
+      {% endif %}
+    content: >
+      {% if
+      is_state('binary_sensor.door_sensor_grg_contact',
+      'on') %}
+        Open
+      {% else %}
+        Closed
+      {% endif %}
+    tap_action:
+      action: call-service
+      service: script.garage_button_frontend
+    uix:
+      style:
+        .: |
+          ha-card {
+            --text-color: 'white';
+            --color: 'white';
+            --chip-background: {{ '#bc000a' if is_state('binary_sensor.door_sensor_grg_contact', 'on') else 'var(--md-sys-color-on-primary)' }};
+          }
+uix:
+  style: |
+    ha-card {
+      position: absolute;
+      top: 22px;
+      right: 2px;
+    }

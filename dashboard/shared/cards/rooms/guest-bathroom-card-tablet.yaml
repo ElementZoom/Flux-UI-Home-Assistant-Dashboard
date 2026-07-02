@@ -1,0 +1,15 @@
+type: custom:streamline-card
+template: room_card
+variables:
+  name: Guest Bath
+  icon: m3of:water-drop
+  entity_id_temperature: sensor.guest_bathroom_temperature
+  entity_id_humidity: sensor.guest_bathroom_humidity
+  entity_id_lights: light.lights_gbr
+  lights_icon: hue:recessed-ceiling
+  lights_count_sensor: sensor.lights_gbr_count
+  entity_id_fans: group.guest_bathroom_fans
+  fans_count_sensor: sensor.fans_gbr_count
+  entity_id_windows: group.windows_gbr
+  windows_count_sensor: sensor.windows_gbr_count
+  navigation_path: /tablet-dashboard/guest-bathroom/

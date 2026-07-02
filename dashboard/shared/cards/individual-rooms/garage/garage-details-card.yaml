@@ -1,0 +1,6 @@
+type: custom:streamline-card
+template: room_details_card
+variables:
+  temperature_entity: sensor.garage_temperature
+  humidity_entity: sensor.garage_humidity
+  presence_entity: binary_sensor.presence_sensor_garage

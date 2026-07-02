@@ -1,0 +1,6 @@
+type: custom:streamline-card
+template: camera_generic_with_chips_card
+variables:
+  camera_entity: camera.right_backyard_camera_clear
+  entity_id_light_one: switch.patio_main_switch_la
+  light_one_icon: m3of:lightbulb

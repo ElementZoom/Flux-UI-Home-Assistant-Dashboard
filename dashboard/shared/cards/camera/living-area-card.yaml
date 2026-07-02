@@ -1,0 +1,10 @@
+type: custom:streamline-card
+template: camera_generic_with_chips_card
+variables:
+  camera_entity: camera.living_area_camera_clear
+  entity_id_light_one: light.lights_dt
+  light_one_icon: m3of:lightbulb
+  entity_id_light_two: light.lights_ktc
+  light_two_icon: m3of:lightbulb
+  entity_id_light_three: light.lights_sofa
+  light_three_icon: m3of:lightbulb

@@ -1,0 +1,36 @@
+type: custom:paper-buttons-row
+styles: !include ../../../styling/paper-buttons-row-styles.yaml
+extra_styles: !include ../../../styling/paper-buttons-row-extra-styles.yaml
+buttons:
+  - entity: input_boolean.siren_alarm_toggle
+    state_icons:
+      "on": m3of:siren
+      "off": m3o:siren
+    layout: icon_name
+    name: "{{ 'Siren Disable' if is_state('input_boolean.siren_alarm_toggle', 'on') else 'Siren Enable' }}"
+    tap_action:
+      action: call-service
+      service: script.alarm_sound_alarm_toggle
+    styles: !include ../../../styling/toggle-button-styles.yaml
+    state_styles:
+      "on":
+        icon:
+          color: red
+        name:
+          color: red
+  - entity: input_boolean.siren_alarm_momentary
+    state_icons:
+      "on": m3of:siren
+      "off": m3o:siren
+    layout: icon_name
+    name: Siren Test
+    tap_action:
+      action: call-service
+      service: script.alarm_sound_alarm_30_seconds
+    styles: !include ../../../styling/toggle-button-styles.yaml
+    state_styles:
+      "on":
+        icon:
+          color: red
+        name:
+          color: red

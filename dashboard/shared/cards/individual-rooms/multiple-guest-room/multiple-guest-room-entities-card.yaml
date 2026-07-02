@@ -1,0 +1,57 @@
+type: vertical-stack
+cards:
+  - type: custom:streamline-card
+    template: count_all_entity_card
+    variables:
+      entity: sensor.lights_mgr_count
+      title: Lights
+      icon: m3of:lightbulb
+      color: "#FFBF00"
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: light_card
+        variables:
+          entity: light.lights_mgr
+          name: Room Lights
+          icon: null
+      - type: custom:streamline-card
+        template: light_card
+        variables:
+          entity: light.bed_led_mgr
+          name: Bed LED
+          icon: hue:lightstrip
+  - type: custom:expander-card
+    title: Expander Card
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:streamline-card
+            template: spacer_card
+            variables:
+              padding: 4px
+          - type: horizontal-stack
+            cards:
+              - type: custom:streamline-card
+                template: button_card
+                variables:
+                  entity: switch.phone_charger_switch_mgr
+                  icon: mdi:cellphone
+                  background_color: rgba(207, 159, 255, 0.5)
+              - type: custom:streamline-card
+                template: button_card
+                variables:
+                  entity: switch.other_switch_mgr
+                  icon: m3of:plug-connect
+                  background_color: rgba(207, 159, 255, 0.5)
+    title-card:
+      type: custom:streamline-card
+      template: title_card
+      variables:
+        title: Switches
+        title_font_size: 20px
+    title-card-clickable: true
+    title-card-button-overlay: false
+    padding: "1"
+    animation: true
+    expanded: false

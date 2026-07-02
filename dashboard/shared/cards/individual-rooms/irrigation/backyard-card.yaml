@@ -1,0 +1,17 @@
+type: vertical-stack
+cards:
+  - type: custom:streamline-card
+    template: title_subtitle_card
+    variables:
+      title: Backyard
+      subtitle: "{{ states('sensor.backyard_water_tap_status') }}"
+  - type: custom:streamline-card
+    template: irrigation_card
+    variables:
+      switch_entity: switch.backyard_water_tap
+      flow_sensor: sensor.backyard_water_tap_flow
+      timer_entity: timer.backyard_sprinkler_timer
+      soil_moisture_sensor: sensor.average_backyard_soil_moisture
+      soil_temperature_sensor: sensor.average_backyard_soil_temperature
+      zone: backyard
+      session_sensor_prefix: sensor.backyard_water_tap

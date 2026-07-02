@@ -1,0 +1,48 @@
+type: vertical-stack
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: title_card
+        variables:
+          title: Climate
+          title_font_size: 20px
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            entity: sensor.baby_room_humidity
+            icon: mdi:water-percent
+            content: >-
+              {% set hum = states('sensor.baby_room_humidity')
+              | float(0) %} {{ hum }}% - {% if hum < 31 %}
+                Dry
+              {% elif hum < 51 %}
+                Good
+              {% else %}
+                Humid
+              {% endif %}
+            icon_color: >-
+              {% set hum = states('sensor.baby_room_humidity') | float(0) %} {% if hum < 31 %}
+                #99332d
+              {% elif hum < 51 %}
+                #228B22
+              {% else %}
+                #99332d
+              {% endif %}
+        alignment: end
+        uix:
+          style: |
+            ha-card {
+              margin-top: 1.6em
+            }
+  - type: custom:streamline-card
+    template: climate_card
+    variables:
+      entity: climate.baby_room
+  - type: custom:streamline-card
+    template: chronicle_history_card
+    variables:
+      title: Climate History
+      entity: sensor.baby_room_climate_mode
+      name: "Heatpump - Baby Room"
+      color: "#1697a6"

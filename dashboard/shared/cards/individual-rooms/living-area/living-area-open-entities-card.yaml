@@ -1,0 +1,28 @@
+type: conditional
+conditions:
+  - condition: or
+    conditions:
+      - condition: state
+        entity: group.windows_la
+        state: "on"
+      - condition: state
+        entity: group.doors_la
+        state: "on"
+card:
+  type: vertical-stack
+  cards:
+    - type: custom:streamline-card
+      template: open_doors_card
+      variables:
+        title: Doors
+        door_1: binary_sensor.main_sliding_door_sensor_la_contact
+        door_2: binary_sensor.side_sliding_door_sensor_la_contact
+        door_3: binary_sensor.door_sensor_hw_contact
+    - type: custom:streamline-card
+      template: open_windows_card
+      variables:
+        title: Windows
+        window_1: binary_sensor.left_tv_window_sensor_la_contact
+        window_2: binary_sensor.right_tv_window_sensor_la_contact
+        window_3: binary_sensor.left_sofa_window_sensor_la_contact
+        window_4: binary_sensor.right_sofa_window_sensor_la_contact

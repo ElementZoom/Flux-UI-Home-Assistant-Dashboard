@@ -1,0 +1,289 @@
+type: custom:simple-swipe-card
+auto_hide_pagination: 0
+auto_height: true
+cards:
+  - type: custom:vertical-stack-in-card
+    cards:
+      - type: custom:button-card
+        entity: sensor.disabled_room_occupancy_count
+        name: Room Occupancy
+        show_state: false
+        show_icon: false
+        show_label: true
+        label: |-
+          [[[ 
+            const disabled = parseInt(entity.state);
+            if (disabled === 0) return 'All rooms active';
+            if (disabled === 1) return '1 room disabled';
+            return `${disabled} rooms disabled`;
+          ]]]
+        styles:
+          card:
+            - background: >-
+                var(--ha-card-background,
+                var(--card-background-color, white))
+            - border-radius: var(--ha-card-border-radius, 12px)
+            - padding: 12px
+          name:
+            - text-align: center
+            - font-size: 16px
+            - font-weight: bold
+          label:
+            - text-align: center
+            - font-size: 14px
+            - color: var(--secondary-text-color)
+        tap_action:
+          action: none
+      - type: custom:mushroom-chips-card
+        alignment: center
+        chips:
+          - type: template
+            entity: input_boolean.baby_room_occupancy
+            icon: m3of:stroller
+            icon_color: >-
+              {% if is_state(entity, 'on') %} #f385bc  {% else %}
+              #a8a8a8 {% endif %}
+            tap_action:
+              action: toggle
+            content: "{% if is_state(entity, 'on') %}Baby{% endif %}"
+          - type: template
+            entity: input_boolean.master_bedroom_occupancy
+            icon: m3of:bed
+            icon_color: >-
+              {% if is_state(entity, 'on') %}#89CFF0 {% else %}
+              #a8a8a8  {% endif %}
+            tap_action:
+              action: toggle
+            content: "{% if is_state(entity, 'on') %}Master{% endif %}"
+          - type: template
+            entity: input_boolean.single_guest_room_occupancy
+            icon: m3of:person-3
+            icon_color: >-
+              {% if is_state(entity, 'on') %} #FFA500  {% else %}
+              #a8a8a8 {% endif %}
+            tap_action:
+              action: toggle
+            content: "{% if is_state(entity, 'on') %}Single{% endif %}"
+          - type: template
+            entity: input_boolean.multiple_guest_room_occupancy
+            icon: m3of:groups-2
+            icon_color: >-
+              {% if is_state(entity, 'on') %}#A52A2A {% else %}
+              #a8a8a8 {% endif %}
+            tap_action:
+              action: toggle
+            content: "{% if is_state(entity, 'on') %}Multiple{% endif %}"
+          - type: template
+            entity: input_boolean.play_room_occupancy
+            icon: mdi:gamepad-variant
+            icon_color: >-
+              {% if is_state(entity, 'on') %}#9F2B68 {% else %}
+              #a8a8a8  {% endif %}
+            tap_action:
+              action: toggle
+            content: "{% if is_state(entity, 'on') %}Play{% endif %}"
+      - type: custom:streamline-card
+        template: spacer_card
+        variables:
+          padding: 20px
+  - type: custom:vertical-stack-in-card
+    cards:
+      - type: custom:button-card
+        entity: sensor.disabled_presence_automation_count
+        name: Presence Status
+        show_state: false
+        show_icon: false
+        show_label: true
+        label: |-
+          [[[ 
+            const disabled = parseInt(entity.state);
+            if (disabled === 0) return 'All rooms active';
+            if (disabled === 1) return '1 room disabled';
+            return `${disabled} rooms disabled`;
+          ]]]
+        styles:
+          card:
+            - background: >-
+                var(--ha-card-background,
+                var(--card-background-color, white))
+            - border-radius: var(--ha-card-border-radius, 12px)
+            - padding: 12px
+          name:
+            - text-align: center
+            - font-size: 16px
+            - font-weight: bold
+          label:
+            - text-align: center
+            - font-size: 14px
+            - color: var(--secondary-text-color)
+        tap_action:
+          action: none
+        features_position: bottom
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            entity: binary_sensor.presence_active_la
+            icon: mdi:sofa
+            icon_color: |-
+              {% if is_state(entity, 'on') %} 
+              {% else %}
+                var(--primary-text-color)
+              {% endif %}
+            tap_action:
+              action: perform-action
+              perform_action: script.toggle_presence_sensor_la
+              target: {}
+            content: |-
+              {% if is_state(entity, 'on') %} 
+                Living
+              {% else %}
+              {% endif %}
+          - type: template
+            entity: automation.room_presence_master_bedroom
+            icon: m3of:bed
+            icon_color: |-
+              {% if is_state(entity, 'on') %} 
+              {% else %}
+                #a8a8a8
+              {% endif %}
+            tap_action:
+              action: toggle
+            content: |-
+              {% if is_state(entity, 'on') %} 
+                Master
+              {% else %}
+              {% endif %}
+          - type: template
+            entity: automation.room_presence_baby_room
+            icon: m3of:stroller
+            icon_color: |-
+              {% if is_state(entity, 'on') %} 
+              {% else %}
+                #a8a8a8
+              {% endif %}
+            tap_action:
+              action: toggle
+            content: |-
+              {% if is_state(entity, 'on') %} 
+                Baby
+              {% else %}
+              {% endif %}
+          - type: template
+            entity: automation.room_presence_single_guest_room
+            icon: m3of:person-3
+            icon_color: |-
+              {% if is_state(entity, 'on') %} 
+              {% else %}
+                #a8a8a8
+              {% endif %}
+            tap_action:
+              action: toggle
+            content: |-
+              {% if is_state(entity, 'on') %} 
+                Single
+              {% else %}
+              {% endif %}
+          - type: template
+            entity: automation.room_presence_multiple_guest_room
+            icon: m3of:groups-2
+            icon_color: |-
+              {% if is_state(entity, 'on') %} 
+              {% else %}
+                #a8a8a8
+              {% endif %}
+            tap_action:
+              action: toggle
+            content: |-
+              {% if is_state(entity, 'on') %} 
+                Multiple
+              {% else %}
+              {% endif %}
+          - type: template
+            entity: automation.room_presence_office
+            icon: m3of:computer
+            icon_color: |-
+              {% if is_state(entity, 'on') %} 
+              {% else %}
+                #a8a8a8
+              {% endif %}
+            tap_action:
+              action: toggle
+            content: |-
+              {% if is_state(entity, 'on') %} 
+                Office
+              {% else %}
+              {% endif %}
+        alignment: center
+      - type: custom:streamline-card
+        template: spacer_card
+        variables:
+          padding: 20px
+  - type: custom:vertical-stack-in-card
+    cards:
+      - type: custom:button-card
+        entity: sensor.disabled_driveway_camera_count
+        name: Driveway Security
+        show_state: false
+        show_icon: false
+        show_label: true
+        label: |-
+          [[[ 
+            const disabled = parseInt(entity.state);
+            if (disabled === 0) return 'All cameras active';
+            if (disabled === 1) return '1 camera disabled';
+            return `${disabled} cameras disabled`;
+          ]]]
+        styles:
+          card:
+            - background: >-
+                var(--ha-card-background,
+                var(--card-background-color, white))
+            - border-radius: var(--ha-card-border-radius, 12px)
+            - padding: 12px
+          name:
+            - text-align: center
+            - font-size: 16px
+            - font-weight: bold
+          label:
+            - text-align: center
+            - font-size: 14px
+            - color: var(--secondary-text-color)
+        tap_action:
+          action: none
+      - type: custom:mushroom-chips-card
+        chips:
+          - type: template
+            entity: automation.driveway_camera_person_notification
+            icon: mdi:account
+            icon_color: |-
+              {% if is_state(entity, 'on') %} 
+              {% else %}
+                #a8a8a8
+              {% endif %}
+            tap_action:
+              action: toggle
+            content: |-
+              {% if is_state(entity, 'on') %} 
+                Person
+              {% else %}
+              {% endif %}
+          - type: template
+            entity: automation.driveway_camera_vehicle_notification
+            icon: mdi:car
+            icon_color: |-
+              {% if is_state(entity, 'on') %} 
+              {% else %}
+                #a8a8a8
+              {% endif %}
+            tap_action:
+              action: toggle
+            content: |-
+              {% if is_state(entity, 'on') %} 
+                Vehicle
+              {% else %}
+              {% endif %}
+        alignment: center
+      - type: custom:streamline-card
+        template: spacer_card
+        variables:
+          padding: 20px

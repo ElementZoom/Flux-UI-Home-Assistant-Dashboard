@@ -1,0 +1,33 @@
+type: custom:mushroom-chips-card
+chips:
+  - type: template
+    entity: automation.living_area_automation_toggle
+    icon: >-
+      {{ 'm3of:sensor-occupied' if
+      is_state('automation.living_area_automation_toggle',
+      'on') else 'm3o:sensors-krx-off' }}
+    tap_action:
+      action: toggle
+    uix:
+      style:
+        .: |
+          ha-card {
+            --text-color: {{ 'var(--primary-text-color)' if is_state('automation.living_area_automation_toggle', 'on') else '#a8a8a8' }};
+            --color: {{ 'var(--primary-text-color)' if is_state('automation.living_area_automation_toggle', 'on') else '#a8a8a8' }};
+          }
+        mushroom-chip$: |
+          .chip {
+            transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                        color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+          }
+        mushroom-chip$mushroom-state-icon$: |
+          ha-state-icon {
+            transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+          }
+uix:
+  style: |
+    ha-card {
+      position: absolute;
+      top: 22px;
+      right: 2px;
+    }

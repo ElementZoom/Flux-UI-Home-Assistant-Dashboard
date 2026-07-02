@@ -1,0 +1,89 @@
+type: vertical-stack
+cards:
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: light.rey_s_table_light_or
+        state: "off"
+    card:
+      type: custom:streamline-card
+      template: count_all_entity_card
+      variables:
+        entity: sensor.lights_or_count
+        title: Lights
+        icon: m3of:switch
+        color: var(--md-sys-color-primary)
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: light.rey_s_table_light_or
+        state: "on"
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:streamline-card
+          template: title_card
+          variables:
+            title: Lights
+        - type: custom:mushroom-chips-card
+          chips:
+            - type: template
+              icon: mdi:layers
+              content: Scene Control
+              tap_action:
+                action: navigate
+                navigation_path: /mobile-dashboard/scenes-gradient
+              uix:
+                style:
+                  .: |
+                    ha-card {
+                      --text-color: 'white';
+                      --color: 'white';
+                      --chip-background: var(--md-sys-color-on-primary) ;
+                    }
+          alignment: end
+          uix:
+            style: |
+              ha-card {
+                margin-top: 1.6em
+              }
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: button_card
+        variables:
+          entity: switch.light_switch_or
+          icon: m3of:switch
+          background_color: rgba(238, 220, 130, 0.5)
+      - type: custom:streamline-card
+        template: light_card
+        variables:
+          entity: light.rey_s_table_light_or
+          name: null
+          icon: hue:lightstrip
+  - type: custom:expander-card
+    title: Expander Card
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:streamline-card
+            template: spacer_card
+            variables:
+              padding: 4px
+          - type: custom:streamline-card
+            template: button_card
+            variables:
+              entity: switch.mackbook_switch_or
+              icon: m3o:computer
+              background_color: rgba(207, 159, 255, 0.5)
+    title-card:
+      type: custom:streamline-card
+      template: title_card
+      variables:
+        title: Switches
+        title_font_size: 20px
+    title-card-clickable: true
+    title-card-button-overlay: false
+    padding: "1"
+    animation: true
+    expanded: true

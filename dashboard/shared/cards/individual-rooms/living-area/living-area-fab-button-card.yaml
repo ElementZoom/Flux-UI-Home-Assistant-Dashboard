@@ -1,0 +1,50 @@
+type: custom:custom-features-card
+features:
+  - type: custom:service-call
+    entries:
+      - type: dropdown
+        options:
+          - entity_id: input_boolean.lights_la
+            tap_action:
+              action: toggle
+              target:
+                entity_id: input_boolean.lights_la
+              data: {}
+            label: Main Lights
+            icon: m3of:lightbulb
+          - entity_id: input_boolean.other_lights_la
+            tap_action:
+              action: toggle
+              target:
+                entity_id: input_boolean.other_lights_la
+              data: {}
+            label: Other Lights
+            icon: hue:recessed-ceiling
+          - entity_id: input_boolean.kitchen_la
+            tap_action:
+              action: toggle
+              target:
+                entity_id: input_boolean.kitchen_la
+              data: {}
+            label: Kitchen
+            icon: mdi:countertop
+          - entity_id: input_boolean.media_la
+            tap_action:
+              action: toggle
+              target:
+                entity_id: input_boolean.media_la
+              data: {}
+            label: Media
+            icon: mdi:television
+        thumb: md3-fab-primary
+        haptics: true
+        icon: mdi:plus
+    styles: |-
+      .row {
+        justify-content: flex-end;
+      }
+      custom-feature-button {
+        flex: none;
+        width: fit-content;
+      }
+transparent: true

@@ -1,0 +1,40 @@
+type: vertical-stack
+cards:
+  - type: custom:streamline-card
+    template: count_all_entity_card
+    variables:
+      entity: sensor.lights_lr_count
+      title: Lights
+      icon: m3of:lightbulb
+      color: "#FFBF00"
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: light_card
+        variables:
+          entity: light.lights_lr
+          name: Room Lights
+          icon: null
+      - type: custom:streamline-card
+        template: light_card
+        variables:
+          entity: light.vanity_led_lr
+          name: Vanity LED
+          icon: hue:lightstrip
+  - type: custom:streamline-card
+    template: light_card
+    variables:
+      entity: light.outdoor_light_lr
+      name: Outdoor Laundry Light
+      icon: null
+  - type: custom:streamline-card
+    template: title_card
+    variables:
+      title: Fan
+      title_font_size: 20px
+  - type: custom:streamline-card
+    template: button_card
+    variables:
+      entity: fan.laundry_room_fan
+      icon: mdi:fan
+      background_color: rgba(137, 207, 240, 0.5)

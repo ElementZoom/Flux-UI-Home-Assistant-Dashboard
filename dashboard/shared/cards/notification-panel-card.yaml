@@ -1,0 +1,511 @@
+type: vertical-stack
+cards:
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: binary_sensor.door_sensor_etr_contact
+        state: "on"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: title_card
+          variables:
+            title: Warning
+            title_font_size: 20px
+
+  - type: conditional
+    conditions:
+      - condition: state
+        state: "on"
+        entity: binary_sensor.door_sensor_etr_contact
+    card:
+      type: custom:mushroom-template-card
+      entity: binary_sensor.door_sensor_etr_contact
+      primary: Entrance Door
+      secondary: Open
+      icon: m3of:door-open
+      icon_color: rgba(188, 0, 10, 0.5)
+      layout: vertical
+      tap_action:
+        action: more-info
+
+  - type: conditional
+    conditions:
+      - condition: and
+        conditions:
+          - condition: not
+            conditions:
+              - condition: state
+                entity: sensor.home_metservice_weather_warnings
+                state: unavailable
+          - condition: not
+            conditions:
+              - condition: state
+                entity: sensor.home_metservice_weather_warnings
+                state: unknown
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:strip-card
+          title: ""
+          entities:
+            - entity: sensor.home_metservice_weather_warnings
+              name: Weather Warning
+          duration: "200"
+          scroll_direction: left
+          separator: •
+          separator_color: var(--disabled-text-color)
+          separator_font_size: 14px
+          separator_font_weight: normal
+          empty_message: No entities passed the visible_if conditions
+          font_size: 14px
+          card_width: 400px
+          card_height: 50px
+          border_radius: 0px
+          show_icon: true
+          pause_on_hover: false
+          pause_on_click: false
+          hide_when_empty: false
+          continuous_scroll: true
+          vertical_scroll: false
+          vertical_alignment: stack
+          fading: true
+          transparent: false
+          full_width: false
+          badge_style: false
+          badge_background: var(--primary-color)
+          badge_label_color: var(--primary-text-color)
+          badge_value_color: var(--primary-text-color)
+          badge_height: 28px
+          badge_font_size: 12px
+          badge_icon_size: 16px
+          name_color: "#FFD9D9"
+          value_color: "#DE6464"
+          unit_color: var(--secondary-text-color)
+          icon_color: "#FFA6A6"
+        - type: custom:streamline-card
+          template: title_card
+          variables:
+            title: Radar
+            title_font_size: 20px
+        - type: custom:mod-card
+          card:
+            type: iframe
+            url: >-
+              https://embed.windy.com/embed2.html?lat=-36.85&lon=174.76&width=800&height=600
+          style: |
+            ha-card {
+              padding: 0;
+              height: 385px !important;
+              width: 100% !important;
+              overflow: hidden;
+            }
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_boolean.guest_mode
+        state: "on"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: title_card
+          variables:
+            title: WiFi QR Code
+            title_font_size: 20px
+        - type: picture
+          image:
+            media_content_id: /local/QR.jpg
+  - square: false
+    type: grid
+    cards:
+      - type: conditional
+        conditions:
+          - condition: or
+            conditions:
+              - condition: state
+                entity: input_boolean.rubbish
+                state: "on"
+              - condition: state
+                entity: input_boolean.recycle
+                state: "on"
+              - condition: state
+                entity: switch.driveway_water_tap
+                state: "on"
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:stack-in-card
+              mode: vertical
+              cards:
+                - type: custom:streamline-card
+                  template: title_subtitle_card
+                  variables:
+                    title: Driveway
+                    subtitle: "{{ states ('sensor.right_driveway_camera_status') }}"
+                    animation_delay: 0.5s
+                - !include ../../shared/cards/camera/driveway-card-with-chips.yaml
+            - !include ../../shared/cards/camera/driveway-card.yaml
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: group.doors_grg
+            state: "on"
+        card:
+          type: vertical-stack
+          cards:
+            - type: custom:stack-in-card
+              mode: vertical
+              cards:
+                - type: custom:streamline-card
+                  template: title_subtitle_card
+                  variables:
+                    title: Garage
+                    subtitle: "{{ states ('sensor.garage_camera_status') }}"
+                - !include ../../shared/cards/camera/garage-card-with-chips.yaml
+            - !include ../../shared/cards/camera/garage-card.yaml
+    columns: 1
+  - type: custom:streamline-card
+    template: count_active_button_card
+    variables:
+      group_entity: group.towel_switches
+      count_entity: group.towel_switches
+      title: Towel Heating
+      icon: mdi:heating-coil
+      color: "#bc000a"
+      background_color: rgba(210, 43, 43, 0.5)
+      filter_state: "on"
+  - type: conditional
+    conditions:
+      - condition: or
+        conditions:
+          - condition: numeric_state
+            entity: sensor.average_backyard_soil_moisture
+            below: 40
+          - condition: numeric_state
+            entity: sensor.average_driveway_soil_moisture
+            below: 40
+          - condition: state
+            entity: binary_sensor.house_maintenance_chip_card
+            state: "true"
+          - condition: state
+            entity: sensor.laundry_machine_state
+            state: Delay Run
+          - condition: state
+            entity: sensor.laundry_machine_state
+            state: Run
+          - condition: numeric_state
+            entity: sensor.dryer_switch_lr_power
+            above: 10
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: title_card
+          variables:
+            title: Chores
+            title_font_size: 20px
+        - type: grid
+          square: false
+          columns: 2
+          cards:
+            - type: conditional
+              conditions:
+                - condition: numeric_state
+                  entity: sensor.average_backyard_soil_moisture
+                  below: 40
+              card:
+                type: custom:mushroom-template-card
+                entity: sensor.average_backyard_soil_moisture
+                primary: Backyard
+                secondary: >-
+                  {% set moisture = states('sensor.average_backyard_soil_moisture') |
+                  float(0) %} {% if moisture < 15 %}Very Dry {% elif moisture < 25
+                  %}Dry {% elif moisture < 45 %}Moist {% else %}Wet{% endif %}
+                icon: mdi:water-percent
+                icon_color: >-
+                  {% set moisture = states('sensor.average_backyard_soil_moisture') |
+                  float(0) %} {% if moisture < 15 %}#A9A9A9 {% elif moisture < 25
+                  %}#ffd34f {% elif moisture < 45 %}#9fe7e8 {% else %}#36a9e2{% endif
+                  %}
+                layout: vertical
+                tap_action:
+                  action: more-info
+            - type: conditional
+              conditions:
+                - condition: numeric_state
+                  entity: sensor.average_driveway_soil_moisture
+                  below: 40
+              card:
+                type: custom:mushroom-template-card
+                entity: sensor.average_driveway_soil_moisture
+                primary: Driveway
+                secondary: >-
+                  {% set moisture = states('sensor.average_driveway_soil_moisture') |
+                  float(0) %} {% if moisture < 15 %}Very Dry {% elif moisture < 25
+                  %}Dry {% elif moisture < 45 %}Moist {% else %}Wet{% endif %}
+                icon: mdi:water-percent
+                icon_color: >-
+                  {% set moisture = states('sensor.average_driveway_soil_moisture') |
+                  float(0) %} {% if moisture < 15 %}#A9A9A9 {% elif moisture < 25
+                  %}#ffd34f {% elif moisture < 45 %}#9fe7e8 {% else %}#36a9e2{% endif
+                  %}
+                layout: vertical
+                tap_action:
+                  action: more-info
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: binary_sensor.house_maintenance_chip_card
+                  state: "true"
+              card:
+                type: custom:mushroom-template-card
+                entity: binary_sensor.house_maintenance_chip_card
+                primary: >-
+                  {% if is_state('input_boolean.rubbish', 'on') %}Rubbish Day {% elif
+                  is_state('input_boolean.recycle', 'on') %}Recycle Day {% else %}{%
+                  endif %}
+                icon: >-
+                  {% if is_state('input_boolean.rubbish', 'on') %}mdi:trash-can {%
+                  elif is_state('input_boolean.recycle', 'on') %}mdi:recycle {% else
+                  %}{% endif %}
+                icon_color: >-
+                  {% if is_state('input_boolean.rubbish', 'on') %}#C41E3A {% elif
+                  is_state('input_boolean.recycle', 'on') %}#50C878 {% else %}{% endif
+                  %}
+                layout: vertical
+                tap_action:
+                  action: more-info
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: sensor.laundry_machine_state
+                  state: Delay Run
+              card:
+                type: custom:mushroom-template-card
+                entity: sensor.laundry_delay_time_remaining
+                primary: Laundry
+                secondary: "{{ states('sensor.laundry_delay_time_remaining') }}"
+                icon: m3of:timer-arrow-down
+                icon_color: blue
+                layout: vertical
+                tap_action:
+                  action: more-info
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: sensor.laundry_machine_state
+                  state: Run
+              card:
+                type: custom:mushroom-template-card
+                entity: sensor.laundry_time_remaining_friendly
+                primary: Laundry
+                secondary: "{{ states('sensor.laundry_time_remaining_friendly') }}"
+                icon: m3of:laundry
+                icon_color: blue
+                layout: vertical
+                tap_action:
+                  action: more-info
+            - type: conditional
+              conditions:
+                - condition: numeric_state
+                  entity: sensor.dryer_switch_lr_power
+                  above: 10
+              card:
+                type: custom:mushroom-template-card
+                entity: sensor.dryer_switch_lr_power
+                primary: Dryer
+                secondary: Running
+                icon: mdi:tumble-dryer
+                icon_color: "#880808"
+                layout: vertical
+                tap_action:
+                  action: more-info
+
+  - type: conditional
+    conditions:
+      - condition: or
+        conditions:
+          - condition: state
+            entity: timer.exhaust_fans
+            state: active
+          - condition: state
+            entity: timer.rice_cooker
+            state: active
+          - condition: state
+            entity: timer.driveway_sprinkler_timer
+            state: active
+          - condition: state
+            entity: timer.backyard_sprinkler_timer
+            state: active
+          - condition: state
+            entity: timer.right_walkway_sprinkler_timer
+            state: active
+          - condition: state
+            entity: timer.dyson_charger
+            state: active
+          - condition: state
+            entity: timer.heated_towel_rails
+            state: active
+    card:
+      type: custom:streamline-card
+      template: title_card
+      variables:
+        title: Timers
+        title_font_size: 20px
+  - type: grid
+    square: false
+    cards:
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: timer.exhaust_fans
+            state: active
+        card:
+          type: custom:timer-bar-card
+          entity: timer.exhaust_fans
+          invert: true
+          bar_direction: ltr
+          bar_width: 60%
+          mushroom:
+            layout: vertical
+            color: "#b5e0f7"
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: timer.rice_cooker
+            state: active
+        card:
+          type: custom:timer-bar-card
+          entity: timer.rice_cooker
+          invert: true
+          bar_direction: ltr
+          bar_width: 60%
+          mushroom:
+            layout: vertical
+            color: "#D70040"
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: timer.driveway_sprinkler_timer
+            state: active
+        card:
+          type: custom:timer-bar-card
+          entity: timer.driveway_sprinkler_timer
+          name: Driveway Sprinkler
+          invert: true
+          bar_direction: ltr
+          bar_width: 60%
+          mushroom:
+            layout: vertical
+            color: "#006d77"
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: timer.backyard_sprinkler_timer
+            state: active
+        card:
+          type: custom:timer-bar-card
+          entity: timer.backyard_sprinkler_timer
+          name: Backyard Sprinkler
+          invert: true
+          bar_direction: ltr
+          bar_width: 60%
+          mushroom:
+            layout: vertical
+            color: "#83c5be"
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: timer.right_walkway_sprinkler_timer
+            state: active
+        card:
+          type: custom:timer-bar-card
+          entity: timer.right_walkway_sprinkler_timer
+          name: Right Walkway Sprinkler
+          invert: true
+          bar_direction: ltr
+          bar_width: 60%
+          mushroom:
+            layout: vertical
+            color: "#edf6f9"
+          tap_action:
+            action: navigate
+            navigation_path: "?tab=right-driveway/mobile-dashboard/irrigation"
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: timer.dyson_charger
+            state: active
+        card:
+          type: custom:timer-bar-card
+          entity: timer.dyson_charger
+          invert: true
+          bar_direction: ltr
+          bar_width: 60%
+          mushroom:
+            layout: vertical
+            color: "#5D3FD3"
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: timer.heated_towel_rails
+            state: active
+        card:
+          type: custom:timer-bar-card
+          entity: timer.heated_towel_rails
+          invert: true
+          bar_direction: ltr
+          bar_width: 60%
+          mushroom:
+            layout: vertical
+            color: "#bc000a"
+  - type: vertical-stack
+    cards:
+      - type: custom:streamline-card
+        template: title_card
+        variables:
+          title: Media
+          title_font_size: 20px
+      - type: custom:mushroom-template-card
+        primary: Spotify App
+        secondary: Navigate to Spotify
+        icon: mdi:spotify
+        color: green
+        features_position: bottom
+        tap_action:
+          action: url
+          url_path: spotify://home
+  - type: conditional
+    conditions:
+      - condition: numeric_state
+        entity: sensor.low_battery_count
+        above: 0
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: title_card
+          variables:
+            title: Devices
+            title_font_size: 20px
+        - type: custom:auto-entities
+          card:
+            type: custom:layout-card
+            layout_type: custom:grid-layout
+            layout:
+              grid-gap: 1px 1px
+              grid-template-columns: 50% 50%
+              grid-template-rows: auto
+          filter:
+            include:
+              - options:
+                  type: custom:button-card
+                  template: sensor_battery
+                entity_id: sensor.*battery_plus
+                state: <61
+            exclude: []
+          sort:
+            method: state
+            numeric: true

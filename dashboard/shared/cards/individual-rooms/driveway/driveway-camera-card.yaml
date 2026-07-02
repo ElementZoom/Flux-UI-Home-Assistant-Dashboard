@@ -1,0 +1,9 @@
+type: vertical-stack
+cards:
+  - type: custom:streamline-card
+    template: title_card
+    variables:
+      title: Camera
+      title_font_size: 20px
+  - !include ../../camera/driveway-card.yaml
+  - !include ../../camera/road-card.yaml

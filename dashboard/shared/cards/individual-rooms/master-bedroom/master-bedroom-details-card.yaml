@@ -1,0 +1,6 @@
+type: custom:streamline-card
+template: room_details_card
+variables:
+  temperature_entity: sensor.master_bedroom_temperature
+  humidity_entity: sensor.master_bedroom_humidity
+  presence_entity: binary_sensor.presence_sensor_master_bedroom

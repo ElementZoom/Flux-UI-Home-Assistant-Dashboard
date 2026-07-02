@@ -1,0 +1,14 @@
+type: conditional
+conditions:
+  - condition: state
+    entity: group.doors_drw
+    state: "on"
+card:
+  type: vertical-stack
+  cards:
+    - type: custom:streamline-card
+      template: open_doors_card
+      variables:
+        title: Door
+        door_1: binary_sensor.door_sensor_etr_contact
+        door_2: binary_sensor.door_sensor_grg_contact

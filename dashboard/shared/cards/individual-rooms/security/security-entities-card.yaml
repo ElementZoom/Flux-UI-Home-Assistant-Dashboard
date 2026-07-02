@@ -1,0 +1,5 @@
+states:
+  - arm_away
+type: alarm-panel
+entity: alarm_control_panel.alarmo
+name: Alarm

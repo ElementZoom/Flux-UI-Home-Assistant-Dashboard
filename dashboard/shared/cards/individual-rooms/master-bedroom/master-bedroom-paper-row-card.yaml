@@ -1,0 +1,47 @@
+type: custom:paper-buttons-row
+styles: !include ../../../styling/paper-buttons-row-styles.yaml
+extra_styles: !include ../../../styling/paper-buttons-row-extra-styles.yaml
+buttons:
+  - entity: automation.room_presence_master_bedroom
+    state_icons:
+      "on": m3of:sensor-occupied
+      "off": m3o:sensors-krx-off
+    layout: icon_name
+    name: Presence Sensor
+    tap_action:
+      action: toggle
+    styles: !include ../../..//styling/toggle-button-styles.yaml
+    state_styles: !include ../../..//styling/toggle-button-state-styles.yaml
+
+  - entity: switch.adaptive_lighting_master_bedroom
+    state_icons:
+      "on": mdi:theme-light-dark
+      "off": mdi:weather-sunny-off
+    layout: icon_name
+    name: Adaptive Lighting
+    tap_action:
+      action: toggle
+    styles: !include ../../..//styling/toggle-button-styles.yaml
+    state_styles: !include ../../..//styling/toggle-button-state-styles.yaml
+
+  - entity: group.curtains_mbr
+    state_icons:
+      open: m3of:curtains
+      closed: m3of:curtains-closed
+    layout: icon_name
+    name: "{{ states ('sensor.mbr_curtain_action') }}"
+    tap_action:
+      action: call-service
+      service: script.toggle_curtain_mbr
+    styles: !include ../../..//styling/toggle-button-styles.yaml
+
+  - entity: input_boolean.kids_sleeping_together
+    state_icons:
+      "on": mdi:sleep-off
+      "off": mdi:sleep
+    layout: icon_name
+    name: Kids Sleep Together Mode
+    tap_action:
+      action: toggle
+    styles: !include ../../..//styling/toggle-button-styles.yaml
+    state_styles: !include ../../..//styling/toggle-button-state-styles.yaml

@@ -1,0 +1,15 @@
+type: custom:streamline-card
+template: room_card
+variables:
+  name: Garage
+  icon: mdi:garage-variant
+  entity_id_temperature: sensor.garage_temperature
+  entity_id_humidity: sensor.garage_humidity
+  entity_id_lights: switch.lights_grg
+  lights_icon: hue:recessed-ceiling
+  lights_count_sensor: sensor.lights_grg_count
+  entity_id_windows: group.windows_grg
+  windows_count_sensor: sensor.windows_grg_count
+  entity_id_doors: group.doors_grg
+  doors_count_sensor: sensor.doors_grg_count
+  navigation_path: /mobile-dashboard/garage/

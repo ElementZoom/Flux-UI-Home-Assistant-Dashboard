@@ -1,0 +1,29 @@
+type: vertical-stack
+cards:
+  - type: custom:streamline-card
+    template: count_all_entity_card
+    variables:
+      entity: sensor.lights_drw_count
+      title: Lights
+      icon: m3of:lightbulb
+      color: "#FFBF00"
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: light_card
+        variables:
+          entity: light.lights_wall
+          name: null
+          icon: null
+      - type: custom:streamline-card
+        template: light_card
+        variables:
+          entity: light.lights_outdoor_grg
+          name: null
+          icon: null
+  - type: custom:streamline-card
+    template: light_card
+    variables:
+      entity: light.lights_ceiling
+      name: null
+      icon: null

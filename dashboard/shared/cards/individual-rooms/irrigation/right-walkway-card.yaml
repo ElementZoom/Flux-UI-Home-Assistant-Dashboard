@@ -1,0 +1,16 @@
+type: vertical-stack
+cards:
+  - type: custom:streamline-card
+    template: title_subtitle_card
+    variables:
+      title: Right Walkway
+      subtitle: "{{ states('sensor.right_walkway_water_tap_status') }}"
+  - type: custom:streamline-card
+    template: irrigation_card
+    variables:
+      switch_entity: switch.right_walkway_water_tap
+      flow_sensor: sensor.right_walkway_water_tap_flow
+      timer_entity: timer.right_walkway_sprinkler_timer
+      zone: right_walkway
+      title_font_size: 20px
+      session_sensor_prefix: sensor.right_walkway_water_tap

@@ -1,0 +1,4 @@
+type: custom:streamline-card
+template: room_details_card
+variables:
+  presence_entity: binary_sensor.motion_sensor_lr_occupancy

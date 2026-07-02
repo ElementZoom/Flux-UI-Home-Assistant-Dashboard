@@ -1,0 +1,158 @@
+type: custom:vertical-stack-in-card
+cards:
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_boolean.lights_la
+        state: "on"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: count_all_entity_card
+          variables:
+            entity: sensor.lights_la_count
+            title: Lights
+            icon: m3of:lightbulb
+            color: "#FFBF00"
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: light_card
+              variables:
+                entity: light.lights_ktc
+                name: null
+                icon: null
+            - type: custom:streamline-card
+              template: light_card
+              variables:
+                entity: light.lights_dt
+                name: null
+                icon: null
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: button_card
+              variables:
+                entity: switch.kitchen_cabinet_led
+                icon: hue:lightstrip
+                background_color: rgba(238, 220, 130, 0.5)
+            - type: custom:streamline-card
+              template: button_card
+              variables:
+                entity: switch.table_top_light
+                icon: mdi:countertop
+                background_color: rgba(238, 220, 130, 0.5)
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: button_card
+              variables:
+                entity: switch.table_top_led
+                icon: hue:lightstrip
+                background_color: rgba(238, 220, 130, 0.5)
+            - type: custom:streamline-card
+              template: light_card
+              variables:
+                entity: light.lights_sofa
+                name: null
+                icon: null
+        - type: custom:streamline-card
+          template: light_card
+          variables:
+            entity: light.light_scr
+            name: null
+            icon: null
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_boolean.other_lights_la
+        state: "on"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: count_all_entity_card
+          variables:
+            entity: sensor.lights_la_count
+            title: Lights
+            icon: m3of:lightbulb
+            color: "#FFBF00"
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: button_card
+              variables:
+                entity: switch.patio_main_switch_la
+                icon: mdi:outdoor-lamp
+                background_color: rgba(238, 220, 130, 0.5)
+            - type: custom:streamline-card
+              template: button_card
+              variables:
+                entity: switch.patio_side_switch_la
+                icon: mdi:outdoor-lamp
+                background_color: rgba(238, 220, 130, 0.5)
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_boolean.kitchen_la
+        state: "on"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: title_card
+          variables:
+            title: Rangehood
+            title_font_size: 20px
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: select_card
+              variables:
+                entity: select.kitchen_rangehood_light_level
+                name: Light Level
+                icon: m3of:lightbulb
+            - type: custom:streamline-card
+              template: select_card
+              variables:
+                entity: select.kitchen_rangehood_fan_speed
+                name: Fan Speed
+                icon: mdi:fan
+        - type: custom:streamline-card
+          template: title_card
+          variables:
+            title: Switches
+            title_font_size: 20px
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: button_card
+              variables:
+                entity: switch.nest_hub_switch_ktc
+                icon: mdi:google
+                background_color: rgba(207, 159, 255, 0.5)
+            - type: custom:streamline-card
+              template: button_card
+              variables:
+                entity: switch.other_switch_ktc
+                icon: m3of:plug-connect
+                background_color: rgba(207, 159, 255, 0.5)
+  - type: conditional
+    conditions:
+      - condition: state
+        entity: input_boolean.media_la
+        state: "on"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: title_card
+          variables:
+            title: Media
+            title_font_size: 20px
+        - type: custom:streamline-card
+          template: media_player_card
+          variables:
+            entity: media_player.living_room_tv
+            name: Living Room TV

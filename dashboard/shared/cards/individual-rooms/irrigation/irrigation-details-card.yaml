@@ -1,0 +1,79 @@
+type: custom:paper-buttons-row
+styles: !include ../../../styling/paper-buttons-row-styles.yaml
+buttons:
+  - layout: name
+    entity: sensor.current_water_restriction
+    name: "{{ states('sensor.current_water_restriction') }}"
+    tap_action:
+      action: more-info
+    styles:
+      name:
+        color: var(--md-sys-color-primary)
+        font-weight: bold
+      button:
+        padding: 2px 8px
+        background-color: >-
+          color-mix(in srgb, var(--md-sys-color-on-primary) 50%,
+          transparent)
+        border-radius: 24px
+        flex-basis: 1
+        flex-shrink: 0
+        display: flex
+        animation: slideInLeft 0.3s ease-out 0.9s both
+        transition: all 0.3s ease
+  - layout: name
+    name: ·
+    styles:
+      button:
+        flex-basis: 1
+        flex-shrink: 0
+        animation: fadeIn 0.8s ease-out 1.1s both
+      name:
+        color: var(--primary-text-color)
+    tap_action:
+      action: none
+  - layout: name
+    entity: sensor.current_water_restriction_description
+    name: >-
+      {{ states('sensor.current_water_restriction_description')
+      }}
+    tap_action:
+      action: more-info
+    styles:
+      name:
+        color: var(--md-sys-color-primary)
+        font-weight: bold
+      button:
+        padding: 2px 8px
+        background-color: >-
+          color-mix(in srgb, var(--md-sys-color-on-primary) 50%,
+          transparent)
+        border-radius: 24px
+        flex-basis: 1
+        flex-shrink: 0
+        display: flex
+        animation: slideInLeft 0.3s ease-out 1.3s both
+        transition: all 0.3s ease
+uix:
+  style: |
+    ha-card {
+      overflow: visible !important;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @keyframes slideInLeft {
+      from {
+        opacity: 1;
+        transform: translateX(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }

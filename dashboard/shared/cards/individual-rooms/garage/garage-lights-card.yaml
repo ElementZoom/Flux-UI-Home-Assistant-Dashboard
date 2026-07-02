@@ -1,0 +1,31 @@
+type: vertical-stack
+cards:
+  - type: custom:streamline-card
+    template: count_all_entity_card
+    variables:
+      entity: sensor.lights_grg_count
+      title: Lights
+      icon: m3of:switch
+      color: var(--md-sys-color-primary)
+  - type: vertical-stack
+    cards:
+      - type: custom:streamline-card
+        template: button_card
+        variables:
+          entity: switch.light_switch_grg
+          icon: m3of:switch
+          background_color: rgba(238, 220, 130, 0.5)
+  - type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: button_card
+        variables:
+          entity: switch.light_switch_atc
+          icon: m3of:switch
+          background_color: rgba(238, 220, 130, 0.5)
+      - type: custom:streamline-card
+        template: button_card
+        variables:
+          entity: switch.rear_light_switch_grg
+          icon: m3of:switch
+          background_color: rgba(238, 220, 130, 0.5)

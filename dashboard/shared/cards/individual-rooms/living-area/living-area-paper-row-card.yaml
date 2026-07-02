@@ -1,0 +1,54 @@
+type: custom:paper-buttons-row
+styles: !include ../../../styling/paper-buttons-row-styles.yaml
+extra_styles: !include ../../../styling/paper-buttons-row-extra-styles.yaml
+buttons:
+  - entity: binary_sensor.presence_active_la
+    state_icons:
+      "on": m3of:sensor-occupied
+      "off": m3o:sensors-krx-off
+    layout: icon_name
+    name: Presence Sensor
+    tap_action:
+      action: call-service
+      service: script.toggle_presence_sensor_la
+    styles: !include ../../..//styling/toggle-button-styles.yaml
+    state_styles: !include ../../..//styling/toggle-button-state-styles.yaml
+  - entity: input_boolean.movie_mode
+    state_icons:
+      "on": mdi:movie-open
+      "off": mdi:movie-off-outline
+    layout: icon_name
+    name: Movie Mode
+    tap_action:
+      action: toggle
+    styles:
+      name:
+        color: "#a8a8a8"
+        transition: color 0.3s ease, transform 0.3s ease
+      button:
+        padding: 12px
+        width: 76px
+        height: 76px
+        flex-basis: 1
+        flex-shrink: 0
+        display: flex
+        background-color: none
+        border-radius: 24px
+        color: var(--white)
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1)
+        animation: fadeInUp 0.5s ease-out 0.6s both
+      icon:
+        "--mdc-icon-size": 26px
+        color: "#a8a8a8"
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1)
+    state_styles: !include ../../..//styling/toggle-button-state-styles.yaml
+  - entity: switch.adaptive_lighting_living_area_lights
+    state_icons:
+      "on": mdi:theme-light-dark
+      "off": mdi:weather-sunny-off
+    layout: icon_name
+    name: Adaptive Lighting
+    tap_action:
+      action: toggle
+    styles: !include ../../..//styling/toggle-button-styles.yaml
+    state_styles: !include ../../..//styling/toggle-button-state-styles.yaml
