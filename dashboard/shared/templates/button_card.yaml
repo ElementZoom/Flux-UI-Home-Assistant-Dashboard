@@ -1,0 +1,144 @@
+  sensor_battery:
+    name: |
+      [[[ return entity.attributes.device_name; ]]]
+    label: |
+      [[[ return entity.state + '%' ]]]
+    show_icon: true
+    show_label: true
+    icon: |
+      [[[
+        var state = parseFloat(entity.state);
+        if (state <= 15) {
+          return 'mdi:battery-alert';
+        } else if (state <= 25) {
+          return 'mdi:battery-20';
+        } else if (state <= 35) {
+          return 'mdi:battery-30';
+        } else if (state <= 45) {
+          return 'mdi:battery-40';
+        } else if (state <= 55) {
+          return 'mdi:battery-50';
+        } else if (state <= 65) {
+          return 'mdi:battery-60';
+        } else if (state <= 75) {
+          return 'mdi:battery-70';
+        } else if (state <= 85) {
+          return 'mdi:battery-80';
+        } else if (state <= 95) {
+          return 'mdi:battery-90';
+        } else if (state <= 100) {
+          return 'mdi:battery';
+        } else {
+          return 'mdi:battery-unknown';
+        }
+      ]]]
+    styles:
+      card:
+        - padding: 12px 16px 10px 16px
+        - height: 140px
+        - background: var(--card-background-color)
+        - border-radius: 16px
+      grid:
+        - grid-template-areas: '"i l" "n n" "sub sub" "bar bar"'
+        - grid-template-columns: auto 1fr
+        - grid-template-rows: auto auto auto 1fr
+      label:
+        - justify-self: end
+        - align-self: start
+        - font-size: 23px
+        - font-weight: 500
+        - padding-right: 4px
+        - color: |
+            [[[
+              var state = parseFloat(entity.state);
+              if (state <= 20) return '#F95454';
+              if (state <= 40) return '#FF9C73';
+              if (state <= 60) return '#FBD288';
+              if (state <= 80) return '#78B3CE';
+              return '#9EDF9C';
+            ]]]
+      name:
+        - justify-self: start
+        - align-self: start
+        - font-size: 14px
+        - font-weight: 500
+        - color: var(--primary-text-color)
+        - padding-left: 0px
+        - margin-top: 4px
+        - white-space: nowrap
+        - overflow: hidden
+        - text-overflow: ellipsis
+      img_cell:
+        - justify-self: start
+        - align-self: start
+        - background: |
+            [[[
+              var state = parseFloat(entity.state);
+              if (state <= 20) return 'rgba(249,84,84,0.18)';
+              if (state <= 40) return 'rgba(255,156,115,0.18)';
+              if (state <= 60) return 'rgba(251,210,136,0.18)';
+              if (state <= 80) return 'rgba(120,179,206,0.18)';
+              return 'rgba(158,223,156,0.18)';
+            ]]]
+        - padding: 10px
+        - border-radius: 50%
+        - width: 24px
+        - height: 24px
+        - margin-right: 8px
+      icon:
+        - width: 24px
+        - height: 24px
+        - color: |
+            [[[
+              var state = parseFloat(entity.state);
+              if (state <= 20) return '#F95454';
+              if (state <= 40) return '#FF9C73';
+              if (state <= 60) return '#FBD288';
+              if (state <= 80) return '#78B3CE';
+              return '#9EDF9C';
+            ]]]
+      custom_fields:
+        sub:
+          - justify-self: start
+          - font-size: 12px
+          - color: var(--secondary-text-color)
+          - margin-top: 2px
+          - padding-left: 0px
+          - align-self: start
+        bar:
+          - justify-self: start
+          - width: 100%
+          - margin-top: 8px
+          - height: 4px
+          - border-radius: 4px
+          - background: rgba(128,128,128,0.2)
+          - overflow: hidden
+    custom_fields:
+      sub: |
+        [[[
+          const battery = entity.attributes.battery_type_and_quantity || '';
+          const lastUpdated = entity.last_updated;
+          let timeStr = '';
+          if (lastUpdated) {
+            const diffSeconds = Math.floor((new Date() - new Date(lastUpdated)) / 1000);
+            if (diffSeconds < 60) timeStr = `${diffSeconds}s ago`;
+            else if (diffSeconds < 3600) timeStr = `${Math.floor(diffSeconds/60)}m ago`;
+            else if (diffSeconds < 86400) timeStr = `${Math.floor(diffSeconds/3600)}h ago`;
+            else timeStr = `${Math.floor(diffSeconds/86400)}d ago`;
+          }
+          const parts = [battery, timeStr].filter(Boolean);
+          return parts.join(' · ');
+        ]]]
+      bar: |
+        [[[
+          var state = parseFloat(entity.state);
+          var color;
+          if (state <= 20) color = '#F95454';
+          else if (state <= 40) color = '#FF9C73';
+          else if (state <= 60) color = '#FBD288';
+          else if (state <= 80) color = '#78B3CE';
+          else color = '#9EDF9C';
+          return `<div style="width:100%;height:4px;border-radius:4px;background:rgba(128,128,128,0.2);overflow:hidden;">
+            <div style="width:${state}%;height:100%;background:${color};border-radius:4px;"></div>
+          </div>`;
+        ]]]

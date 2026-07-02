@@ -1,0 +1,14 @@
+style: |
+  ha-card {
+    animation: fadeInRight 0.5s ease-out;
+  }
+  @keyframes fadeInRight {
+    from {
+      opacity: 1;
+      transform: translateX(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }

@@ -1,0 +1,15 @@
+style: |
+  ha-card {
+    --title-font-size: 15px !important;
+    animation: fadeInDown 0.5s ease-out 0.3s both;
+  }
+  @keyframes fadeInDown {
+    from {
+      opacity: 1;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

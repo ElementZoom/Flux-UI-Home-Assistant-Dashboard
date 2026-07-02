@@ -1,0 +1,2395 @@
+room_details_card:
+  variables:
+    temperature_entity: ""
+    humidity_entity: ""
+    presence_entity: ""
+  card:
+    type: custom:paper-buttons-row
+    styles:
+      justify-content: flex-start
+      flex-wrap: wrap
+      font-size: 0.9em
+      line-height: 1.2em
+      margin: 0 0 0 6px
+      width: 100%
+    extra_styles: |
+      @keyframes fadeIn {
+        from { opacity: 1; }
+        to { opacity: 1; }
+      }
+      @keyframes slideInLeft {
+        from {
+          opacity: 1;
+          transform: translateX(-8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+    buttons:
+      - layout: name
+        entity: "[[presence_entity]]"
+        name: >-
+          {% set entity = '[[presence_entity]]' %} {% if '.' not in entity %}
+          {% elif states(entity) in ['unavailable', 'unknown'] %}unavailable
+          {% else %}
+            {% if is_state(entity, 'on') %} Occupied {% else %} Clear {% endif %}
+          {% endif %}
+        tap_action:
+          action: more-info
+        styles:
+          icon:
+            color: var(--md-sys-color-primary)
+          name:
+            color: var(--md-sys-color-primary)
+            font-weight: bold
+          button:
+            padding: 2px 8px
+            background-color: >-
+              color-mix(in srgb, var(--md-sys-color-on-primary) 50%,
+              transparent)
+            border-radius: 24px
+            flex-basis: 1
+            flex-shrink: 0
+            animation: slideInLeft 0.6s ease-out 0.4s both
+            transition: all 0.3s ease
+            display: "{% if '.' not in '[[presence_entity]]' %}none{% endif %}"
+      - layout: name
+        name: ·
+        styles:
+          button:
+            flex-basis: 1
+            flex-shrink: 0
+            animation: fadeIn 0.8s ease-out 0.5s both
+            display: >-
+              {% if '.' not in '[[presence_entity]]' or '.' not in
+              '[[temperature_entity]]' %}none{% endif %}
+          name:
+            color: var(--primary-text-color)
+        tap_action:
+          action: none
+      - layout: name
+        entity: "[[temperature_entity]]"
+        name: >-
+          {% set entity = '[[temperature_entity]]' %} {% if '.' not in entity
+          %} {% elif states(entity) in ['unavailable', 'unknown'] %}
+          unavailable {% else %}
+            {% set temp = states(entity) | float(0) %}
+            {% if temp < 18 %} Cold
+            {% elif temp < 22 %} Cool
+            {% elif temp < 26 %} Ideal
+            {% else %} Warm {% endif %}
+          ({{ temp }}°C) {% endif %}
+        tap_action:
+          action: more-info
+        styles:
+          icon:
+            color: var(--md-sys-color-primary)
+          name:
+            color: var(--md-sys-color-primary)
+            font-weight: bold
+          button:
+            padding: 2px 8px
+            background-color: >-
+              color-mix(in srgb, var(--md-sys-color-on-primary) 50%,
+              transparent)
+            border-radius: 24px
+            flex-basis: 1
+            flex-shrink: 0
+            animation: slideInLeft 0.6s ease-out 0.6s both
+            transition: all 0.3s ease
+            display: "{% if '.' not in '[[temperature_entity]]' %}none{% endif %}"
+      - layout: name
+        name: ·
+        styles:
+          button:
+            flex-basis: 1
+            flex-shrink: 0
+            animation: fadeIn 0.8s ease-out 0.7s both
+            display: >-
+              {% if '.' not in '[[temperature_entity]]' or '.' not in
+              '[[humidity_entity]]' %} none {% endif %}
+          name:
+            color: var(--primary-text-color)
+        tap_action:
+          action: none
+      - layout: name
+        entity: "[[humidity_entity]]"
+        name: >-
+          {% set entity = '[[humidity_entity]]' %} {% if '.' not in entity %}
+          {% elif states(entity) in ['unavailable', 'unknown'] %}unavailable
+          {% else %}
+            {% set hum = states(entity) | float(0) %}
+            {% if hum < 31 %} Dry
+            {% elif hum < 51 %} Good
+            {% else %} Humid {% endif %}
+            ({{ hum }} %)
+          {% endif %}
+        tap_action:
+          action: more-info
+        styles:
+          icon:
+            color: var(--md-sys-color-primary)
+          name:
+            color: var(--md-sys-color-primary)
+            font-weight: bold
+          button:
+            padding: 2px 8px
+            background-color: >-
+              color-mix(in srgb, var(--md-sys-color-on-primary) 50%,
+              transparent)
+            border-radius: 24px
+            flex-basis: 1
+            flex-shrink: 0
+            animation: slideInLeft 0.6s ease-out 0.9s both
+            transition: all 0.3s ease
+            display: "{% if '.' not in '[[humidity_entity]]' %}none{% endif %}"
+    uix:
+      style: |
+        ha-card {
+          overflow: visible !important;
+        }
+
+title_card:
+  variables:
+    title: ""
+    title_font_size: ""
+  card:
+    type: custom:mushroom-title-card
+    title: "[[title]]"
+    uix:
+      style: |
+        ha-card {
+          --title-font-size: [[title_font_size]] !important;
+        }
+
+title_subtitle_card:
+  variables:
+    title: ""
+    subtitle: ""
+  card:
+    type: custom:mushroom-title-card
+    title: "[[title]]"
+    subtitle: "[[subtitle]]"
+    uix:
+      style: |
+        ha-card {
+          --title-font-size: 20px !important;
+          --subtitle-font-size: 14px !important;
+        }
+
+title_subtitle_navigation_card:
+  variables:
+    title: ""
+    subtitle: ""
+    navigation_path: ""
+  card:
+    type: custom:mushroom-title-card
+    title: "[[title]]"
+    subtitle: "[[subtitle]]"
+    title_tap_action:
+      action: navigate
+      navigation_path: "[[navigation_path]]"
+    uix:
+      style: |
+        ha-card {
+        --title-font-size: 20px !important;
+        --subtitle-font-size: 14px !important;
+        }
+
+title_navigation_card:
+  variables:
+    title: ""
+    navigation_path: ""
+    title_font_size: 20px
+  card:
+    type: custom:mushroom-title-card
+    title: "[[title]]"
+    title_tap_action:
+      action: navigate
+      navigation_path: "[[navigation_path]]"
+    uix:
+      style: |
+        ha-card {
+          --title-font-size: [[title_font_size]] !important;
+        }
+
+title_url_card:
+  variables:
+    title: ""
+    url_path: ""
+    title_font_size: 20px
+  card:
+    type: custom:mushroom-title-card
+    title: "[[title]]"
+    title_tap_action:
+      action: url
+      url_path: "[[url_path]]"
+    uix:
+      style: |
+        ha-card {
+          --title-font-size: [[title_font_size]] !important;
+        }
+
+date_clock_text_card:
+  variables:
+    title: ""
+  card:
+    type: custom:mushroom-title-card
+    title: "[[title]]"
+    uix:
+      style: |
+        ha-card {
+          --title-font-size: 15px !important;
+        }
+
+page_title_card:
+  variables:
+    - title: ""
+    - alignment: center
+  card:
+    type: custom:button-card
+    name: "[[title]]"
+    show_icon: false
+    show_state: false
+    tap_action:
+      action: none
+    styles:
+      card:
+        - background: none
+        - box-shadow: none
+        - height: 38px
+      name:
+        - justify-self: "[[alignment]]"
+        - font-size: 24px
+        - font-weight: 500
+        - letter-spacing: "-0.7px"
+    uix:
+      style: |
+        :host {
+          animation: fadeInDown 0.2s ease-out 0.3s both;
+        }
+        @keyframes fadeInDown {
+          from {
+            opacity: 1;
+            transform: translateY(-8px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+scene_title_card:
+  variables:
+    subtitle: ""
+    animation_delay: 0s
+  card:
+    type: custom:mushroom-title-card
+    subtitle: "[[subtitle]]"
+    uix:
+      style: |
+        ha-card {
+          animation: slideInLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1) [[animation_delay]] both;
+        }
+
+        @keyframes slideInLeft {
+          from {
+            opacity: 1;
+            transform: translateX(-8px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+room_toggles_chip_card:
+  variables:
+    - entity_area_one: ""
+    - entity_area_two: ""
+    - entity_area_three: ""
+    - entity_area_four: ""
+    - area_one_name: ""
+    - area_two_name: ""
+    - area_three_name: ""
+    - area_four_name: ""
+    - area_one_icon: ""
+    - area_two_icon: ""
+    - area_three_icon: ""
+    - area_four_icon: ""
+    - alignment: ""
+    - animation_delay: 0s
+  card:
+    type: custom:mushroom-chips-card
+    chips:
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: "[[entity_area_one]]"
+            state_not: unknown
+          - condition: state
+            entity: "[[entity_area_one]]"
+            state_not: unavailable
+        chip:
+          type: template
+          entity: "[[entity_area_one]]"
+          icon: "[[area_one_icon]]"
+          content: |-
+            {% if is_state(entity, 'on') %}
+              [[area_one_name]]
+            {% else %}
+            {% endif %}
+          tap_action:
+            action: toggle
+          uix:
+            style:
+              .: |
+                ha-card {
+                  --text-color: {{ 'var(--md-sys-color-primary)' if is_state('[[entity_area_one]]', 'off') else 'var(--md-sys-color-on-primary)' }};
+                  --color: {{ 'var(--md-sys-color-primary)' if is_state('[[entity_area_one]]', 'off') else 'var(--md-sys-color-on-primary)' }};
+                  --chip-background: {{ 'var(--md-sys-color-primary)' if is_state('[[entity_area_one]]', 'on') else none }};
+                  animation: slideInLeft 0.3s ease-out calc([[animation_delay]] + 0s) both;
+                }
+                @keyframes slideInLeft {
+                  from {
+                    opacity: 1;
+                    transform: translateX(-8px);
+                  }
+                  to {
+                    opacity: 1;
+                    transform: translateX(0);
+                  }
+                }
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: "[[entity_area_two]]"
+            state_not: unknown
+          - condition: state
+            entity: "[[entity_area_two]]"
+            state_not: unavailable
+        chip:
+          type: template
+          entity: "[[entity_area_two]]"
+          icon: "[[area_two_icon]]"
+          content: |-
+            {% if is_state(entity, 'on') %}
+              [[area_two_name]]
+            {% else %}
+            {% endif %}
+          tap_action:
+            action: toggle
+          uix:
+            style:
+              .: |
+                ha-card {
+                  --text-color: {{ 'var(--md-sys-color-primary)' if is_state('[[entity_area_two]]', 'off') else 'var(--md-sys-color-on-primary)' }};
+                  --color: {{ 'var(--md-sys-color-primary)' if is_state('[[entity_area_two]]', 'off') else 'var(--md-sys-color-on-primary)' }};
+                  --chip-background: {{ 'var(--md-sys-color-primary)' if is_state('[[entity_area_two]]', 'on') else none }};
+                  animation: slideInLeft 0.3s ease-out calc([[animation_delay]] + 0.2s) both;
+                }
+                @keyframes slideInLeft {
+                  from {
+                    opacity: 1;
+                    transform: translateX(-8px);
+                  }
+                  to {
+                    opacity: 1;
+                    transform: translateX(0);
+                  }
+                }
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: "[[entity_area_three]]"
+            state_not: unknown
+          - condition: state
+            entity: "[[entity_area_three]]"
+            state_not: unavailable
+        chip:
+          type: template
+          entity: "[[entity_area_three]]"
+          icon: "[[area_three_icon]]"
+          content: |-
+            {% if is_state(entity, 'on') %}
+              [[area_three_name]]
+            {% else %}
+            {% endif %}
+          tap_action:
+            action: toggle
+          uix:
+            style:
+              .: |
+                ha-card {
+                  --text-color: {{ 'var(--md-sys-color-primary)' if is_state('[[entity_area_three]]', 'off') else 'var(--md-sys-color-on-primary)' }};
+                  --color: {{ 'var(--md-sys-color-primary)' if is_state('[[entity_area_three]]', 'off') else 'var(--md-sys-color-on-primary)' }};
+                  --chip-background: {{ 'var(--md-sys-color-primary)' if is_state('[[entity_area_three]]', 'on') else none }};
+                  animation: slideInLeft 0.3s ease-out calc([[animation_delay]] + 0.4s) both;
+                }
+                @keyframes slideInLeft {
+                  from {
+                    opacity: 1;
+                    transform: translateX(-8px);
+                  }
+                  to {
+                    opacity: 1;
+                    transform: translateX(0);
+                  }
+                }
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: "[[entity_area_four]]"
+            state_not: unknown
+          - condition: state
+            entity: "[[entity_area_four]]"
+            state_not: unavailable
+        chip:
+          type: template
+          entity: "[[entity_area_four]]"
+          icon: "[[area_four_icon]]"
+          content: |-
+            {% if is_state(entity, 'on') %}
+              [[area_four_name]]
+            {% else %}
+            {% endif %}
+          tap_action:
+            action: toggle
+          uix:
+            style:
+              .: |
+                ha-card {
+                  --text-color: var(--md-sys-color-primary);
+                  --color: var(--md-sys-color-primary);
+                  --chip-background: {{ 'color-mix(in srgb, var(--md-sys-color-on-primary) 50%, transparent)' if is_state('[[entity_area_four]]', 'on') else none }};
+                  animation: slideInLeft 0.3s ease-out calc([[animation_delay]] + 0.6s) both;
+                }
+                @keyframes slideInLeft {
+                  from {
+                    opacity: 1;
+                    transform: translateX(-8px);
+                  }
+                  to {
+                    opacity: 1;
+                    transform: translateX(0);
+                  }
+                }
+    alignment: "[[alignment]]"
+
+back_button_card:
+  variables:
+    navigation_path: ""
+  card:
+    type: custom:mushroom-chips-card
+    chips:
+      - type: template
+        tap_action:
+          action: navigate
+          navigation_path: "[[navigation_path]]"
+        icon: m3of:arrow-left-alt
+        uix:
+          style:
+            .: |
+              ha-card {
+                --color: var(--md-sys-color-primary);
+                --chip-background: color-mix(in srgb, var(--md-sys-color-on-primary) 50%, transparent);
+                animation: fadeInDown 0.2s ease-out 0.3s both;
+              }
+              @keyframes fadeInDown {
+                from {
+                  opacity: 1;
+                  transform: translateY(-8px);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+              }
+more-options-card:
+  variables:
+    navigation_path: ""
+  card:
+    type: custom:mushroom-chips-card
+    alignment: end
+    chips:
+      - type: template
+        tap_action:
+          action: navigate
+          navigation_path: "[[navigation_path]]"
+        icon: mdi:dots-horizontal
+        uix:
+          style:
+            .: |
+              ha-card {
+                --color: var(--md-sys-color-primary);
+                --chip-background: color-mix(in srgb, var(--md-sys-color-on-primary) 50%, transparent);
+                animation: fadeInDown 0.2s ease-out 0.3s both;
+              }
+              @keyframes fadeInDown {
+                from {
+                  opacity: 1;
+                  transform: translateY(-8px);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+              }
+
+scene_button_card:
+  variables:
+    img_path: ""
+    scene_value: ""
+  card:
+    type: custom:button-card
+    entity_picture: "[[img_path]]"
+    show_entity_picture: true
+    aspect_ratio: 5/3
+    styles:
+      card:
+        - padding: 0px
+      entity_picture:
+        - width: 100%
+        - height: 100%
+        - object-fit: cover
+    tap_action:
+      action: call-service
+      service: input_text.set_value
+      service_data:
+        entity_id: input_text.dynamic_scene_selected
+        value: "[[scene_value]]"
+spacer_card:
+  variables:
+    padding: ""
+  card:
+    type: custom:button-card
+    show_name: false
+    show_icon: false
+    tap_action:
+      action: none
+    styles:
+      card:
+        - background: none
+        - box-shadow: none
+        - padding: "[[padding]]"
+open_windows_card:
+  variables:
+    title: ""
+    window_1: ""
+    window_2: ""
+    window_3: ""
+    window_4: ""
+  card:
+    type: conditional
+    conditions:
+      - condition: or
+        conditions:
+          - condition: state
+            entity: "[[window_1]]"
+            state: "on"
+          - condition: state
+            entity: "[[window_2]]"
+            state: "on"
+          - condition: state
+            entity: "[[window_3]]"
+            state: "on"
+          - condition: state
+            entity: "[[window_4]]"
+            state: "on"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: title_card
+          variables:
+            title: "[[title]]"
+            title_font_size: 20px
+        - type: grid
+          columns: 2
+          square: false
+          cards:
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: "[[window_1]]"
+                  state: "on"
+              card:
+                type: custom:streamline-card
+                template: button_card
+                variables:
+                  entity: "[[window_1]]"
+                  icon: m3of:window-open
+                  background_color: rgba(255, 170, 0, 0.5)
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: "[[window_2]]"
+                  state: "on"
+              card:
+                type: custom:streamline-card
+                template: button_card
+                variables:
+                  entity: "[[window_2]]"
+                  icon: m3of:window-open
+                  background_color: rgba(255, 170, 0, 0.5)
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: "[[window_3]]"
+                  state: "on"
+              card:
+                type: custom:streamline-card
+                template: button_card
+                variables:
+                  entity: "[[window_3]]"
+                  icon: m3of:window-open
+                  background_color: rgba(255, 170, 0, 0.5)
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: "[[window_4]]"
+                  state: "on"
+              card:
+                type: custom:streamline-card
+                template: button_card
+                variables:
+                  entity: "[[window_4]]"
+                  icon: m3of:window-open
+                  background_color: rgba(255, 170, 0, 0.5)
+open_doors_card:
+  variables:
+    title: ""
+    door_1: ""
+    door_2: ""
+    door_3: ""
+    door_4: ""
+  card:
+    type: conditional
+    conditions:
+      - condition: or
+        conditions:
+          - condition: state
+            entity: "[[door_1]]"
+            state: "on"
+          - condition: state
+            entity: "[[door_2]]"
+            state: "on"
+          - condition: state
+            entity: "[[door_3]]"
+            state: "on"
+          - condition: state
+            entity: "[[door_4]]"
+            state: "on"
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: title_card
+          variables:
+            title: "[[title]]"
+            title_font_size: 20px
+        - type: grid
+          columns: 2
+          square: false
+          cards:
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: "[[door_1]]"
+                  state: "on"
+              card:
+                type: custom:streamline-card
+                template: button_card
+                variables:
+                  entity: "[[door_1]]"
+                  icon: m3of:door-open
+                  background_color: rgba(188, 0, 10, 0.5)
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: "[[door_2]]"
+                  state: "on"
+              card:
+                type: custom:streamline-card
+                template: button_card
+                variables:
+                  entity: "[[door_2]]"
+                  icon: m3of:door-open
+                  background_color: rgba(188, 0, 10, 0.5)
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: "[[door_3]]"
+                  state: "on"
+              card:
+                type: custom:streamline-card
+                template: button_card
+                variables:
+                  entity: "[[door_3]]"
+                  icon: m3of:door-open
+                  background_color: rgba(188, 0, 10, 0.5)
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: "[[door_4]]"
+                  state: "on"
+              card:
+                type: custom:streamline-card
+                template: button_card
+                variables:
+                  entity: "[[door_4]]"
+                  icon: m3of:door-open
+                  background_color: rgba(188, 0, 10, 0.5)
+count_all_entity_card:
+  variables:
+    entity: ""
+    title: ""
+    icon: ""
+    color: ""
+  card:
+    type: horizontal-stack
+    cards:
+      - type: custom:streamline-card
+        template: title_card
+        variables:
+          title: "[[title]]"
+          title_font_size: 20px
+      - type: custom:mushroom-chips-card
+        alignment: end
+        chips:
+          - type: template
+            content: |
+              {{ states('[[entity]]') if
+              states('[[entity]]') != '0' else '' }}
+            icon: |
+              {{ '[[icon]]' if
+              states('[[entity]]') != '0' else '' }}
+            icon_color: "[[color]]"
+            tap_action:
+              action: none
+        uix:
+          style: |
+            ha-card {
+              margin-top: 1.6em;
+            }
+count_active_entity_card:
+  variables:
+    entity: ""
+    title: ""
+    icon: ""
+    color: ""
+  card:
+    type: conditional
+    conditions:
+      - condition: state
+        entity: "[[entity]]"
+        state:
+          - "on"
+          - open
+    card:
+      type: horizontal-stack
+      cards:
+        - type: custom:streamline-card
+          template: title_card
+          variables:
+            title: "[[title]]"
+            title_font_size: 20px
+        - type: custom:mushroom-chips-card
+          alignment: end
+          chips:
+            - type: template
+              content: |
+                {{ expand('[[entity]]')
+                  | selectattr('state', 'in', ['on', 'open'])
+                  | list
+                  | count }}
+              icon: "[[icon]]"
+              icon_color: "[[color]]"
+              tap_action:
+                action: none
+          uix:
+            style: |
+              ha-card {
+                margin-top: 1.6em;
+              }
+count_active_light_card:
+  variables:
+    group_entity: ""
+    count_entity: ""
+    title: ""
+    icon: ""
+    color: ""
+    "filter_state:": ""
+  card:
+    type: conditional
+    conditions:
+      - condition: state
+        entity: "[[group_entity]]"
+        state:
+          - "on"
+          - open
+    card:
+      type: custom:expander-card
+      title-card:
+        type: custom:streamline-card
+        template: count_active_entity_card
+        variables:
+          entity: "[[count_entity]]"
+          title: "[[title]]"
+          icon: "[[icon]]"
+          color: "[[color]]"
+      title-card-clickable: true
+      title-card-button-overlay: false
+      padding: "1"
+      animations: true
+      expanded: true
+      cards:
+        - type: custom:auto-entities
+          card:
+            square: false
+            type: grid
+            columns: 2
+          card_param: cards
+          filter:
+            include:
+              - group: "[[group_entity]]"
+                state: "[[filter_state]]"
+                options:
+                  type: custom:streamline-card
+                  template: light_card
+                  variables:
+                    entity: this.entity_id
+                    name: null
+                    icon: null
+            exclude: []
+          show_empty: false
+          sort:
+            method: entity_id
+count_active_button_card:
+  variables:
+    group_entity: ""
+    count_entity: ""
+    title: ""
+    icon: ""
+    color: ""
+    background_color: ""
+    "filter_state:": ""
+  card:
+    type: conditional
+    conditions:
+      - condition: state
+        entity: "[[group_entity]]"
+        state:
+          - "on"
+          - open
+    card:
+      type: custom:expander-card
+      title-card:
+        type: custom:streamline-card
+        template: count_active_entity_card
+        variables:
+          entity: "[[count_entity]]"
+          title: "[[title]]"
+          icon: "[[icon]]"
+          color: "[[color]]"
+      title-card-clickable: true
+      title-card-button-overlay: false
+      padding: "1"
+      animations: true
+      expanded: true
+      cards:
+        - type: custom:auto-entities
+          card:
+            square: false
+            type: grid
+            columns: 2
+          card_param: cards
+          filter:
+            include:
+              - group: "[[group_entity]]"
+                state: "[[filter_state]]"
+                options:
+                  type: custom:streamline-card
+                  template: button_card
+                  variables:
+                    entity: this.entity_id
+                    icon: "[[icon]]"
+                    background_color: "[[background_color]]"
+            exclude: []
+          show_empty: false
+          sort:
+            method: entity_id
+media_player_card:
+  variables:
+    entity: ""
+    name: ""
+  card:
+    type: custom:mushroom-media-player-card
+    entity: "[[entity]]"
+    name: "[[name]]"
+    fill_container: true
+    use_media_info: true
+    show_volume_level: true
+    layout: vertical
+    collapsible_controls: true
+    volume_controls:
+      - volume_buttons
+      - volume_set
+    media_controls:
+      - on_off
+    grid_options:
+      columns: full
+    uix:
+      style:
+        .: |
+          ha-state-icon {
+            color: {{ 'var(--primary-background-color)' if is_state('[[entity]]', ['on', 'playing', 'paused', 'idle']) else 'none' }};
+          }
+        mushroom-shape-icon$: |
+          .shape {
+            --shape-color: {{ 'var(--md-sys-color-secondary)' if is_state('[[entity]]', ['on', 'playing', 'paused', 'idle']) else 'color-mix(in srgb, var(--md-sys-color-surface-variant) 40%, transparent)' }};
+          }
+        mushroom-media-player-volume-control$: |
+          mushroom-slider {
+            --main-color: var(--md-sys-color-primary) !important;
+            --bg-color: var(--md-sys-color-on-primary) !important;
+          }
+curtain_slider_card:
+  variables:
+    entity_id: ""
+    label: Curtain
+    icon: mdi:curtains
+  card:
+    type: custom:custom-features-card
+    features:
+      - type: custom:service-call
+        entries:
+          - type: slider
+            tap_action:
+              action: perform-action
+              perform_action: cover.set_cover_position
+              data:
+                position: "{{ value }}"
+                entity_id: "[[entity_id]]"
+            value_attribute: current_position
+            icon: "[[icon]]"
+            entity_id: "[[entity_id]]"
+            styles: >
+              {% if state_attr(config.entity, 'current_position') | int(0) <
+              21 %}
+
+              .icon, .label {
+                color: white;
+              }
+
+              {% else %}
+
+              .icon, .label {
+                color: black;
+              }
+
+              .thumb::after {
+                background-color: black;
+              }
+
+              {% endif %}
+            range:
+              - 0
+              - 100
+            step: 1
+            label: "{{ state_attr('[[entity_id]]', 'friendly_name') }}"
+            ticks: false
+            unit_of_measurement: "%"
+            haptics: true
+    feature_height: 70
+    transparent: true
+    styles: ""
+curtain_open_close_card:
+  variables:
+    entity_id: ""
+  card:
+    type: custom:custom-features-card
+    features:
+      - type: custom:service-call
+        entries:
+          - type: button
+            entity_id: "[[entity_id]]"
+            icon: mdi:curtains-closed
+            momentary_end_action:
+              action: perform-action
+              perform_action: cover.stop_cover
+              target:
+                entity_id: "[[entity_id]]"
+            momentary_start_action:
+              action: perform-action
+              perform_action: cover.close_cover
+              target:
+                entity_id: "[[entity_id]]"
+          - type: button
+            entity_id: "[[entity_id]]"
+            icon: mdi:curtains
+            momentary_end_action:
+              action: perform-action
+              perform_action: cover.stop_cover
+              target:
+                entity_id: "[[entity_id]]"
+            momentary_start_action:
+              action: perform-action
+              perform_action: cover.open_cover
+              target:
+                entity_id: "[[entity_id]]"
+number_slider_card:
+  variables:
+    entity: ""
+  card:
+    type: custom:mushroom-number-card
+    entity: "[[entity]]"
+    display_mode: slider
+    fill_container: true
+    uix:
+      style:
+        .: |
+          ha-state-icon {
+            color: var(--primary-background-color);
+          }
+        mushroom-shape-icon$: |
+          .shape {
+            --shape-color: var(--md-sys-color-secondary) !important;
+          }
+        mushroom-number-value-control$: |
+          mushroom-slider {
+            --main-color: var(--md-sys-color-primary) !important;
+            --bg-color: var(--md-sys-color-on-primary) !important;
+          }
+select_card:
+  variables:
+    entity: ""
+    name: ""
+    icon: ""
+  card:
+    type: custom:mushroom-select-card
+    entity: "[[entity]]"
+    name: "[[name]]"
+    icon: "[[icon]]"
+    fill_container: true
+    uix:
+      style:
+        .: |
+          ha-state-icon {
+            color: var(--md-sys-color-secondary);
+          }
+        mushroom-shape-icon$: |
+          .shape {
+            --shape-color: none !important;
+          }
+        mushroom-select-option-control$:
+          mushroom-select$: |
+            mwc-menu {
+              --mdc-theme-text-primary-on-background: var(--primary-text-color);
+              --mdc-theme-primary: var(--primary-color);
+              --mdc-theme-surface: inherit;
+            }
+button_card:
+  variables:
+    entity: ""
+    icon: m3of:switch
+    background_color: color-mix(in srgb, var(--md-sys-color-primary) 50%, transparent)
+  card:
+    type: custom:button-card
+    entity: "[[entity]]"
+    icon: "[[icon]]"
+    show_name: true
+    show_state: true
+    show_label: false
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+    state:
+      - value: "on"
+        styles:
+          card:
+            - background-color: "[[background_color]]"
+          name:
+            - color: white
+          state:
+            - color: white
+          icon:
+            - color: white
+      - value: "off"
+        styles:
+          card:
+            - background-color: >-
+                color-mix(in srgb, var(--md-sys-color-primary) 15%,
+                transparent)
+          icon:
+            - color: grey
+    styles:
+      card:
+        - height: 95px
+        - border-radius: 30px
+        - box-shadow: none
+        - padding: 0 20px 0 28px
+      grid:
+        - grid-template-areas: '"i n" "i s"'
+        - grid-template-columns: 36px 1fr
+        - grid-template-rows: 1fr 1fr
+        - align-items: center
+      icon:
+        - width: 24px
+        - height: 24px
+        - margin-right: 14px
+      name:
+        - align-self: end
+        - justify-self: start
+        - padding-left: 7px
+        - font-size: 14px
+        - font-weight: 500
+        - line-height: 1.5
+      state:
+        - align-self: start
+        - justify-self: start
+        - padding-left: 7px
+        - font-size: 14px
+        - line-height: 1.5
+        - opacity: 0.7
+light_card:
+  variables:
+    entity: ""
+    name: ""
+    icon: ""
+  card:
+    type: custom:big-slider-card
+    entity: "[[entity]]"
+    name: "[[name]]"
+    icon: "[[icon]]"
+    attribute: brightness
+    transition: 0.3
+    height: 95
+    background_color: color-mix(in srgb, var(--md-sys-color-on-primary) 50%, transparent)
+    icon_color: white
+    colorize: true
+    show_percentage: true
+    tap_action:
+      action: toggle
+    hold_action:
+      action: more-info
+room_card:
+  default:
+    - name: ""
+    - icon: ""
+    - navigation_path: ""
+    - entity_id_temperature: ""
+    - entity_id_humidity: ""
+    - entity_id_ac: ""
+    - entity_id_ac_main: ""
+    - entity_id_lights: ""
+    - entity_id_covers: ""
+    - entity_id_fans: ""
+    - entity_id_doors: ""
+    - entity_id_windows: ""
+    - entity_id_custom_1: ""
+    - entity_id_custom_2: ""
+    - entity_id_custom_3: ""
+    - entity_id_custom_4: ""
+    - lights_count_sensor: ""
+    - covers_count_sensor: ""
+    - fans_count_sensor: ""
+    - doors_count_sensor: ""
+    - windows_count_sensor: ""
+    - lights_icon: ""
+    - custom_1_icon: ""
+    - custom_2_icon: ""
+    - custom_3_icon: ""
+    - custom_4_icon: ""
+    - custom_1_color: ""
+    - custom_2_color: ""
+    - custom_3_color: ""
+    - custom_4_color: ""
+    - room_background: "#f5f5f5"
+    - animation_delay: 0s
+  card:
+    type: custom:stack-in-card
+    mode: horizontal
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-template-card
+            primary: "[[name]]"
+            secondary: >
+              {% set temp = states('[[entity_id_temperature]]') %}
+              {% set hum = states('[[entity_id_humidity]]') %}
+              {% set unit = state_attr('weather.home', 'temperature_unit') or '°C' %}
+              {% set parts = [] %}
+              {% if temp | is_number %}
+                {% set parts = parts + [temp | round(1) ~ unit] %}
+              {% endif %}
+              {% if hum | is_number %}
+                {% set parts = parts + [hum | round(1) ~ '%'] %}
+              {% endif %}
+              {{ parts | join(' / ') }}
+            tap_action:
+              action: navigate
+              navigation_path: "[[navigation_path]]"
+            uix:
+              style: |
+                ha-card {
+                  --primary-text-color: black;
+                  border: 0;
+                  padding: 5px 0 0 5px;
+                  width: 500px;
+                }
+          - type: custom:mushroom-template-card
+            entity: "[[entity_id_lights]]"
+            layout: horizontal
+            icon: "[[icon]]"
+            icon_color: >-
+              {{ 'rgba(252, 242, 212, 1)' if is_state('[[entity_id_lights]]',
+              'on') else 'rgba(91, 91, 91, 1)' }}
+            tap_action:
+              action: navigate
+              navigation_path: "[[navigation_path]]"
+            uix:
+              style:
+                ha-tile-icon$: |
+                  .container {
+                    width: 120px !important;
+                    height: 120px !important;
+                    border-radius: 50%;
+                  }
+                .: |
+                  ha-tile-icon {
+                    --mdc-icon-size: 90px;
+                  }
+                  ha-card {
+                    border: none;
+                    margin: -8px 0 0 -28px;
+                  }
+      - type: custom:mushroom-chips-card
+        chips:
+          # AC chip
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: "[[entity_id_ac_main]]"
+                state_not: unknown
+              - condition: state
+                entity: "[[entity_id_ac_main]]"
+                state_not: unavailable
+            chip:
+              type: template
+              entity: "[[entity_id_ac]]"
+              tap_action:
+                action: toggle
+              icon: |
+                {% if is_state('[[entity_id_ac]]', 'off') %}
+                  m3o:heat-pump
+                {% else %}
+                  m3of:heat-pump
+                {% endif %}
+              uix:
+                style: >
+                  @keyframes chip-drop {
+                    0% { opacity: 0; transform: translateY(-12px) scale(0.85); }
+                    60% { transform: translateY(3px) scale(1.05); }
+                    100% { opacity: 1; transform: translateY(0) scale(1); }
+                  }
+
+                  @keyframes cool-pulse {
+                    0% { transform: scale(1); box-shadow: 0 0 6px rgba(139,189,212,0.55), 0 0 18px rgba(139,189,212,0.45), 0 0 42px rgba(139,189,212,0.32), 0 0 90px rgba(139,189,212,0.22); }
+                    50% { transform: scale(1.12); box-shadow: 0 0 14px rgba(139,189,212,1), 0 0 34px rgba(139,189,212,0.85), 0 0 80px rgba(139,189,212,0.55), 0 0 170px rgba(139,189,212,0.35); }
+                    100% { transform: scale(1); box-shadow: 0 0 6px rgba(139,189,212,0.55), 0 0 18px rgba(139,189,212,0.45), 0 0 42px rgba(139,189,212,0.32), 0 0 90px rgba(139,189,212,0.22); }
+                  }
+
+                  @keyframes heat-pulse {
+                    0% { transform: scale(1); box-shadow: 0 0 6px rgba(217,79,70,0.55), 0 0 18px rgba(217,79,70,0.45), 0 0 42px rgba(217,79,70,0.32), 0 0 90px rgba(217,79,70,0.22); }
+                    50% { transform: scale(1.12); box-shadow: 0 0 14px rgba(217,79,70,1), 0 0 34px rgba(217,79,70,0.85), 0 0 80px rgba(217,79,70,0.55), 0 0 170px rgba(217,79,70,0.35); }
+                    100% { transform: scale(1); box-shadow: 0 0 6px rgba(217,79,70,0.55), 0 0 18px rgba(217,79,70,0.45), 0 0 42px rgba(217,79,70,0.32), 0 0 90px rgba(217,79,70,0.22); }
+                  }
+
+                  @keyframes fan-spin {
+                    0% { transform: rotate(0deg); box-shadow: 0 0 6px rgba(134,232,204,0.55), 0 0 18px rgba(134,232,204,0.45), 0 0 42px rgba(134,232,204,0.32), 0 0 90px rgba(134,232,204,0.22); }
+                    50% { box-shadow: 0 0 14px rgba(134,232,204,1), 0 0 34px rgba(134,232,204,0.85), 0 0 80px rgba(134,232,204,0.55), 0 0 170px rgba(134,232,204,0.35); }
+                    100% { transform: rotate(360deg); box-shadow: 0 0 6px rgba(134,232,204,0.55), 0 0 18px rgba(134,232,204,0.45), 0 0 42px rgba(134,232,204,0.32), 0 0 90px rgba(134,232,204,0.22); }
+                  }
+
+                  @keyframes dry-fade {
+                    0%, 100% { transform: scale(1); box-shadow: 0 0 6px rgba(168,148,74,0.55), 0 0 18px rgba(168,148,74,0.45), 0 0 42px rgba(168,148,74,0.32), 0 0 90px rgba(168,148,74,0.22); }
+                    50% { transform: scale(1.12); box-shadow: 0 0 14px rgba(168,148,74,1), 0 0 34px rgba(168,148,74,0.85), 0 0 80px rgba(168,148,74,0.55), 0 0 170px rgba(168,148,74,0.35); }
+                  }
+
+                  {% set base = '[[animation_delay]]' | replace('s','') | float %}
+                  {% set d = (base + 0.05) | round(2) %}
+                  {% set ac_main = states('[[entity_id_ac_main]]') %}
+                  {% set ac = states('[[entity_id_ac]]') %}
+
+                  ha-card {
+                    --chip-background:
+                      {% if ac == 'heat_cool' and ac_main == 'cool' %} #b5e0f7
+                      {% elif ac == 'heat_cool' and ac_main == 'heat' %} #fa6f66
+                      {% elif ac == 'heat_cool' and ac_main == 'fan_only' %} #c3fae8
+                      {% elif ac == 'heat_cool' and ac_main == 'dry' %} #cfba74
+                      {% elif ac == 'heat_cool' and ac_main == 'off' %} #FFFFFF
+                      {% else %} #353535
+                      {% endif %};
+                    --color: {% if ac == 'off' %} #dbdbdb {% else %} #353535 {% endif %};
+                    height: 35px;
+                    width: 35px;
+                    border-radius: 22px;
+                    {% if ac == 'heat_cool' and ac_main == 'cool' %}
+                      animation: chip-drop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both {{ d }}s, cool-pulse 2s ease-in-out infinite {{ d + 0.4 }}s;
+                    {% elif ac == 'heat_cool' and ac_main == 'heat' %}
+                      animation: chip-drop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both {{ d }}s, heat-pulse 1.5s ease-in-out infinite {{ d + 0.4 }}s;
+                    {% elif ac == 'heat_cool' and ac_main == 'fan_only' %}
+                      animation: chip-drop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both {{ d }}s, fan-spin 3s linear infinite {{ d + 0.4 }}s;
+                    {% elif ac == 'heat_cool' and ac_main == 'dry' %}
+                      animation: chip-drop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both {{ d }}s, dry-fade 2s ease-in-out infinite {{ d + 0.4 }}s;
+                    {% else %}
+                      animation: chip-drop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both {{ d }}s;
+                    {% endif %}
+                  }
+
+          # Lights chip
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: "[[entity_id_lights]]"
+                state_not: unknown
+              - condition: state
+                entity: "[[entity_id_lights]]"
+                state_not: unavailable
+            chip:
+              type: template
+              entity: "[[entity_id_lights]]"
+              tap_action:
+                action: more-info
+              icon: "[[lights_icon]]"
+              content: >-
+                {{ states('[[lights_count_sensor]]') if
+                states('[[lights_count_sensor]]') != '0' else '' }}
+              uix:
+                style: >
+                  @keyframes chip-drop {
+                    0% { opacity: 0; transform: translateY(-12px) scale(0.85); }
+                    60% { transform: translateY(3px) scale(1.05); }
+                    100% { opacity: 1; transform: translateY(0) scale(1); }
+                  }
+
+                  {% set base = '[[animation_delay]]' | replace('s','') | float %}
+                  {% set d = (base + 0.12) | round(2) %}
+                  {% set light_state = states('[[entity_id_lights]]') %}
+                  {% set is_on = light_state == 'on' %}
+
+                  ha-card {
+                    animation: chip-drop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both {{ d }}s;
+                    --chip-background: {% if is_on %} #fcf2d4 {% else %} #353535 {% endif %};
+                    --color: {% if is_on %} #5b5326 {% else %} #dbdbdb {% endif %};
+                    --text-color: {% if is_on %} #5b5326 {% else %} #dbdbdb {% endif %};
+                    height: 35px;
+                    width: 35px;
+                    border-radius: 22px;
+                  }
+
+          # Covers chip
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: "[[entity_id_covers]]"
+                state_not: unknown
+              - condition: state
+                entity: "[[entity_id_covers]]"
+                state_not: unavailable
+            chip:
+              type: template
+              entity: "[[entity_id_covers]]"
+              tap_action:
+                action: more-info
+              icon: >
+                {% if is_state('[[entity_id_covers]]', 'open') or
+                is_state('[[entity_id_covers]]', 'opening') %}
+                  m3of:curtains
+                {% else %}
+                  m3of:curtains-closed
+                {% endif %}
+              content: >-
+                {{ states('[[covers_count_sensor]]') if
+                states('[[covers_count_sensor]]') != '0' else '' }}
+              uix:
+                style: >
+                  @keyframes chip-drop {
+                    0% { opacity: 0; transform: translateY(-12px) scale(0.85); }
+                    60% { transform: translateY(3px) scale(1.05); }
+                    100% { opacity: 1; transform: translateY(0) scale(1); }
+                  }
+
+                  {% set base = '[[animation_delay]]' | replace('s','') | float %}
+                  {% set d = (base + 0.19) | round(2) %}
+                  {% set is_on = is_state('[[entity_id_covers]]', 'open') or
+                                 is_state('[[entity_id_covers]]', 'opening') %}
+
+                  ha-card {
+                    animation: chip-drop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both {{ d }}s;
+                    --chip-background: {% if is_on %} #702963 {% else %} #353535 {% endif %};
+                    --color: {% if is_on %} #ffffff {% else %} #dbdbdb {% endif %};
+                    --text-color: {% if is_on %} #ffffff {% else %} #dbdbdb {% endif %};
+                    height: 35px;
+                    width: 35px;
+                    border-radius: 22px;
+                  }
+
+          # Fans chip
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: "[[entity_id_fans]]"
+                state_not: unknown
+              - condition: state
+                entity: "[[entity_id_fans]]"
+                state_not: unavailable
+            chip:
+              type: template
+              entity: "[[entity_id_fans]]"
+              tap_action:
+                action: more-info
+              icon: |
+                {% if is_state('[[entity_id_fans]]', 'on') %}
+                  mdi:fan
+                {% else %}
+                  mdi:fan-off
+                {% endif %}
+              content: >-
+                {{ states('[[fans_count_sensor]]') if
+                states('[[fans_count_sensor]]') != '0' else '' }}
+              uix:
+                style: >
+                  @keyframes chip-drop {
+                    0% { opacity: 0; transform: translateY(-12px) scale(0.85); }
+                    60% { transform: translateY(3px) scale(1.05); }
+                    100% { opacity: 1; transform: translateY(0) scale(1); }
+                  }
+
+                  {% set base = '[[animation_delay]]' | replace('s','') | float %}
+                  {% set d = (base + 0.26) | round(2) %}
+                  {% set is_on = is_state('[[entity_id_fans]]', 'on') %}
+
+                  ha-card {
+                    animation: chip-drop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both {{ d }}s;
+                    --chip-background: {% if is_on %} #89CFF0 {% else %} #353535 {% endif %};
+                    --color: {% if is_on %} #000000 {% else %} #dbdbdb {% endif %};
+                    --text-color: {% if is_on %} #000000 {% else %} #dbdbdb {% endif %};
+                    height: 35px;
+                    width: 35px;
+                    border-radius: 22px;
+                  }
+
+          # Windows chip
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: "[[entity_id_windows]]"
+                state_not: unknown
+              - condition: state
+                entity: "[[entity_id_windows]]"
+                state_not: unavailable
+            chip:
+              type: template
+              entity: "[[entity_id_windows]]"
+              tap_action:
+                action: more-info
+              icon: |
+                {% if is_state('[[entity_id_windows]]', 'on') %}
+                  m3of:window-open
+                {% else %}
+                  m3of:window-closed
+                {% endif %}
+              content: >-
+                {{ states('[[windows_count_sensor]]') if
+                states('[[windows_count_sensor]]') != '0' else '' }}
+              uix:
+                style: >
+                  @keyframes chip-drop {
+                    0% { opacity: 0; transform: translateY(-12px) scale(0.85); }
+                    60% { transform: translateY(3px) scale(1.05); }
+                    100% { opacity: 1; transform: translateY(0) scale(1); }
+                  }
+
+                  {% set base = '[[animation_delay]]' | replace('s','') | float %}
+                  {% set d = (base + 0.40) | round(2) %}
+                  {% set is_on = is_state('[[entity_id_windows]]', 'on') %}
+
+                  ha-card {
+                    animation: chip-drop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both {{ d }}s;
+                    --chip-background: {% if is_on %} #ffaa00 {% else %} #353535 {% endif %};
+                    --color: {% if is_on %} #ffffff {% else %} #dbdbdb {% endif %};
+                    --text-color: {% if is_on %} #ffffff {% else %} #dbdbdb {% endif %};
+                    height: 35px;
+                    width: 35px;
+                    border-radius: 22px;
+                  }
+
+          # Doors chip
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: "[[entity_id_doors]]"
+                state_not: unknown
+              - condition: state
+                entity: "[[entity_id_doors]]"
+                state_not: unavailable
+            chip:
+              type: template
+              entity: "[[entity_id_doors]]"
+              tap_action:
+                action: more-info
+              icon: |
+                {% if is_state('[[entity_id_doors]]', 'on') %}
+                  m3o:door-open
+                {% else %}
+                  m3of:door-front
+                {% endif %}
+              content: >-
+                {{ states('[[doors_count_sensor]]') if
+                states('[[doors_count_sensor]]') != '0' else '' }}
+              uix:
+                style: >
+                  @keyframes chip-drop {
+                    0% { opacity: 0; transform: translateY(-12px) scale(0.85); }
+                    60% { transform: translateY(3px) scale(1.05); }
+                    100% { opacity: 1; transform: translateY(0) scale(1); }
+                  }
+
+                  {% set base = '[[animation_delay]]' | replace('s','') | float %}
+                  {% set d = (base + 0.47) | round(2) %}
+                  {% set is_on = is_state('[[entity_id_doors]]', 'on') %}
+
+                  ha-card {
+                    animation: chip-drop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both {{ d }}s;
+                    --chip-background: {% if is_on %} #bc000a {% else %} #353535 {% endif %};
+                    --color: {% if is_on %} #ffffff {% else %} #dbdbdb {% endif %};
+                    --text-color: {% if is_on %} #ffffff {% else %} #dbdbdb {% endif %};
+                    height: 35px;
+                    width: 35px;
+                    border-radius: 22px;
+                  }
+
+          # Custom 1 chip
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: "[[entity_id_custom_1]]"
+                state_not: unknown
+              - condition: state
+                entity: "[[entity_id_custom_1]]"
+                state_not: unavailable
+            chip:
+              type: template
+              entity: "[[entity_id_custom_1]]"
+              tap_action:
+                action: more-info
+              icon: >
+                {% set current_state = states('[[entity_id_custom_1]]') %}
+                {% set is_active = current_state in ['on', 'playing', 'paused', 'locked']
+                   and current_state not in ['docked', 'off', 'idle', 'unavailable', 'unknown', 'unlocked'] %}
+                {% if is_active %}
+                  [[custom_1_icon_active]]
+                {% else %}
+                  [[custom_1_icon_inactive]]
+                {% endif %}
+              uix:
+                style: >
+                  @keyframes chip-drop {
+                    0% { opacity: 0; transform: translateY(-12px) scale(0.85); }
+                    60% { transform: translateY(3px) scale(1.05); }
+                    100% { opacity: 1; transform: translateY(0) scale(1); }
+                  }
+
+                  {% set base = '[[animation_delay]]' | replace('s','') | float %}
+                  {% set d = (base + 0.54) | round(2) %}
+                  {% set current_state = states('[[entity_id_custom_1]]') %}
+                  {% set is_active = current_state in ['on', 'playing', 'paused', 'locked']
+                     and current_state not in ['docked', 'off', 'idle', 'unavailable', 'unknown', 'unlocked'] %}
+
+                  ha-card {
+                    animation: chip-drop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both {{ d }}s;
+                    --chip-background: {% if is_active %} [[custom_1_color]] {% else %} #353535 {% endif %};
+                    --color: {% if is_active %} #ffffff {% else %} #dbdbdb {% endif %};
+                    --text-color: {% if is_active %} #ffffff {% else %} #dbdbdb {% endif %};
+                    height: 35px;
+                    width: 35px;
+                    border-radius: 22px;
+                  }
+
+          # Custom 2 chip
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: "[[entity_id_custom_2]]"
+                state_not: unknown
+              - condition: state
+                entity: "[[entity_id_custom_2]]"
+                state_not: unavailable
+            chip:
+              type: template
+              entity: "[[entity_id_custom_2]]"
+              tap_action:
+                action: more-info
+              icon: >
+                {% set current_state = states('[[entity_id_custom_2]]') %}
+                {% set is_active = current_state in ['on', 'playing', 'paused', 'locked']
+                   and current_state not in ['docked', 'off', 'idle', 'unavailable', 'unknown', 'unlocked'] %}
+                {% if is_active %}
+                  [[custom_2_icon_active]]
+                {% else %}
+                  [[custom_2_icon_inactive]]
+                {% endif %}
+              uix:
+                style: >
+                  @keyframes chip-drop {
+                    0% { opacity: 0; transform: translateY(-12px) scale(0.85); }
+                    60% { transform: translateY(3px) scale(1.05); }
+                    100% { opacity: 1; transform: translateY(0) scale(1); }
+                  }
+
+                  {% set base = '[[animation_delay]]' | replace('s','') | float %}
+                  {% set d = (base + 0.61) | round(2) %}
+                  {% set current_state = states('[[entity_id_custom_2]]') %}
+                  {% set is_active = current_state in ['on', 'playing', 'paused', 'locked']
+                     and current_state not in ['docked', 'off', 'idle', 'unavailable', 'unknown', 'unlocked'] %}
+
+                  ha-card {
+                    animation: chip-drop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both {{ d }}s;
+                    --chip-background: {% if is_active %} [[custom_2_color]] {% else %} #353535 {% endif %};
+                    --color: {% if is_active %} #ffffff {% else %} #dbdbdb {% endif %};
+                    --text-color: {% if is_active %} #ffffff {% else %} #dbdbdb {% endif %};
+                    height: 35px;
+                    width: 35px;
+                    border-radius: 22px;
+                  }
+
+          # Custom 3 chip
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: "[[entity_id_custom_3]]"
+                state_not: unknown
+              - condition: state
+                entity: "[[entity_id_custom_3]]"
+                state_not: unavailable
+            chip:
+              type: template
+              entity: "[[entity_id_custom_3]]"
+              tap_action:
+                action: more-info
+              icon: >
+                {% set current_state = states('[[entity_id_custom_3]]') %}
+                {% set is_active = current_state in ['on', 'playing', 'paused', 'locked']
+                   and current_state not in ['docked', 'off', 'idle', 'unavailable', 'unknown', 'unlocked'] %}
+                {% if is_active %}
+                  [[custom_3_icon_active]]
+                {% else %}
+                  [[custom_3_icon_inactive]]
+                {% endif %}
+              uix:
+                style: >
+                  @keyframes chip-drop {
+                    0% { opacity: 0; transform: translateY(-12px) scale(0.85); }
+                    60% { transform: translateY(3px) scale(1.05); }
+                    100% { opacity: 1; transform: translateY(0) scale(1); }
+                  }
+
+                  {% set base = '[[animation_delay]]' | replace('s','') | float %}
+                  {% set d = (base + 0.68) | round(2) %}
+                  {% set current_state = states('[[entity_id_custom_3]]') %}
+                  {% set is_active = current_state in ['on', 'playing', 'paused', 'locked']
+                     and current_state not in ['docked', 'off', 'idle', 'unavailable', 'unknown', 'unlocked'] %}
+
+                  ha-card {
+                    animation: chip-drop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both {{ d }}s;
+                    --chip-background: {% if is_active %} [[custom_3_color]] {% else %} #353535 {% endif %};
+                    --color: {% if is_active %} #ffffff {% else %} #dbdbdb {% endif %};
+                    --text-color: {% if is_active %} #ffffff {% else %} #dbdbdb {% endif %};
+                    height: 35px;
+                    width: 35px;
+                    border-radius: 22px;
+                  }
+
+          # Custom 4 chip
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: "[[entity_id_custom_4]]"
+                state_not: unknown
+              - condition: state
+                entity: "[[entity_id_custom_4]]"
+                state_not: unavailable
+            chip:
+              type: template
+              entity: "[[entity_id_custom_4]]"
+              tap_action:
+                action: more-info
+              icon: >
+                {% set current_state = states('[[entity_id_custom_4]]') %}
+                {% set is_active = current_state in ['on', 'playing', 'paused', 'locked']
+                   and current_state not in ['docked', 'off', 'idle', 'unavailable', 'unknown', 'unlocked'] %}
+                {% if is_active %}
+                  [[custom_4_icon_active]]
+                {% else %}
+                  [[custom_4_icon_inactive]]
+                {% endif %}
+              uix:
+                style: >
+                  @keyframes chip-drop {
+                    0% { opacity: 0; transform: translateY(-12px) scale(0.85); }
+                    60% { transform: translateY(3px) scale(1.05); }
+                    100% { opacity: 1; transform: translateY(0) scale(1); }
+                  }
+
+                  {% set base = '[[animation_delay]]' | replace('s','') | float %}
+                  {% set d = (base + 0.75) | round(2) %}
+                  {% set current_state = states('[[entity_id_custom_4]]') %}
+                  {% set is_active = current_state in ['on', 'playing', 'paused', 'locked']
+                     and current_state not in ['docked', 'off', 'idle', 'unavailable', 'unknown', 'unlocked'] %}
+
+                  ha-card {
+                    animation: chip-drop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both {{ d }}s;
+                    --chip-background: {% if is_active %} [[custom_4_color]] {% else %} #353535 {% endif %};
+                    --color: {% if is_active %} #ffffff {% else %} #dbdbdb {% endif %};
+                    --text-color: {% if is_active %} #ffffff {% else %} #dbdbdb {% endif %};
+                    height: 35px;
+                    width: 35px;
+                    border-radius: 22px;
+                  }
+
+        uix:
+          style: |
+            .chip-container {
+              flex-flow: column wrap-reverse !important;
+              display: flex !important;
+              --chip-spacing: 8px;
+              margin: 9px;
+            }
+    uix:
+      style: |
+        ha-card {
+          {% set temp = states('[[entity_id_temperature]]') %}
+          {% if temp in ['unavailable', 'unknown', ''] %}
+            background: [[room_background]];
+          {% else %}
+            {% set t = temp | float %}
+            background:
+            {% if t < 13 %} rgba(172, 156, 175, 0.8)
+            {% elif t < 16 %} rgba(215, 196, 219, 0.8)
+            {% elif t < 19 %} rgba(163, 217, 245, 0.8)
+            {% elif t < 22 %} rgba(205, 227, 219, 0.8)
+            {% elif t < 24 %} rgba(255, 229, 153, 0.8)
+            {% elif t < 27 %} rgba(247, 190, 129, 0.8)
+            {% else %} rgba(228, 143, 123, 0.8) {% endif %};
+          {% endif %}
+          height: 186px;
+        }
+room_selector:
+  card:
+    type: custom:bubble-card
+    card_type: pop-up
+    hash: "#room-selector"
+    name: Room Selector
+    icon: m3o:room-preferences
+    popup_style: classic
+    styles: |-
+      #root {
+              max-height: 100% !important;
+              transition: transform var(--md-sys-motion-expressive-spatial-default) !important;
+            }
+            .bubble-header-container {
+              --bubble-button-background-color: var(--md-sys-color-on-secondary);
+              --bubble-button-icon-background-color: var(--md-sys-color-on-secondary);
+            }
+            .bubble-pop-up-container {
+              padding-bottom: 64px !important;
+            }
+    bg_color: var(--md-sys-color-on-primary)
+    bg_opacity: "50"
+    button_type: name
+    sub_button:
+      main: []
+      bottom: []
+    slider_fill_orientation: left
+    slider_value_position: right
+    popup_mode: adaptive-dialog
+    cards:
+      - type: custom:simple-swipe-card
+        auto_hide_pagination: 0
+        auto_height: true
+        cards:
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:streamline-card
+                template: title_card
+                variables:
+                  title: Default
+                  title_font_size: 20px
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mushroom-template-card
+                    icon: mdi:garage-variant
+                    features_position: bottom
+                    primary: Garage
+                    color: "#f47068"
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /mobile-dashboard/garage
+                  - type: custom:mushroom-template-card
+                    icon: mdi:sofa
+                    features_position: bottom
+                    primary: Living Area
+                    color: "#ffb3ae"
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /mobile-dashboard/living-area
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mushroom-template-card
+                    icon: m3of:bed
+                    features_position: bottom
+                    primary: Master Bedroom
+                    color: "#fff4f1"
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /mobile-dashboard/master-bedroom
+                  - type: custom:mushroom-template-card
+                    icon: mdi:baby-carriage
+                    features_position: bottom
+                    primary: Baby Room
+                    color: "#1697a6"
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /mobile-dashboard/baby-room
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mushroom-template-card
+                    icon: m3of:person-3
+                    features_position: bottom
+                    primary: Single Guest Room
+                    color: "#0e606b"
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /mobile-dashboard/single-guest-room
+                  - type: custom:mushroom-template-card
+                    icon: m3of:groups-2
+                    features_position: bottom
+                    primary: Multiple Guest Room
+                    color: "#ffc24b"
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /mobile-dashboard/multiple-guest-room
+              - type: custom:streamline-card
+                template: spacer_card
+                variables:
+                  padding: 20px
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:streamline-card
+                template: title_card
+                variables:
+                  title: Others
+                  title_font_size: 20px
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mushroom-template-card
+                    icon: mdi:table-furniture
+                    features_position: bottom
+                    primary: Entrance
+                    color: "#797d62"
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /mobile-dashboard/entrance
+                  - type: custom:mushroom-template-card
+                    icon: mdi:image-frame
+                    features_position: bottom
+                    primary: Hallway
+                    color: "#9b9b7a"
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /mobile-dashboard/hallway
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mushroom-template-card
+                    icon: m3of:computer
+                    features_position: bottom
+                    primary: Office
+                    color: "#d9ae94"
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /mobile-dashboard/office
+                  - type: custom:mushroom-template-card
+                    icon: m3of:water-drop
+                    features_position: bottom
+                    primary: Guest Bathroom
+                    color: "#f1dca7"
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /mobile-dashboard/guest-bathroom
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mushroom-template-card
+                    icon: m3of:laundry
+                    features_position: bottom
+                    primary: Laundry
+                    color: "#d08c60"
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /mobile-dashboard/laundry
+                  - type: custom:mushroom-template-card
+                    icon: mdi:home-roof
+                    features_position: bottom
+                    primary: Attic
+                    color: "#997b66"
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /mobile-dashboard/attic
+              - type: custom:streamline-card
+                template: spacer_card
+                variables:
+                  padding: 20px
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:streamline-card
+                template: title_card
+                variables:
+                  title: Outdoor
+                  title_font_size: 20px
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mushroom-template-card
+                    icon: mdi:light-flood-down
+                    features_position: bottom
+                    primary: Driveway
+                    color: "#fff0ad"
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /mobile-dashboard/driveway
+                  - type: custom:mushroom-template-card
+                    icon: mdi:grass
+                    features_position: bottom
+                    primary: Patio
+                    color: "#ffdd47"
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /mobile-dashboard/patio
+              - type: custom:streamline-card
+                template: spacer_card
+                variables:
+                  padding: 20px
+camera_generic_with_chips_card:
+  default:
+    - camera_url: ""
+    - camera_height: ""
+    - entity_id_light_one: ""
+    - entity_id_light_two: ""
+    - entity_id_light_three: ""
+    - light_one_icon: ""
+    - light_two_icon: ""
+    - light_three_icon: ""
+  variables:
+    - camera_entity
+    - camera_height
+    - entity_id_light_one
+    - entity_id_light_two
+    - light_one_icon
+    - light_two_icon
+  card:
+    type: vertical-stack
+    cards:
+      - type: custom:webrtc-camera
+        entity: "[[camera_entity]]"
+        muted: true
+        uix:
+          style: |
+            ha-card {
+              height: [[camera_height]];
+              overflow: hidden;
+            }
+      - type: custom:mushroom-chips-card
+        alignment: start
+        chips:
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: "[[entity_id_light_one]]"
+                state_not: unknown
+              - condition: state
+                entity: "[[entity_id_light_one]]"
+                state_not: unavailable
+            chip:
+              type: template
+              entity: "[[entity_id_light_one]]"
+              icon: "[[light_one_icon]]"
+              tap_action:
+                action: toggle
+              content: |
+                {{ states['[[entity_id_light_one]]'].name }}
+              uix:
+                style:
+                  .: |
+                    ha-card {
+                      --text-color: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_id_light_one]]', 'on') else 'var(--md-sys-color-primary)' }};
+                      --color: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_id_light_one]]', 'on') else 'var(--md-sys-color-primary)' }};
+                      --chip-background: {{ 'var(--md-sys-color-primary)' if is_state('[[entity_id_light_one]]', 'on') else 'color-mix(in srgb, var(--md-sys-color-on-primary) 50%, transparent)' }};
+                    }
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: "[[entity_id_light_two]]"
+                state_not: unknown
+              - condition: state
+                entity: "[[entity_id_light_two]]"
+                state_not: unavailable
+            chip:
+              type: template
+              entity: "[[entity_id_light_two]]"
+              icon: "[[light_two_icon]]"
+              tap_action:
+                action: toggle
+              content: |
+                {{ states['[[entity_id_light_two]]'].name }}
+              uix:
+                style:
+                  .: |
+                    ha-card {
+                      --text-color: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_id_light_two]]', 'on') else 'var(--md-sys-color-primary)' }};
+                      --color: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_id_light_two]]', 'on') else 'var(--md-sys-color-primary)' }};
+                      --chip-background: {{ 'var(--md-sys-color-primary)' if is_state('[[entity_id_light_two]]', 'on') else 'color-mix(in srgb, var(--md-sys-color-on-primary) 50%, transparent)' }};
+                    }
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: "[[entity_id_light_three]]"
+                state_not: unknown
+              - condition: state
+                entity: "[[entity_id_light_three]]"
+                state_not: unavailable
+            chip:
+              type: template
+              entity: "[[entity_id_light_three]]"
+              icon: "[[light_three_icon]]"
+              tap_action:
+                action: toggle
+              content: |
+                {{ states['[[entity_id_light_three]]'].name }}
+              uix:
+                style:
+                  .: |
+                    ha-card {
+                      --text-color: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_id_light_three]]', 'on') else 'var(--md-sys-color-primary)' }};
+                      --color: {{ 'var(--md-sys-color-on-primary)' if is_state('[[entity_id_light_three]]', 'on') else 'var(--md-sys-color-primary)' }};
+                      --chip-background: {{ 'var(--md-sys-color-primary)' if is_state('[[entity_id_light_three]]', 'on') else 'color-mix(in srgb, var(--md-sys-color-on-primary) 50%, transparent)' }};
+                    }
+irrigation_card:
+  variables:
+    switch_entity: ""
+    flow_sensor: ""
+    timer_entity: ""
+    zone: ""
+    soil_moisture_sensor: ""
+    soil_temperature_sensor: ""
+    session_sensor_prefix: ""
+  card:
+    type: custom:vertical-stack-in-card
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-template-card
+            entity: "[[switch_entity]]"
+            primary: |
+              {{ states('[[flow_sensor]]') | round(1) }} m³/h
+            secondary: >
+              {% set flow = states('[[flow_sensor]]') | float(0) %} {% if
+              is_state('[[switch_entity]]', 'on') %}
+                {% if flow < 0.1 %} Minimal Water Flow
+                {% elif flow < 0.3 %} Low Water Flow
+                {% elif flow < 0.6 %} Moderate Water Flow
+                {% else %} High Water Flow
+                {% endif %}
+              {% else %}
+                Water Flow
+              {% endif %}
+            icon: m3of:sprinkler
+            tap_action:
+              action: toggle
+            color: >
+              {% set flow = states('[[flow_sensor]]') | float %} {% if flow 
+              0.1 %} #A9A9A9 {% elif flow < 0.3 %} #ffd34f {% elif flow < 0.6
+              %} #9fe7e8 {% else %} #36a9e2 {% endif %}
+            features_position: bottom
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: "[[timer_entity]]"
+                state: active
+            card:
+              type: custom:timer-bar-card
+              entity: "[[timer_entity]]"
+              name: Sprinkler
+              invert: true
+              bar_direction: ltr
+              bar_width: 60%
+              mushroom:
+                layout: horizontal
+                color: "#4CBB17"
+
+      # Session stats row — sits between the toggle and the graph
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-template-card
+            icon: mdi:water-outline
+            primary: >
+              {{ states('[[session_sensor_prefix]]_real_time_irrigation_volume') }} L
+            secondary: Session Vol
+            layout: vertical
+          - type: custom:mushroom-template-card
+            icon: mdi:timer-sand
+            primary: >
+              {% set dur = states('[[session_sensor_prefix]]_real_time_irrigation_duration') | int(0) %}
+              {% set mins = (dur // 60) | int %}
+              {% set secs = (dur % 60) | int %}
+              {% if mins > 0 %}{{ mins }}m {{ secs }}s{% else %}{{ secs }}s{% endif %}
+            secondary: Session Dur
+            layout: vertical
+          - type: custom:mushroom-template-card
+            icon: mdi:calendar-today
+            primary: >
+              {{ states('[[session_sensor_prefix]]_daily_irrigation_volume') }} L
+            secondary: Today Total
+            layout: vertical
+
+      - type: custom:config-template-card
+        entities:
+          - "[[flow_sensor]]"
+        variables:
+          - states['[[flow_sensor]]'].state
+        card:
+          type: custom:mini-graph-card
+          entities:
+            - entity: "[[flow_sensor]]"
+              name: Water Flow
+              color: |-
+                ${vars[0] < 0.1 ? '#a9a9a9' :
+                  (vars[0] < 0.3 ? '#ffd34f' :
+                  (vars[0] < 0.6 ? '#9fe7e8' :
+                  '#36a9e2'))}
+          hours_to_show: 24
+          line_width: 3
+          font_size: 50
+          animate: true
+          height: 150
+          show:
+            name: false
+            icon: false
+            state: false
+            legend: false
+            fill: fade
+      - type: conditional
+        conditions:
+          - condition: state
+            entity: "[[soil_moisture_sensor]]"
+            state_not: unavailable
+          - condition: state
+            entity: "[[soil_moisture_sensor]]"
+            state_not: unknown
+        card:
+          type: horizontal-stack
+          cards:
+            - type: custom:mushroom-template-card
+              entity: "[[soil_moisture_sensor]]"
+              icon: m3of:water-drop
+              primary: >
+                {% set moisture = states('[[soil_moisture_sensor]]') |
+                float(0) %} Moist: {{ moisture | round(1) }} %
+              secondary: >
+                {% set moisture = states('[[soil_moisture_sensor]]') |
+                float(0) %} {% if moisture < 15 %} Very Dry {% elif moisture <
+                25 %} Dry {% elif moisture < 45 %} Moist {% else %} Wet {%
+                endif %}
+              color: >
+                {% set moisture = states('[[soil_moisture_sensor]]') |
+                float(0) %} {% if moisture < 15 %} #A9A9A9 {% elif moisture <
+                25 %} #ffd34f {% elif moisture < 45 %} #9fe7e8 {% else %}
+                #36a9e2 {% endif %}
+              features_position: bottom
+              multiline_secondary: true
+            - type: custom:mushroom-template-card
+              entity: "[[soil_temperature_sensor]]"
+              icon: m3of:thermometer
+              primary: >
+                {% set temp = states('[[soil_temperature_sensor]]') | float(0)
+                %} Temp: {{ temp | round(1) }} {{
+                state_attr('weather.forecast_home', 'temperature_unit') }}
+              secondary: >
+                {% set temp = states('[[soil_temperature_sensor]]') | float(0)
+                %} {% if temp < 16 %} Very Cold {% elif temp < 18 %} Cool {%
+                elif temp < 22 %} Mild {% elif temp < 24 %} Warm {% elif temp
+                < 27 %} Hot {% else %} Very Hot {% endif %}
+              color: >
+                {% set temp = states('[[soil_temperature_sensor]]') | float(0)
+                %} {% if temp < 16 %} #CEB2F5 {% elif temp < 18 %} #5EBDEE {%
+                elif temp < 22 %} #9cc8b8 {% elif temp < 24 %} #e7b562 {% elif
+                temp < 27 %} #FF564B {% else %} #99332d {% endif %}
+              features_position: bottom
+              multiline_secondary: true
+      - type: custom:streamline-card
+        template: title_card
+        variables:
+          title: Irrigation Control
+          title_font_size: 20px
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-template-card
+            icon: mdi:timer-outline
+            primary: 5 m
+            tap_action:
+              action: call-service
+              service: script.start_sprinkler_timer
+              data:
+                zone: "[[zone]]"
+                duration: "00:05:00"
+            layout: vertical
+          - type: custom:mushroom-template-card
+            icon: mdi:timer-outline
+            primary: 15 m
+            tap_action:
+              action: call-service
+              service: script.start_sprinkler_timer
+              data:
+                zone: "[[zone]]"
+                duration: "00:15:00"
+            layout: vertical
+          - type: custom:mushroom-template-card
+            icon: mdi:timer-outline
+            primary: 30 m
+            tap_action:
+              action: call-service
+              service: script.start_sprinkler_timer
+              data:
+                zone: "[[zone]]"
+                duration: "00:30:00"
+            layout: vertical
+          - type: custom:mushroom-template-card
+            icon: mdi:timer-outline
+            primary: 1 hr
+            tap_action:
+              action: call-service
+              service: script.start_sprinkler_timer
+              data:
+                zone: "[[zone]]"
+                duration: "01:00:00"
+            layout: vertical
+          - type: custom:mushroom-template-card
+            icon: mdi:timer-outline
+            primary: 2 hr
+            tap_action:
+              action: call-service
+              service: script.start_sprinkler_timer
+              data:
+                zone: "[[zone]]"
+                duration: "02:00:00"
+            layout: vertical
+
+chronicle_history_card:
+  variables:
+    title: ""
+    entity: ""
+    name: ""
+    color: ""
+  card:
+    layout: vertical
+    show_layout_toggle: true
+    max_events: 50
+    days_back: 7
+    time_format: 24h
+    show_header: true
+    filters:
+      categories: []
+      severities: []
+      sources: []
+      entities: []
+      search: ""
+    grouping:
+      enabled: true
+      window_seconds: 120
+      min_group_size: 3
+      group_by: category
+    appearance:
+      card_height: 400px
+      compact: false
+      show_images: true
+      show_icons: true
+      show_severity_badge: true
+      show_source_badge: false
+      animate_new_events: true
+      severity_colors:
+        critical: "#D32F2F"
+        warning: "#FF9800"
+        info: "#2196F3"
+        debug: "#9E9E9E"
+    type: custom:chronicle-card
+    title: "[[title]]"
+    sources:
+      - type: history
+        name: "[[name]]"
+        default_severity: info
+        default_color: "[[color]]"
+        entity: "[[entity]]"
+climate_card:
+  variables:
+    entity: ""
+  card:
+    type: custom:material-climate-card
+    entity: "[[entity]]"
+    increase_temp: 1
+    decrease_temp: 1
+    use_material_color: true
+    use_default_icon: true
+dynamic_scene_room_card:
+  variables:
+    - icon: mdi:home
+    - primary: Room
+    - scene_tracker: input_text.room_dynamic_scene_active
+    - room_lights: []
+    - presence_automation: automation.room_presence
+    - room_boolean: input_boolean.room_dynamic_scene
+    - color_active: "#aaaaaa"
+  card:
+    type: custom:mushroom-template-card
+    icon: "[[icon]]"
+    primary: "[[primary]]"
+    secondary: "{{ states('[[scene_tracker]]') }}"
+    tap_action:
+      action: call-service
+      service: script.toggle_or_apply_dynamic_scene
+      data:
+        room_lights: "[[room_lights]]"
+        presence_automation: "[[presence_automation]]"
+        room_boolean: "[[room_boolean]]"
+        room_scene_tracker: "[[scene_tracker]]"
+    color: |-
+      {% if states('[[scene_tracker]]') != '' %}
+        [[color_active]]
+      {% else %}
+        #aaaaaa
+      {% endif %}
+    vertical: true

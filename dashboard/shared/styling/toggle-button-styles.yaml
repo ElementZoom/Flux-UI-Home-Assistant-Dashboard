@@ -1,0 +1,19 @@
+name:
+  color: '#a8a8a8'
+  transition: color 0.3s ease, transform 0.3s ease
+button:
+  padding: 12px
+  width: 76px
+  height: 76px
+  flex-basis: 1
+  flex-shrink: 0
+  display: flex
+  background-color: none
+  border-radius: 24px
+  color: var(--white)
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1)
+  animation: fadeInUp 0.5s ease-out 0.4s both
+icon:
+  '--mdc-icon-size': 26px
+  color: '#a8a8a8'
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1)

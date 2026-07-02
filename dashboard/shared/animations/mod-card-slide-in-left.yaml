@@ -1,0 +1,15 @@
+style: |
+  ha-card {
+    animation: slideInLeft 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 1;
+      transform: translateX(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
