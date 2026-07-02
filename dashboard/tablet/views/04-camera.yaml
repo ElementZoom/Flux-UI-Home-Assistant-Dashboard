@@ -1,0 +1,74 @@
+- type: sections
+  max_columns: 3
+  icon: m3o:camera
+  path: camera
+  title: Camera
+  sections:
+    - type: grid
+      cards:
+        - type: vertical-stack
+          cards:
+            - type: custom:stack-in-card
+              mode: vertical
+              cards:
+                - type: custom:streamline-card
+                  template: title_subtitle_card
+                  variables:
+                    title: Driveway
+                    subtitle: "{{ states ('sensor.right_driveway_camera_status') }}"
+                - !include ../../shared/cards/camera/driveway-card-with-chips.yaml
+            - !include ../../shared/cards/camera/driveway-card.yaml
+            - type: custom:streamline-card
+              template: title_subtitle_card
+              variables:
+                title: Left Walkway
+                subtitle: "{{ states ('sensor.left_walkway_camera_status') }}"
+            - !include ../../shared/cards/camera/left-walkway-card.yaml
+    - type: grid
+      cards:
+        - type: vertical-stack
+          cards:
+            - type: custom:streamline-card
+              template: title_subtitle_card
+              variables:
+                title: Road
+                subtitle: "{{ states ('sensor.road_camera_status') }}"
+            - !include ../../shared/cards/camera/road-card.yaml
+            - type: custom:streamline-card
+              template: title_subtitle_card
+              variables:
+                title: Backyard
+                subtitle: "{{ states ('sensor.backyard_camera_status') }}"
+            - !include ../../shared/cards/camera/backyard-card.yaml
+    - type: grid
+      cards:
+        - type: vertical-stack
+          cards:
+            - type: custom:streamline-card
+              template: title_subtitle_card
+              variables:
+                title: Right Walkway
+                subtitle: "{{ states ('sensor.right_walkway_camera_status') }}"
+            - !include ../../shared/cards/camera/right-walkway-card.yaml
+            - type: custom:stack-in-card
+              mode: vertical
+              cards:
+                - type: custom:streamline-card
+                  template: title_subtitle_card
+                  variables:
+                    title: Garage
+                    subtitle: "{{ states ('sensor.garage_camera_status') }}"
+                - !include ../../shared/cards/camera/garage-card-with-chips.yaml
+            - !include ../../shared/cards/camera/garage-card.yaml
+  badges:
+    - type: custom:streamline-card
+      template: back_button_card
+      variables:
+        navigation_path: /tablet-dashboard/overview
+  header:
+    layout: responsive
+    badges_position: top
+    badges_wrap: wrap
+  cards: []
+  background: !include ../shared/background.yaml
+  subview: true

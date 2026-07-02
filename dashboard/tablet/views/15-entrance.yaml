@@ -1,0 +1,61 @@
+- type: sections
+  max_columns: 4
+  title: Entrance
+  path: entrance
+  icon: mdi:table-furniture
+  subview: true
+  sections:
+    - type: grid
+      cards:
+        - type: custom:mod-card
+          uix: !include ../../shared/animations/mod-card-slide-in-left.yaml
+          card: !include ../../shared/cards/individual-rooms/entrance/entrance-lights-card.yaml
+    - type: grid
+      cards:
+        - type: custom:mod-card
+          uix: !include ../../shared/animations/mod-card-slide-in-right.yaml
+          card:
+            type: vertical-stack
+            cards:
+              - !include ../../shared/cards/individual-rooms/entrance/entrance-open-entities-card.yaml
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: binary_sensor.door_sensor_etr_contact
+                    state: "off"
+                card:
+                  type: vertical-stack
+                  cards:
+                    - type: custom:streamline-card
+                      template: title_card
+                      variables:
+                        title: Room Illustration
+                        title_font_size: 20px
+                    - type: picture
+                      image:
+                        media_content_id: /local/room_pictures/Entrance.webp
+  background: !include ../shared/background.yaml
+  header:
+    layout: start
+    badges_position: top
+    badges_wrap: wrap
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: back_button_card
+          variables:
+            navigation_path: /tablet-dashboard/overview
+        - type: custom:streamline-card
+          template: title_card
+          variables:
+            title: Entrance
+            title_font_size: 25px
+            animation_delay: 0s
+        - type: custom:streamline-card
+          template: spacer_card
+          variables:
+            padding: 4px
+        - !include ../../shared/cards/individual-rooms/entrance/entrance-details-card.yaml
+        - !include ../../shared/cards/individual-rooms/entrance/entrance-paper-row-card.yaml
+  badges: []

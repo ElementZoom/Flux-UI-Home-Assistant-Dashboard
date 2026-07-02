@@ -1,0 +1,210 @@
+- type: sections
+  max_columns: 4
+  title: Rooms
+  path: rooms
+  icon: m3o:chair
+  sections:
+    - type: grid
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: back_button_card
+              variables:
+                navigation_path: /mobile-dashboard/overview
+            - type: custom:streamline-card
+              template: page_title_card
+              variables:
+                title: Rooms
+            - type: custom:streamline-card
+              template: spacer_card
+              variables: {}
+        - type: vertical-stack
+          cards:
+            - type: custom:streamline-card
+              template: spacer_card
+              variables:
+                padding: 4px
+            - type: custom:streamline-card
+              template: room_toggles_chip_card
+              variables:
+                entity_area_one: input_boolean.room_toggle_one_mobile
+                area_one_icon: mdi:star
+                area_one_name: Default
+                entity_area_two: input_boolean.room_toggle_two_mobile
+                area_two_icon: mdi:home
+                area_two_name: Others
+                entity_area_three: input_boolean.room_toggle_three_mobile
+                area_three_icon: mdi:light-flood-down
+                area_three_name: Outdoor
+                animation_delay: 0.1s
+                alignment: start
+            - type: custom:streamline-card
+              template: spacer_card
+              variables:
+                padding: 4px
+        - type: custom:vertical-stack-in-card
+          cards:
+            - type: conditional
+              conditions:
+                - entity: input_boolean.room_toggle_one_mobile
+                  state: "on"
+              card:
+                type: horizontal-stack
+                cards:
+                  - !include ../../shared/cards/rooms/garage-card-mobile.yaml
+                  - !include ../../shared/cards/rooms/living-area-card-mobile.yaml
+
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: input_boolean.room_toggle_two_mobile
+                  state: "on"
+              card:
+                type: horizontal-stack
+                cards:
+                  - !include ../../shared/cards/rooms/entrance-card-mobile.yaml
+                  - !include ../../shared/cards/rooms/hallway-card-mobile.yaml
+
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: input_boolean.room_toggle_three_mobile
+                  state: "on"
+              card:
+                type: horizontal-stack
+                cards:
+                  - !include ../../shared/cards/rooms/driveway-card-mobile.yaml
+                  - !include ../../shared/cards/rooms/patio-card-mobile.yaml
+
+        - type: custom:vertical-stack-in-card
+          cards:
+            - type: conditional
+              conditions:
+                - entity: input_boolean.room_toggle_one_mobile
+                  state: "on"
+              card:
+                type: horizontal-stack
+                cards:
+                  - !include ../../shared/cards/rooms/master-bedroom-card-mobile.yaml
+                  - !include ../../shared/cards/rooms/baby-room-card-mobile.yaml
+
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: input_boolean.room_toggle_two_mobile
+                  state: "on"
+              card:
+                type: horizontal-stack
+                cards:
+                  - !include ../../shared/cards/rooms/office-room-card-mobile.yaml
+                  - !include ../../shared/cards/rooms/guest-bathroom-card-mobile.yaml
+
+        - type: custom:vertical-stack-in-card
+          cards:
+            - type: conditional
+              conditions:
+                - entity: input_boolean.room_toggle_one_mobile
+                  state: "on"
+              card:
+                type: horizontal-stack
+                cards:
+                  - !include ../../shared/cards/rooms/single-guest-room-card-mobile.yaml
+                  - !include ../../shared/cards/rooms/multiple-guest-room-card-mobile.yaml
+
+            - type: conditional
+              conditions:
+                - condition: state
+                  entity: input_boolean.room_toggle_two_mobile
+                  state: "on"
+              card:
+                type: horizontal-stack
+                cards:
+                  - !include ../../shared/cards/rooms/laundry-card-mobile.yaml
+                  - !include ../../shared/cards/rooms/attic-card-mobile.yaml
+
+    - type: grid
+      cards:
+        - type: custom:navbar-card
+          mobile:
+            show_labels: true
+          haptic: true
+          desktop:
+            show_labels: true
+            position: bottom
+            min_width: 768
+          routes:
+            - url: /mobile-dashboard/overview
+              label: Home
+              icon: m3o:home
+              icon_selected: m3of:home
+            - url: /mobile-dashboard/rooms
+              label: Rooms
+              icon: m3o:chair
+              icon_selected: mdi:sofa
+            - url: /mobile-dashboard/scenes
+              label: Scenes
+              icon: m3o:layers
+              icon_selected: m3of:layers
+              popup:
+                - icon: hue:recessed-ceiling
+                  label: ""
+                  url: /mobile-dashboard/scenes
+                - icon: hue:lightstrip
+                  label: ""
+                  url: /mobile-dashboard/scenes-gradient
+              tap_action:
+                action: open-popup
+            - url: /mobile-dashboard/camera
+              label: Camera
+              icon: m3o:camera
+              icon_selected: m3of:camera
+            - icon: mdi:dots-horizontal
+              label: More
+              tap_action:
+                action: open-popup
+              popup:
+                - icon: m3of:tools-wrench
+                  url: /config/dashboard
+          styles: |
+            .navbar-card {
+              background: color-mix(in srgb, var(--md-sys-color-on-primary) 25%, transparent);
+              backdrop-filter: blur(50px);
+              -webkit-backdrop-filter: blur(20px) !important;
+              background-blend-mode: overlay;
+              border-radius: 20px;
+              box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+              margin-bottom: 15px;
+              overflow: hidden;
+              animation: slideUp 0.5s ease-out 0.6s both;
+            }
+
+            @keyframes slideUp {
+              from { 
+                opacity: 1;
+                transform: translateY(4px);
+              }
+              to { 
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+
+            .button {
+              --icon-primary-color: color-mix(in srgb, var(--md-sys-color-primary) 40%, transparent);;
+            }
+
+            .button.active {
+              background: transparent;
+            }
+
+            ha-ripple {
+              display: none !important;
+            }
+  badges: []
+  header:
+    layout: responsive
+    badges_position: top
+    badges_wrap: wrap
+  cards: []
+  background: !include ../shared/background.yaml

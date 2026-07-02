@@ -1,0 +1,279 @@
+- type: sections
+  max_columns: 3
+  title: Calendar
+  path: calendar
+  sections:
+    - type: grid
+      cards:
+        - type: custom:week-planner-card
+          calendars:
+            - entity: calendar.christina
+              color: "#ff6a6a"
+            - entity: calendar.email
+              color: "#71c8fe"
+            - entity: calendar.house_maintenance
+              color: "#d3f37f"
+            - entity: calendar.new_zealand_holidays
+              color: "#f9da4e"
+          days: "1"
+          startingDay: today
+          startingDayOffset: 0
+          weather:
+            showCondition: true
+            showTemperature: true
+            showLowTemperature: true
+            entity: weather.home
+          locale: nz
+    - type: grid
+      cards:
+        - type: custom:week-planner-card
+          calendars:
+            - entity: calendar.christina
+              color: "#ff6a6a"
+            - entity: calendar.email
+              color: "#71c8fe"
+            - entity: calendar.house_maintenance
+              color: "#d3f37f"
+            - entity: calendar.new_zealand_holidays
+              color: "#f9da4e"
+          days: "1"
+          startingDay: today
+          startingDayOffset: "1"
+          weather:
+            showCondition: true
+            showTemperature: true
+            showLowTemperature: true
+            entity: weather.home
+          locale: nz
+    - type: grid
+      cards:
+        - type: custom:week-planner-card
+          calendars:
+            - entity: calendar.christina
+              color: "#ff6a6a"
+            - entity: calendar.email
+              color: "#71c8fe"
+            - entity: calendar.house_maintenance
+              color: "#d3f37f"
+            - entity: calendar.new_zealand_holidays
+              color: "#f9da4e"
+          days: "1"
+          startingDay: today
+          startingDayOffset: "2"
+          weather:
+            showCondition: true
+            showTemperature: true
+            showLowTemperature: true
+            entity: weather.home
+          locale: nz
+    - type: grid
+      cards:
+        - type: custom:week-planner-card
+          calendars:
+            - entity: calendar.christina
+              color: "#ff6a6a"
+            - entity: calendar.email
+              color: "#71c8fe"
+            - entity: calendar.house_maintenance
+              color: "#d3f37f"
+            - entity: calendar.new_zealand_holidays
+              color: "#f9da4e"
+          days: "1"
+          startingDay: today
+          startingDayOffset: "3"
+          weather:
+            showCondition: true
+            showTemperature: true
+            showLowTemperature: true
+            entity: weather.home
+          locale: nz
+          showLegend: false
+    - type: grid
+      cards:
+        - type: custom:week-planner-card
+          calendars:
+            - entity: calendar.christina
+              color: "#ff6a6a"
+            - entity: calendar.email
+              color: "#71c8fe"
+            - entity: calendar.house_maintenance
+              color: "#d3f37f"
+            - entity: calendar.new_zealand_holidays
+              color: "#f9da4e"
+          days: "1"
+          startingDay: today
+          startingDayOffset: "4"
+          weather:
+            showCondition: true
+            showTemperature: true
+            showLowTemperature: true
+            entity: weather.home
+          locale: nz
+          showLegend: false
+    - type: grid
+      cards:
+        - type: custom:week-planner-card
+          calendars:
+            - entity: calendar.christina
+              color: "#ff6a6a"
+            - entity: calendar.email
+              color: "#71c8fe"
+            - entity: calendar.house_maintenance
+              color: "#d3f37f"
+            - entity: calendar.new_zealand_holidays
+              color: "#f9da4e"
+          days: "1"
+          startingDay: today
+          startingDayOffset: "5"
+          weather:
+            showCondition: true
+            showTemperature: true
+            showLowTemperature: true
+            entity: weather.home
+          locale: nz
+          showLegend: false
+    - type: grid
+      cards:
+        - type: custom:week-planner-card
+          calendars:
+            - entity: calendar.christina
+              color: "#ff6a6a"
+            - entity: calendar.email
+              color: "#71c8fe"
+            - entity: calendar.house_maintenance
+              color: "#d3f37f"
+            - entity: calendar.new_zealand_holidays
+              color: "#f9da4e"
+          days: "1"
+          startingDay: today
+          startingDayOffset: "6"
+          weather:
+            showCondition: true
+            showTemperature: true
+            showLowTemperature: true
+            entity: weather.home
+          locale: nz
+          showLegend: false
+    - type: grid
+      cards:
+        - type: custom:week-planner-card
+          calendars:
+            - entity: calendar.christina
+              color: "#ff6a6a"
+            - entity: calendar.email
+              color: "#71c8fe"
+            - entity: calendar.house_maintenance
+              color: "#d3f37f"
+            - entity: calendar.new_zealand_holidays
+              color: "#f9da4e"
+          days: "1"
+          startingDay: today
+          startingDayOffset: "7"
+          weather:
+            showCondition: true
+            showTemperature: true
+            showLowTemperature: true
+            entity: weather.home
+          locale: nz
+          showLegend: false
+    - type: grid
+      cards:
+        - type: custom:week-planner-card
+          calendars:
+            - entity: calendar.christina
+              color: "#ff6a6a"
+            - entity: calendar.email
+              color: "#71c8fe"
+            - entity: calendar.house_maintenance
+              color: "#d3f37f"
+            - entity: calendar.new_zealand_holidays
+              color: "#f9da4e"
+          days: "1"
+          startingDay: today
+          startingDayOffset: "8"
+          weather:
+            showCondition: true
+            showTemperature: true
+            showLowTemperature: true
+            entity: weather.home
+          locale: nz
+          showLegend: false
+    - type: grid
+      cards:
+        - type: custom:week-planner-card
+          calendars:
+            - entity: calendar.christina
+              color: "#ff6a6a"
+            - entity: calendar.email
+              color: "#71c8fe"
+            - entity: calendar.house_maintenance
+              color: "#d3f37f"
+            - entity: calendar.new_zealand_holidays
+              color: "#f9da4e"
+          days: "1"
+          startingDay: today
+          startingDayOffset: "9"
+          weather:
+            showCondition: true
+            showTemperature: true
+            showLowTemperature: true
+            entity: weather.home
+          locale: nz
+          showLegend: false
+    - type: grid
+      cards:
+        - type: custom:week-planner-card
+          calendars:
+            - entity: calendar.christina
+              color: "#ff6a6a"
+            - entity: calendar.email
+              color: "#71c8fe"
+            - entity: calendar.house_maintenance
+              color: "#d3f37f"
+            - entity: calendar.new_zealand_holidays
+              color: "#f9da4e"
+          days: "1"
+          startingDay: today
+          startingDayOffset: "10"
+          weather:
+            showCondition: true
+            showTemperature: true
+            showLowTemperature: true
+            entity: weather.home
+          locale: nz
+          showLegend: false
+    - type: grid
+      cards:
+        - type: custom:week-planner-card
+          calendars:
+            - entity: calendar.christina
+              color: "#ff6a6a"
+            - entity: calendar.email
+              color: "#71c8fe"
+            - entity: calendar.house_maintenance
+              color: "#d3f37f"
+            - entity: calendar.new_zealand_holidays
+              color: "#f9da4e"
+          days: "1"
+          startingDay: today
+          startingDayOffset: "11"
+          weather:
+            showCondition: true
+            showTemperature: true
+            showLowTemperature: true
+            entity: weather.home
+          locale: nz
+          showLegend: false
+  icon: mdi:calendar
+  cards: []
+  badges:
+    - type: custom:streamline-card
+      template: back_button_card
+      variables:
+        navigation_path: /tablet-dashboard/overview
+  header:
+    layout: responsive
+    badges_position: top
+    badges_wrap: wrap
+  background: !include ../shared/background.yaml
+  subview: true

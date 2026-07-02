@@ -1,0 +1,1145 @@
+- title: Overview
+  header:
+    layout: responsive
+    badges_position: bottom
+    badges_wrap: wrap
+  type: sections
+  max_columns: 4
+  path: overview
+  sections:
+    - type: grid
+      cards:
+        - type: vertical-stack
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: conditional
+                  conditions:
+                    - condition: and
+                      conditions:
+                        - condition: not
+                          conditions:
+                            - condition: state
+                              entity: sensor.home_metservice_weather_warnings
+                              state: unavailable
+                        - condition: not
+                          conditions:
+                            - condition: state
+                              entity: sensor.home_metservice_weather_warnings
+                              state: unknown
+                  card:
+                    type: custom:mushroom-chips-card
+                    chips:
+                      - type: conditional
+                        conditions:
+                          - condition: numeric_state
+                            entity: sensor.geonet_nz_quakes_long_lat
+                            above: 0
+                        chip:
+                          type: template
+                          entity: geonet.
+                          content: Earthquake Alert
+                          tap_action:
+                            action: navigate
+                            navigation_path: "?tab=earthquake#weather-panel"
+                          icon: mdi:earth
+                          icon_color: >
+                            {% set mag =
+                            state_attr('sensor.geonet_nz_quakes_long_lat',
+                            'magnitude') | float(0) %} {% if mag >= 6.0 %}
+                            #D32F2F {% elif mag >= 5.0 %} #F4511E {% elif mag
+                            >= 4.0 %} #FB8C00 {% elif mag >= 3.0 %} #F9A825 {%
+                            elif mag >= 2.0 %} #FBC02D {% else %} #388E3C {%
+                            endif %}
+                      - type: conditional
+                        conditions:
+                          - condition: numeric_state
+                            entity: sensor.volcano_rotorua
+                            above: 0
+                        chip:
+                          type: template
+                          entity: sensor.volcano_rotorua
+                          content: Volcano Alert
+                          tap_action:
+                            action: navigate
+                            navigation_path: "?tab=volcano#weather-panel"
+                          icon: >
+                            {{ state_attr('sensor.volcano_rotorua', 'icon') or
+                            'mdi:image-filter-hdr' }}
+                          icon_color: >
+                            {% set level = states('sensor.volcano_rotorua') |
+                            int %}
+
+                            {% if level == 5 %} red
+
+                            {% elif level == 4 %} deep-orange
+
+                            {% elif level == 3 %} orange
+
+                            {% elif level == 2 %} amber
+
+                            {% elif level == 1 %} yellow
+
+                            {% else %} green
+
+                            {% endif %}
+                      - type: conditional
+                        conditions:
+                          - condition: state
+                            entity: sensor.home_metservice_weather_warnings
+                            state_not: unknown
+                        chip:
+                          type: template
+                          entity: sensor.home_metservice_weather_warnings
+                          content: Weather Alert
+                          tap_action:
+                            action: navigate
+                            navigation_path: "?tab=warning#weather-panel"
+                          icon: mdi:alert
+                          icon_color: orange
+                    alignment: start
+                    uix: !include ../../shared/animations/mod-card-fade-in-right.yaml
+                - type: conditional
+                  conditions:
+                    - condition: or
+                      conditions:
+                        - condition: state
+                          entity: sensor.home_metservice_weather_warnings
+                          state: unavailable
+                        - condition: state
+                          entity: sensor.home_metservice_weather_warnings
+                          state: unknown
+                  card:
+                    type: custom:mushroom-chips-card
+                    chips:
+                      - type: conditional
+                        conditions:
+                          - entity: alarm_control_panel.alarmo
+                            state: triggered
+                        chip:
+                          type: template
+                          entity: alarm_control_panel.alarmo
+                          content: Triggered
+                          tap_action:
+                            action: navigate
+                            navigation_path: "#alarmo"
+                          icon: mdi:bell-ring
+                          icon_color: "#d14f3a"
+                      - type: conditional
+                        conditions:
+                          - entity: alarm_control_panel.alarmo
+                            state: armed_away
+                        chip:
+                          type: template
+                          entity: alarm_control_panel.alarmo
+                          content: Armed
+                          tap_action:
+                            action: navigate
+                            navigation_path: "#alarmo"
+                          icon: mdi:shield-lock
+                          icon_color: "#69ac5a"
+                      - type: conditional
+                        conditions:
+                          - entity: alarm_control_panel.alarmo
+                            state: arming
+                        chip:
+                          type: template
+                          entity: alarm_control_panel.alarmo
+                          content: Arming
+                          tap_action:
+                            action: navigate
+                            navigation_path: "#alarmo"
+                          icon: mdi:shield
+                          icon_color: "#efa340"
+                      - type: conditional
+                        conditions:
+                          - entity: alarm_control_panel.alarmo
+                            state: pending
+                        chip:
+                          type: template
+                          entity: alarm_control_panel.alarmo
+                          content: Pending
+                          tap_action:
+                            action: navigate
+                            navigation_path: "#alarmo"
+                          icon: mdi:shield-outline
+                          icon_color: "#efa340"
+                      - type: conditional
+                        conditions:
+                          - entity: alarm_control_panel.alarmo
+                            state: disarmed
+                        chip:
+                          type: template
+                          entity: alarm_control_panel.alarmo
+                          content: Disarmed
+                          tap_action:
+                            action: navigate
+                            navigation_path: "#alarmo"
+                          icon: mdi:shield-off
+                    alignment: start
+                - type: conditional
+                  conditions:
+                    - condition: and
+                      conditions:
+                        - condition: not
+                          conditions:
+                            - condition: state
+                              entity: sensor.home_metservice_weather_warnings
+                              state: unavailable
+                        - condition: not
+                          conditions:
+                            - condition: state
+                              entity: sensor.home_metservice_weather_warnings
+                              state: unknown
+                  card:
+                    type: custom:mushroom-chips-card
+                    chips:
+                      - type: conditional
+                        conditions:
+                          - entity: alarm_control_panel.alarmo
+                            state: triggered
+                        chip:
+                          type: template
+                          entity: alarm_control_panel.alarmo
+                          content: Triggered
+                          tap_action:
+                            action: navigate
+                            navigation_path: "#alarmo"
+                          icon: mdi:bell-ring
+                          icon_color: "#d14f3a"
+                      - type: conditional
+                        conditions:
+                          - entity: alarm_control_panel.alarmo
+                            state: armed_away
+                        chip:
+                          type: template
+                          entity: alarm_control_panel.alarmo
+                          content: Armed
+                          tap_action:
+                            action: navigate
+                            navigation_path: "#alarmo"
+                          icon: mdi:shield-lock
+                          icon_color: "#69ac5a"
+                      - type: conditional
+                        conditions:
+                          - entity: alarm_control_panel.alarmo
+                            state: arming
+                        chip:
+                          type: template
+                          entity: alarm_control_panel.alarmo
+                          content: Arming
+                          tap_action:
+                            action: navigate
+                            navigation_path: "#alarmo"
+                          icon: mdi:shield
+                          icon_color: "#efa340"
+                      - type: conditional
+                        conditions:
+                          - entity: alarm_control_panel.alarmo
+                            state: pending
+                        chip:
+                          type: template
+                          entity: alarm_control_panel.alarmo
+                          content: Pending
+                          tap_action:
+                            action: navigate
+                            navigation_path: "#alarmo"
+                          icon: mdi:shield-outline
+                          icon_color: "#efa340"
+                      - type: conditional
+                        conditions:
+                          - entity: alarm_control_panel.alarmo
+                            state: disarmed
+                        chip:
+                          type: template
+                          entity: alarm_control_panel.alarmo
+                          tap_action:
+                            action: navigate
+                            navigation_path: "#alarmo"
+                          icon: mdi:shield-off
+                      - type: template
+                        entity: sensor.active_notification_count
+                        icon: mdi:bell
+                        tap_action:
+                          action: navigate
+                          navigation_path: "#notifications"
+                        hold_action:
+                          action: none
+                        uix:
+                          style: >
+                            ha-card {
+                              position: relative;
+                              transition: transform 0.3s ease, box-shadow 0.3s ease;
+                            }
+
+                            {% set notifications =
+                            states('sensor.active_notification_count') | int
+                            %}
+
+                            {% if notifications > 0 %}
+
+                            ha-card:after {
+                              content: "{{ notifications }}";
+                              position: absolute;
+                              top: -3px;
+                              right: -3px;
+                              background-color: color-mix(in srgb, var(--md-sys-color-on-primary) 50%, transparent);
+                              color: var(--md-sys-color-primary);
+                              border-radius: 50%;
+                              width: 16px;
+                              height: 16px;
+                              font-size: 10px;
+                              line-height: 16px;
+                              text-align: center;
+                              display: inline-block;
+                              font-weight: bold;
+
+                            } {% endif %}
+                    alignment: end
+                    uix: !include ../../shared/animations/mod-card-fade-in-right.yaml
+                - type: conditional
+                  conditions:
+                    - condition: or
+                      conditions:
+                        - condition: state
+                          entity: sensor.home_metservice_weather_warnings
+                          state: unavailable
+                        - condition: state
+                          entity: sensor.home_metservice_weather_warnings
+                          state: unknown
+                  card:
+                    type: custom:mushroom-chips-card
+                    chips:
+                      - type: template
+                        entity: sensor.active_notification_count
+                        icon: mdi:bell
+                        tap_action:
+                          action: navigate
+                          navigation_path: "#notifications"
+                        hold_action:
+                          action: none
+                        uix:
+                          style: >
+                            ha-card {
+                              position: relative;
+                              transition: transform 0.3s ease, box-shadow 0.3s ease;
+                            }
+
+                            {% set notifications =
+                            states('sensor.active_notification_count') | int
+                            %}
+
+                            {% if notifications > 0 %}
+
+                            ha-card:after {
+                              content: "{{ notifications }}";
+                              position: absolute;
+                              top: -3px;
+                              right: -3px;
+                              background-color: color-mix(in srgb, var(--md-sys-color-on-primary) 50%, transparent);
+                              color: var(--md-sys-color-primary);
+                              border-radius: 50%;
+                              width: 16px;
+                              height: 16px;
+                              font-size: 10px;
+                              line-height: 16px;
+                              text-align: center;
+                              display: inline-block;
+                              font-weight: bold;
+
+                            } {% endif %}
+                    alignment: end
+                    uix: !include ../../shared/animations/mod-card-fade-in-right.yaml
+
+            - !include ../../shared/cards/weather/wind-below-30-card.yaml
+            - !include ../../shared/cards/weather/wind-above-30-card.yaml
+
+            - type: custom:button-card
+              show_entity_picture: false
+              show_icon: false
+              show_label: true
+              entity: >
+                [[[ return user.name == "Rey" ? "person.rey" :
+                "person.christina";
+                      ]]]
+              name: |
+                [[[
+                  const hour = new Date().getHours();
+                  let greeting = "";
+                  if (hour >= 22 || hour < 5) greeting = "🌘✨ Night";
+                  else if (hour >= 18) greeting = "🌙 Evening";
+                  else if (hour >= 12) greeting = "🌤️ Afternoon";
+                  else greeting = "☕ Morning";
+                  const name = user.name == "Rey" ? "Rey" : "Christina";
+                  return `${greeting}, ${name}!`;
+                ]]]
+              label: |
+                [[[
+                  const s = entity.state;
+                  if (s === "home") return "Home";
+                  return "Away";
+                ]]]
+              tap_action:
+                action: navigate
+                navigation_path: "#people-timeline"
+              styles:
+                card:
+                  - padding: 12px -2px 12px 12px
+                  - background: none
+                  - box-shadow: none
+                grid:
+                  - grid-template-areas: '"pic n one" "pic l one"'
+                  - grid-template-rows: min-content min-content
+                  - grid-template-columns: 50px 1fr 50px
+                name:
+                  - justify-self: start
+                  - align-self: center
+                  - font-size: 15px
+                  - padding-left: 15px
+                label:
+                  - justify-self: start
+                  - align-self: start
+                  - font-size: 12px
+                  - color: var(--contrast14)
+                  - padding-left: 15px
+              custom_fields:
+                pic:
+                  card:
+                    type: custom:button-card
+                    entity: >
+                      [[[ return user.name == "Rey" ? "person.rey" :
+                      "person.christina"; ]]]
+                    show_name: false
+                    show_entity_picture: true
+                    tap_action:
+                      action: more
+                    styles:
+                      card:
+                        - position: relative
+                        - overflow: visible
+                      entity_picture:
+                        - width: 40px
+                        - height: 40px
+                        - border-radius: 12px
+                        - z-index: 1
+                        - filter: |
+                            [[[
+                              const activeZones = ['home'];
+                              const state = states[entity.entity_id]?.state;
+                              return activeZones.includes(state)
+                                ? 'none'
+                                : 'grayscale(100%) brightness(70%)';
+                            ]]]
+                        - opacity: |
+                            [[[
+                              const activeZones = ['home'];
+                              const state = states[entity.entity_id]?.state;
+                              return activeZones.includes(state) ? '1' : '0.7';
+                            ]]]
+                      img_cell:
+                        - background-color: var(--contrast1)
+                        - width: 40px
+                        - height: 40px
+                        - border-radius: 12px
+                        - overflow: visible
+                one:
+                  card:
+                    type: custom:button-card
+                    entity: >
+                      [[[ return user.name == "Rey" ? "person.christina" :
+                      "person.rey"; ]]]
+                    show_name: false
+                    show_entity_picture: true
+                    tap_action:
+                      action: more-info
+                    state:
+                      - value: not_home
+                        styles:
+                          entity_picture:
+                            - filter: grayscale(100%)
+                            - opacity: 0.5
+                    styles:
+                      card:
+                        - position: relative
+                        - overflow: visible
+                      entity_picture:
+                        - width: 40px
+                        - height: 40px
+                        - border-radius: 12px
+                        - z-index: 1
+                        - filter: |
+                            [[[
+                              const activeZones = ['home'];
+                              const state = states[entity.entity_id]?.state;
+                              return activeZones.includes(state)
+                                ? 'none'
+                                : 'grayscale(100%) brightness(70%)';
+                            ]]]
+                        - opacity: |
+                            [[[
+                              const activeZones = ['home'];
+                              const state = states[entity.entity_id]?.state;
+                              return activeZones.includes(state) ? '1' : '0.7';
+                            ]]]
+                      img_cell:
+                        - background-color: var(--contrast1)
+                        - width: 40px
+                        - height: 40px
+                        - border-radius: 12px
+                        - overflow: visible
+              uix: !include ../../shared/animations/mod-card-slide-in-down.yaml
+            - type: custom:strip-card
+              title: ""
+              entities:
+                - entity: sensor.forecast_rain_next_2h
+                  name: Rain
+                  icon: mdi:weather-pouring
+                  icon_color: >-
+                    {{ 'red' if states('sensor.forecast_rain_next_2h') | float
+                    >= 7.6 else 'orange' if
+                    states('sensor.forecast_rain_next_2h') | float >= 2.5 else
+                    'blue' if states('sensor.forecast_rain_next_2h') | float
+                    >= 0.5 else 'grey' }}
+                  value_template: >
+                    {% set v = states('sensor.forecast_rain_next_2h') | float
+                    %} {% if v == 0 %}No Rain {% elif v < 0.5 %}Trace - {{ v
+                    }} {% elif v < 2.5 %}Light - {{ v }} {% elif v < 7.6
+                    %}Moderate - {{ v }} {% elif v < 35 %}Heavy - {{ v }} {%
+                    else %}Very Heavy - {{ v }} {% endif %}
+                  visible_if: "{{ states('sensor.forecast_rain_next_2h') > 0 }}"
+                  hold_action:
+                    action: navigate
+                    navigation_path: "?tab=rainfall#weather-panel"
+                - entity: sensor.forecast_wind_next_2h
+                  name: Wind
+                  icon: mdi:weather-windy
+                  icon_color: >-
+                    {{ 'red' if states('sensor.forecast_wind_next_2h') | int >
+                    89 else 'orange' if states('sensor.forecast_wind_next_2h')
+                    | int > 62 else 'yellow' if
+                    states('sensor.forecast_wind_next_2h') | int > 40 else
+                    'grey' }}
+                  value_template: >
+                    {% set w = states('sensor.forecast_wind_next_2h') | int %}
+                    {% if w < 2 %}Calm - {{ w }} {% elif w < 12 %}Light - {{ w
+                    }} {% elif w < 29 %}Moderate - {{ w }} {% elif w < 50
+                    %}Fresh - {{ w }} {% elif w < 62 %}Near Gale - {{ w }} {%
+                    elif w < 75 %}Gale - {{ w }} {% else %}Storm - {{ w }} {%
+                    endif %}
+                  hold_action:
+                    action: navigate
+                    navigation_path: "?tab=wind#weather-panel"
+                - entity: sensor.forecast_uv_next_2h
+                  name: UV
+                  icon: mdi:white-balance-sunny
+                  icon_color: >-
+                    {{ 'red' if states('sensor.forecast_uv_next_2h') | int >=
+                    8 else 'orange' if states('sensor.forecast_uv_next_2h') |
+                    int >= 6 else 'yellow' if
+                    states('sensor.forecast_uv_next_2h') | int >= 3 else
+                    'grey' }}
+                  value_template: >
+                    {% set uv = states('sensor.forecast_uv_next_2h') | int %}
+                    {% if uv < 3 %}Low - UV {{ uv }} {% elif uv < 6 %}Moderate
+                    - UV {{ uv }} {% elif uv < 8 %}High - UV {{ uv }} {% elif
+                    uv < 11 %}Very High - UV {{ uv }} {% else %}Extreme - UV
+                    {{ uv }} {% endif %}
+                  hold_action:
+                    action: navigate
+                    navigation_path: "?tab=uv#weather-panel"
+                - entity: sensor.forecast_cloud_coverage_next_2h
+                  name: Cloud
+                  icon: mdi:weather-cloudy
+                  icon_color: >-
+                    {{ 'grey' if
+                    states('sensor.forecast_cloud_coverage_next_2h') | int <=
+                    25 else 'lightblue' if
+                    states('sensor.forecast_cloud_coverage_next_2h') | int <=
+                    50 else 'steelblue' if
+                    states('sensor.forecast_cloud_coverage_next_2h') | int <=
+                    75 else 'darkblue' }}
+                  value_template: >
+                    {% set c =
+                    states('sensor.forecast_cloud_coverage_next_2h') | int %}
+                    {% if c <= 25 %}Clear - {{ c }} {% elif c <= 50 %}Partly
+                    Cloudy - {{ c }} {% elif c <= 75 %}Mostly Cloudy - {{ c
+                    }}% {% else %}Overcast - {{ c }} {% endif %}
+                  hold_action:
+                    action: navigate
+                    navigation_path: "?tab=uv#weather-panel"
+                - entity: sensor.forecast_good_drying_next_2h
+                  name: Laundry
+                  icon: mdi:tshirt-crew
+                  icon_color: green
+                  value_template: Good drying conditions
+                  visible_if: >-
+                    {{ states('sensor.forecast_good_drying_next_2h') == 'True'
+                    }}
+              duration: 20
+              scroll_direction: left
+              separator: •
+              separator_color: var(--disabled-text-color)
+              separator_font_size: 14px
+              separator_font_weight: normal
+              empty_message: No entities passed the visible_if conditions
+              font_size: 12px
+              card_width: 400px
+              card_height: 50px
+              border_radius: 0px
+              show_icon: true
+              pause_on_hover: false
+              pause_on_click: false
+              hide_when_empty: true
+              continuous_scroll: true
+              vertical_scroll: false
+              vertical_alignment: stack
+              fading: true
+              transparent: false
+              full_width: false
+              badge_style: false
+              badge_background: var(--primary-color)
+              badge_label_color: var(--primary-text-color)
+              badge_value_color: var(--primary-text-color)
+              badge_height: 28px
+              badge_font_size: 12px
+              badge_icon_size: 16px
+              name_color: var(--primary-text-color)
+              value_color: var(--primary-color)
+              unit_color: var(--secondary-text-color)
+              icon_color: var(--primary-text-color)
+    - type: grid
+      cards:
+        - type: custom:mod-card
+          uix: !include ../../shared/animations/mod-card-slide-in-right.yaml
+          card:
+            type: custom:simple-tabs
+            pre-load: false
+            active-background: var(--md-sys-color-primary)
+            active-text-color: var(--md-sys-color-on-primary)
+            text-color: var(--primary-text-color)
+            haptic_feedback: true
+            enable_swipe: true
+            hide_inactive_tab_titles: false
+            tabs:
+              - title: Home
+                icon: m3of:home
+                cards:
+                  - !include ../../shared/cards/climate-graph-card.yaml
+                  - !include ../../shared/cards/toggles-card.yaml
+              - title: Events
+                icon: mdi:calendar
+                cards:
+                  - entities:
+                      - entity: calendar.christina
+                        accent_color: "#ff70e5"
+                      - entity: calendar.birthdays
+                        accent_color: "#a19191"
+                      - entity: calendar.house_maintenance
+                        accent_color: "#fcff3d"
+                      - entity: calendar.email
+                        accent_color: "#47a7f5"
+                      - entity: calendar.new_zealand_holidays
+                        accent_color: "#ab512b"
+                    days_to_show: 10
+                    compact_events_to_show: 10
+                    background_color: transparent
+                    vertical_line_width: 5px
+                    event_spacing: 6px
+                    first_day_of_week: monday
+                    show_week_numbers: iso
+                    week_number_color: var(--md-sys-color-on-primary)
+                    week_number_background_color: var(--md-sys-color-primary)
+                    month_separator_width: 1px
+                    month_separator_color: var(--md-sys-color-primary)
+                    today_indicator: pulse
+                    today_indicator_position: 10% 50%
+                    today_indicator_color: var(--md-sys-color-primary)
+                    weekday_font_size: 12px
+                    month_font_size: 10px
+                    show_countdown: true
+                    show_progress_bar: true
+                    progress_bar_color: var(--md-sys-color-primary)
+                    weather:
+                      position: event
+                      date:
+                        show_conditions: true
+                        show_high_temp: true
+                        show_low_temp: false
+                        icon_size: 14px
+                        font_size: 12px
+                        color: var(--primary-text-color)
+                      event:
+                        show_conditions: true
+                        show_temp: true
+                        icon_size: 14px
+                        font_size: 12px
+                        color: var(--primary-text-color)
+                      entity: weather.home
+                    tap_action:
+                      action: expand
+                    type: custom:calendar-card-pro
+              - title: Active
+                icon: m3of:play-circle
+                conditions:
+                  - template: >-
+                      {{ is_state('group.all_light_switches', 'on') or
+                      is_state('light.all_lights', 'on') or 
+                      is_state('group.all_fans', 'on') or
+                      is_state('group.external_doors', 'on') or
+                      is_state('group.all_windows', 'on') or
+                      is_state('group.all_curtains', 'on') }}
+                cards:
+                  - type: custom:streamline-card
+                    template: count_active_light_card
+                    variables:
+                      group_entity: light.all_lights
+                      count_entity: light.all_lights_for_count_only
+                      title: Lights
+                      icon: mdi:lightbulb-on
+                      color: "#FFBF00"
+                      card_template: light_card
+                      filter_state: "on"
+                  - type: custom:streamline-card
+                    template: count_active_button_card
+                    variables:
+                      group_entity: group.all_light_switches
+                      count_entity: group.all_light_switches
+                      title: Light Switches
+                      icon: m3of:switch
+                      color: var(--md-sys-color-primary)
+                      background_color: rgba(238, 220, 130, 0.5)
+                      filter_state: "on"
+                  - type: custom:streamline-card
+                    template: count_active_button_card
+                    variables:
+                      group_entity: group.external_doors
+                      count_entity: group.external_doors
+                      title: Doors
+                      icon: m3of:door-open
+                      color: "#bc000a"
+                      background_color: rgba(188, 0, 10, 0.5)
+                      filter_state: "on"
+                  - type: custom:streamline-card
+                    template: count_active_button_card
+                    variables:
+                      group_entity: group.all_windows
+                      count_entity: group.all_windows
+                      title: Windows
+                      icon: m3of:window-open
+                      color: "#ffaa00"
+                      background_color: rgba(255, 170, 0, 0.5)
+                      filter_state: "on"
+                  - type: custom:streamline-card
+                    template: count_active_button_card
+                    variables:
+                      group_entity: group.all_fans
+                      count_entity: group.all_fans
+                      title: Fans
+                      icon: mdi:fan
+                      color: "#ADD8E6"
+                      background_color: rgba(137, 207, 240, 0.5)
+                      filter_state: "on"
+                  - type: conditional
+                    conditions:
+                      - condition: state
+                        entity: group.all_curtains
+                        state:
+                          - "on"
+                          - open
+                    card:
+                      type: custom:expander-card
+                      title-card:
+                        type: custom:streamline-card
+                        template: count_active_entity_card
+                        variables:
+                          entity: group.all_curtains
+                          title: Curtains
+                          icon: m3of:curtains
+                          color: "#702963"
+                      title-card-clickable: true
+                      title-card-button-overlay: false
+                      padding: "1"
+                      animations: true
+                      expanded: false
+                      cards:
+                        - type: custom:auto-entities
+                          card:
+                            square: false
+                            type: grid
+                            columns: 2
+                          card_param: cards
+                          filter:
+                            include:
+                              - group: group.all_curtains
+                                state: open
+                                options:
+                                  type: custom:streamline-card
+                                  template: curtain_slider_card
+                                  variables:
+                                    entity_id: this.entity_id
+                                    icon: mdi:curtains
+                          exclude: []
+                          show_empty: false
+                          sort:
+                            method: friendly_name
+    - type: grid
+      cards:
+        - type: custom:bubble-card
+          card_type: pop-up
+          hash: "#alarmo"
+          name: Alarm
+          icon: m3of:pin
+          styles: |-
+            #root {
+                    height: unset !important;
+                    max-height: 100% !important;
+                    transition: transform var(--md-sys-motion-expressive-spatial-default) !important;
+                  }
+                  .bubble-header-container {
+                    --bubble-button-background-color: var(--md-sys-color-on-secondary);
+                    --bubble-button-icon-background-color: var(--md-sys-color-on-secondary);
+                  }
+                  .bubble-pop-up-container {
+                    padding-bottom: 64px !important;
+                  }
+          bg_color: var(--md-sys-color-on-primary)
+          bg_opacity: "85"
+          button_type: name
+          sub_button:
+            main: []
+            bottom: []
+          cards:
+            - !include ../../shared/cards/individual-rooms/security/security-paper-row-card.yaml
+            - !include ../../shared/cards/individual-rooms/security/security-entities-card.yaml
+          popup_mode: adaptive-dialog
+          popup_style: classic
+        - type: custom:bubble-card
+          card_type: pop-up
+          hash: "#notifications"
+          name: Notifications
+          icon: m3of:notifications
+          styles: |-
+            #root {
+                    height: unset !important;
+                    max-height: 100% !important;
+                    transition: transform var(--md-sys-motion-expressive-spatial-default) !important;
+                  }
+                  .bubble-header-container {
+                    --bubble-button-background-color: var(--md-sys-color-on-secondary);
+                    --bubble-button-icon-background-color: var(--md-sys-color-on-secondary);
+                  }
+                  .bubble-pop-up-container {
+                    padding-bottom: 64px !important;
+                  }
+          bg_color: var(--md-sys-color-on-primary)
+          bg_opacity: "85"
+          button_type: name
+          sub_button:
+            main:
+              - entity: input_boolean.guest_mode
+                icon: m3of:group-add
+                tap_action:
+                  action: toggle
+                state_background: true
+                show_background: true
+                scrolling_effect: false
+            bottom: []
+          cards:
+            - !include ../../shared/cards/notification-panel-card.yaml
+          popup_mode: adaptive-dialog
+          popup_style: classic
+        - type: custom:bubble-card
+          card_type: pop-up
+          hash: "#people-timeline"
+          name: Timeline
+          icon: mdi:map
+          styles: |-
+            #root {
+                    height: unset !important;
+                    max-height: 100% !important;
+                    transition: transform var(--md-sys-motion-expressive-spatial-default) !important;
+                  }
+                  .bubble-header-container {
+                    --bubble-button-background-color: var(--md-sys-color-on-secondary);
+                    --bubble-button-icon-background-color: var(--md-sys-color-on-secondary);
+                  }
+                  .bubble-pop-up-container {
+                    padding-bottom: 64px !important;
+                  }
+          bg_color: var(--md-sys-color-on-primary)
+          bg_opacity: "85"
+          button_type: name
+          sub_button:
+            main: []
+            bottom: []
+          slider_fill_orientation: left
+          slider_value_position: right
+          popup_mode: adaptive-dialog
+          popup_style: classic
+          cards:
+            - type: custom:simple-tabs
+              tabs:
+                - title: Rey
+                  icon: m3of:face
+                  id: rey
+                  card:
+                    type: custom:location-timeline-card
+                    entity: device_tracker.rey_s_phone
+                    places_entity: sensor.rey_s_phone
+                    osm_api_key: email
+                - title: Christina
+                  icon: m3of:face-3
+                  id: christina
+                  card:
+                    type: custom:location-timeline-card
+                    entity: device_tracker.christina
+                    places_entity: sensor.christina_s_phone
+                    osm_api_key: email
+                - title: Live Map
+                  icon: mdi:google-maps
+                  conditions:
+                    - user:
+                        - 429a0eb78e30476c9222118637e21b8a
+                  card:
+                    type: custom:button-card
+                    entity: person.rey
+                    show_name: false
+                    show_icon: false
+                    show_state: false
+                    styles:
+                      card:
+                        - padding: 0
+                        - margin: 0
+                        - height: 385px
+                        - overflow: hidden
+                        - border-radius: var(--ha-card-border-radius, 12px)
+                        - box-shadow: none
+                    custom_fields:
+                      map: |
+                        [[[
+                          const lat = entity.attributes.latitude;
+                          const lng = entity.attributes.longitude;
+                          return `<iframe
+                            src="/local/google_map_rey.html?lat=${lat}&lng=${lng}"
+                            style="width:100%;height:385px;border:none;display:block;margin:0;padding:0;position:absolute;top:0;left:0;"
+                          ></iframe>`;
+                        ]]]
+                    styles_extra:
+                      custom_fields:
+                        map:
+                          - height: 385px
+                          - width: 100%
+                          - display: block
+                          - margin: 0
+                          - padding: 0
+                          - position: relative
+                - title: Live Map
+                  icon: mdi:google-maps
+                  conditions:
+                    - user:
+                        - 3bbcab1839334f1aa4fed7fb2152a8da
+                  card:
+                    type: custom:button-card
+                    entity: person.christina
+                    show_name: false
+                    show_icon: false
+                    show_state: false
+                    styles:
+                      card:
+                        - padding: 0
+                        - margin: 0
+                        - height: 385px
+                        - overflow: hidden
+                        - border-radius: var(--ha-card-border-radius, 12px)
+                        - box-shadow: none
+                    custom_fields:
+                      map: |
+                        [[[
+                          const lat = entity.attributes.latitude;
+                          const lng = entity.attributes.longitude;
+                          return `<iframe
+                            src="/local/google_map_christina.html?lat=${lat}&lng=${lng}"
+                            style="width:100%;height:385px;border:none;display:block;margin:0;padding:0;position:absolute;top:0;left:0;"
+                          ></iframe>`;
+                        ]]]
+                    styles_extra:
+                      custom_fields:
+                        map:
+                          - height: 385px
+                          - width: 100%
+                          - display: block
+                          - margin: 0
+                          - padding: 0
+                          - position: relative
+        - type: custom:bubble-card
+          card_type: pop-up
+          hash: "#weather-panel"
+          name: Weather Panel
+          icon: mdi:weather-cloudy-arrow-right
+          styles: |-
+            #root {
+                    height: unset !important;
+                    max-height: 100% !important;
+                    transition: transform var(--md-sys-motion-expressive-spatial-default) !important;
+                  }
+                  .bubble-header-container {
+                    --bubble-button-background-color: var(--md-sys-color-on-secondary);
+                    --bubble-button-icon-background-color: var(--md-sys-color-on-secondary);
+                  }
+                  .bubble-pop-up-container {
+                    padding-bottom: 64px !important;
+                  }
+          bg_color: var(--md-sys-color-on-primary)
+          bg_opacity: "85"
+          button_type: name
+          sub_button:
+            main: []
+            bottom: []
+          slider_fill_orientation: left
+          slider_value_position: right
+          cards:
+            - !include ../../shared/cards/weather/weather-forecast-card.yaml
+          popup_mode: adaptive-dialog
+          popup_style: classic
+        - type: custom:bubble-card
+          card_type: pop-up
+          hash: "#music-player"
+          name: Music Player
+          icon: m3of:music-note
+          styles: |-
+            #root {
+                    height: unset !important;
+                    max-height: 100% !important;
+                    transition: transform var(--md-sys-motion-expressive-spatial-default) !important;
+                  }
+                  .bubble-header-container {
+                    --bubble-button-background-color: var(--md-sys-color-on-secondary);
+                    --bubble-button-icon-background-color: var(--md-sys-color-on-secondary);
+                  }
+                  .bubble-pop-up-container {
+                    padding-bottom: 64px !important;
+                  }
+          bg_color: var(--md-sys-color-on-primary)
+          bg_opacity: "85"
+          button_type: name
+          sub_button:
+            main: []
+            bottom: []
+          slider_fill_orientation: left
+          slider_value_position: right
+          button_action:
+            tap_action:
+              action: url
+              url_path: spotify://home
+          cards:
+            - type: custom:mediocre-massive-media-player-card
+              entity_id: media_player.spotify_reynaldi_sutrisno
+              mode: panel
+              action:
+                tap_action:
+                  action: url
+                  url_path: spotify://home
+              media_browser: null
+              options:
+                show_volume_step_buttons: true
+          popup_style: classic
+    - type: grid
+      cards:
+        - type: custom:navbar-card
+          mobile:
+            show_labels: true
+          haptic: true
+          desktop:
+            show_labels: true
+            position: bottom
+            min_width: 768
+            show_popup_label_backgrounds: false
+          routes:
+            - url: /mobile-dashboard/overview
+              label: Home
+              icon: m3o:home
+              icon_selected: m3of:home
+            - url: /mobile-dashboard/rooms
+              label: Rooms
+              icon: m3o:chair
+              icon_selected: mdi:sofa
+            - url: /mobile-dashboard/scenes
+              label: Scenes
+              icon: m3o:layers
+              icon_selected: m3of:layers
+              popup:
+                - icon: hue:recessed-ceiling
+                  label: ""
+                  url: /mobile-dashboard/scenes
+                - icon: hue:lightstrip
+                  label: ""
+                  url: /mobile-dashboard/scenes-gradient
+              tap_action:
+                action: open-popup
+            - url: /mobile-dashboard/camera
+              label: Camera
+              icon: m3o:camera
+              icon_selected: m3of:camera
+            - icon: mdi:dots-horizontal
+              label: More
+              tap_action:
+                action: open-popup
+              popup:
+                - icon: m3of:tools-wrench
+                  url: /config/dashboard
+                - icon: m3of:sprinkler
+                  url: /mobile-dashboard/irrigation
+                - icon: m3of:colors
+                  url: /material-you-configuration
+                - icon: m3of:power-settings-new
+                  tap_action:
+                    action: call-service
+                    service: homeassistant.restart
+                    service_data: {}
+                    confirmation:
+                      text: Are you sure you want to restart Home Assistant?
+          styles: |
+            .navbar-card {
+              background: color-mix(in srgb, var(--md-sys-color-on-primary) 25%, transparent);
+              backdrop-filter: blur(50px);
+              -webkit-backdrop-filter: blur(20px) !important;
+              background-blend-mode: overlay;
+              border-radius: 20px;
+              box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+              margin-bottom: 15px;
+              overflow: hidden;
+              animation: slideUp 0.5s ease-out 0.6s both;
+            }
+
+            @keyframes slideUp {
+              from { 
+                opacity: 1;
+                transform: translateY(4px);
+              }
+              to { 
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+
+            .button {
+              --icon-primary-color: color-mix(in srgb, var(--md-sys-color-primary) 40%, transparent);;
+            }
+
+            .button.active {
+              background: transparent;
+            }
+
+            ha-ripple {
+              display: none !important;
+            }
+          media_player:
+            album_cover_background: true
+            players:
+              - entity: media_player.spotify_reynaldi_sutrisno
+                tap_action:
+                  action: navigate
+                  navigation_path: "#music-player"
+  icon: m3o:home
+  cards: []
+  background: !include ../shared/background.yaml

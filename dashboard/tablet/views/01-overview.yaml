@@ -1,0 +1,662 @@
+- title: Overview
+  type: custom:grid-layout
+  layout:
+    grid-template-columns: 25% 25% 25% 25%
+    grid-template-rows: auto
+    grid-template-areas: |
+      "greeting simple_tab weather calendar_notification"
+      "room_selector . . calendar_notification"     
+      "room1 room2 room3 calendar_notification"       
+      "camera1 camera2 camera3 calendar_notification"
+  cards:
+    - type: vertical-stack
+      cards:
+        - type: custom:mushroom-title-card
+          alignment: start
+          title: |
+            {{ now().strftime('%a %b %-d - %-I:%M %p') }}
+          uix:
+            style: |
+              ha-card {
+                --title-font-size: 25px !important;
+              }
+        - !include ../../shared/cards/weather/wind-below-30-card.yaml
+        - !include ../../shared/cards/weather/wind-above-30-card.yaml
+
+        - type: custom:button-card
+          show_entity_picture: false
+          show_icon: false
+          show_label: true
+          entity: |
+            [[[ return user.name == "Rey" ? "person.rey" : "person.christina";
+                  ]]]
+          name: |
+            [[[
+              const hour = new Date().getHours();
+              let greeting = "";
+              if (hour >= 22 || hour < 5) greeting = "🌘✨ Night";
+              else if (hour >= 18) greeting = "🌙 Evening";
+              else if (hour >= 12) greeting = "🌤️ Afternoon";
+              else greeting = "☕ Morning";
+              const name = user.name == "Rey" ? "Rey" : "Christina";
+              return `${greeting}, ${name}!`;
+            ]]]
+          label: |
+            [[[
+              const s = entity.state;
+              if (s === "home") return "Home";
+              return "Away";
+            ]]]
+          tap_action:
+            action: navigate
+            navigation_path: /tablet-dashboard/notifications
+          styles:
+            card:
+              - padding: 12px -2px 12px 12px
+              - background: none
+              - box-shadow: none
+            grid:
+              - grid-template-areas: '"pic n one" "pic l one"'
+              - grid-template-rows: min-content min-content
+              - grid-template-columns: 50px 1fr 150px
+            name:
+              - justify-self: start
+              - align-self: center
+              - font-size: 15px
+              - padding-left: 15px
+            label:
+              - justify-self: start
+              - align-self: start
+              - font-size: 12px
+              - color: var(--contrast14)
+              - padding-left: 15px
+          custom_fields:
+            pic:
+              card:
+                type: custom:button-card
+                entity: >
+                  [[[ return user.name == "Rey" ? "person.rey" :
+                  "person.christina"; ]]]
+                show_name: false
+                show_entity_picture: true
+                tap_action:
+                  action: navigate
+                  navigation_path: /tablet-dashboard/notifications
+                styles:
+                  card:
+                    - position: relative
+                    - overflow: visible
+                  entity_picture:
+                    - width: 40px
+                    - height: 40px
+                    - border-radius: 12px
+                    - z-index: 1
+                    - filter: |
+                        [[[
+                          const activeZones = ['home'];
+                          const state = states[entity.entity_id]?.state;
+                          return activeZones.includes(state)
+                            ? 'none'
+                            : 'grayscale(100%) brightness(70%)';
+                        ]]]
+                    - opacity: |
+                        [[[
+                          const activeZones = ['home'];
+                          const state = states[entity.entity_id]?.state;
+                          return activeZones.includes(state) ? '1' : '0.7';
+                        ]]]
+                  img_cell:
+                    - background-color: var(--contrast1)
+                    - width: 40px
+                    - height: 40px
+                    - border-radius: 12px
+                    - overflow: visible
+            one:
+              card:
+                type: custom:button-card
+                entity: >
+                  [[[ return user.name == "Rey" ? "person.christina" :
+                  "person.rey"; ]]]
+                show_name: false
+                show_entity_picture: true
+                tap_action:
+                  action: more-info
+                state:
+                  - value: not_home
+                    styles:
+                      entity_picture:
+                        - filter: grayscale(100%)
+                        - opacity: 0.5
+                styles:
+                  card:
+                    - position: relative
+                    - overflow: visible
+                  entity_picture:
+                    - width: 40px
+                    - height: 40px
+                    - border-radius: 12px
+                    - z-index: 1
+                    - filter: |
+                        [[[
+                          const activeZones = ['home'];
+                          const state = states[entity.entity_id]?.state;
+                          return activeZones.includes(state)
+                            ? 'none'
+                            : 'grayscale(100%) brightness(70%)';
+                        ]]]
+                    - opacity: |
+                        [[[
+                          const activeZones = ['home'];
+                          const state = states[entity.entity_id]?.state;
+                          return activeZones.includes(state) ? '1' : '0.7';
+                        ]]]
+                  img_cell:
+                    - background-color: var(--contrast1)
+                    - width: 40px
+                    - height: 40px
+                    - border-radius: 12px
+                    - overflow: visible
+          uix: !include ../../shared/animations/mod-card-slide-in-down.yaml
+      view_layout:
+        grid-area: greeting
+    - type: custom:mod-card
+      uix: !include ../../shared/animations/mod-card-fade-in-down.yaml
+      card:
+        type: vertical-stack
+        cards:
+          - type: custom:streamline-card
+            template: spacer_card
+            variables:
+              padding: 4px
+          - type: custom:simple-tabs
+            pre-load: true
+            alignment: start
+            active-background: var(--md-sys-color-primary)
+            active-text-color: var(--md-sys-color-on-primary)
+            text-color: var(--primary-text-color)
+            tabs:
+              - title: Climate
+                icon: m3of:heat-pump
+                cards:
+                  - !include ../../shared/cards/climate-graph-card.yaml
+              - title: Toggles
+                icon: m3of:automation
+                cards:
+                  - !include ../../shared/cards/toggles-card.yaml
+              - title: Irrigation
+                icon: m3of:sprinkler
+                cards:
+                  - type: custom:streamline-card
+                    template: spacer_card
+                    variables:
+                      padding: 2px
+                  - type: custom:mushroom-template-card
+                    primary: Open Irrigation Page
+                    secondary: Tap to navigate to irrigation
+                    icon: m3of:sprinkler
+                    features_position: bottom
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /tablet-dashboard/irrigation
+              - title: Hue Scenes
+                icon: mdi:layers
+                cards:
+                  - type: custom:streamline-card
+                    template: spacer_card
+                    variables:
+                      padding: 2px
+                  - type: custom:mushroom-template-card
+                    primary: Open Scenes Page
+                    secondary: Tap to navigate to scene
+                    icon: hue:recessed-ceiling
+                    features_position: bottom
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /tablet-dashboard/scenes
+              - title: Lightstrip Scenes
+                icon: hue:lightstrip
+                cards:
+                  - type: custom:streamline-card
+                    template: spacer_card
+                    variables:
+                      padding: 2px
+                  - type: custom:mushroom-template-card
+                    primary: Open Scenes Gradient Page
+                    secondary: Tap to navigate to scene
+                    icon: hue:lightstrip
+                    features_position: bottom
+                    vertical: true
+                    tap_action:
+                      action: navigate
+                      navigation_path: /tablet-dashboard/scenes-gradient
+            hide_inactive_tab_titles: true
+      view_layout:
+        grid-area: simple_tab
+    - type: custom:mod-card
+      uix: !include ../../shared/animations/mod-card-fade-in-down.yaml
+      card:
+        type: vertical-stack
+        cards:
+          - type: custom:streamline-card
+            template: title_subtitle_navigation_card
+            variables:
+              title: Weather Forecast
+              subtitle: "{{ states ('sensor.next_rain_summary') }}"
+              navigation_path: "?tab=forecast#weather-panel"
+              title_font_size: 20px
+          - type: custom:clock-weather-card-hui-icons
+            entity: weather.home
+            sun_entity: sun.sun
+            temperature_sensor: sensor.outdoor_temperature
+            humidity_sensor: sensor.outdoor_humidity
+            forecast_rows: 5
+            locale: en-NZ
+            time_pattern: HH:mm
+            time_format: 12
+            date_pattern: ccc, d.MM.yy
+            hide_today_section: true
+            hide_forecast_section: false
+            show_humidity: false
+            hide_clock: true
+            hide_date: false
+            hourly_forecast: false
+            use_browser_time: false
+            time_zone: null
+            show_decimal: false
+      view_layout:
+        grid-area: weather
+    - type: custom:streamline-card
+      template: room_toggles_chip_card
+      variables:
+        entity_area_one: input_boolean.room_toggle_one
+        area_one_icon: mdi:star
+        area_one_name: Default
+        entity_area_two: input_boolean.room_toggle_two
+        area_two_icon: mdi:home
+        area_two_name: Others
+        entity_area_three: input_boolean.room_toggle_three
+        area_three_icon: mdi:light-flood-down
+        area_three_name: Outdoor
+        animation_delay: 0.2s
+      view_layout:
+        grid-area: room_selector
+    - type: custom:vertical-stack-in-card
+      cards:
+        - type: conditional
+          conditions:
+            - entity: input_boolean.room_toggle_one
+              state: "on"
+          card:
+            type: horizontal-stack
+            cards:
+              - !include ../../shared/cards/rooms/garage-card-tablet.yaml
+              - !include ../../shared/cards/rooms/living-area-card-tablet.yaml
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.room_toggle_two
+              state: "on"
+          card:
+            type: horizontal-stack
+            cards:
+              - !include ../../shared/cards/rooms/entrance-card-tablet.yaml
+              - !include ../../shared/cards/rooms/hallway-card-tablet.yaml
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.room_toggle_three
+              state: "on"
+          card:
+            type: horizontal-stack
+            cards:
+              - !include ../../shared/cards/rooms/driveway-card-tablet.yaml
+              - !include ../../shared/cards/rooms/patio-card-tablet.yaml
+      view_layout:
+        grid-area: room1
+    - type: custom:vertical-stack-in-card
+      cards:
+        - type: conditional
+          conditions:
+            - entity: input_boolean.room_toggle_one
+              state: "on"
+          card:
+            type: horizontal-stack
+            cards:
+              - !include ../../shared/cards/rooms/master-bedroom-card-tablet.yaml
+              - !include ../../shared/cards/rooms/baby-room-card-tablet.yaml
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.room_toggle_two
+              state: "on"
+          card:
+            type: horizontal-stack
+            cards:
+              - !include ../../shared/cards/rooms/office-room-card-tablet.yaml
+              - !include ../../shared/cards/rooms/guest-bathroom-card-tablet.yaml
+      view_layout:
+        grid-area: room2
+    - type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: title_navigation_card
+          variables:
+            title: Driveway
+            navigation_path: /tablet-dashboard/camera
+            title_font_size: 20px
+        - !include ../../shared/cards/camera/driveway-card.yaml
+      view_layout:
+        grid-area: camera1
+    - type: vertical-stack
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: title_navigation_card
+              variables:
+                title: Garage
+                navigation_path: /tablet-dashboard/camera
+                title_font_size: 20px
+            - type: custom:mushroom-chips-card
+              chips:
+                - type: template
+                  entity: binary_sensor.door_sensor_grg_contact
+                  icon: >
+                    {% if is_state('binary_sensor.door_sensor_grg_contact',
+                    'on') %}
+                      mdi:garage-open-variant
+                    {% else %}
+                      mdi:garage-variant
+                    {% endif %}
+                  content: >
+                    {% if is_state('binary_sensor.door_sensor_grg_contact',
+                    'on') %}
+                      Open
+                    {% else %}
+                      Closed
+                    {% endif %}
+                  tap_action:
+                    action: call-service
+                    service: script.garage_button_frontend
+                  uix:
+                    style:
+                      .: |
+                        ha-card {
+                          --text-color: 'white';
+                          --color: 'white';
+                          --chip-background: {{ '#bc000a' if is_state('binary_sensor.door_sensor_grg_contact', 'on') else 'var(--md-sys-color-on-primary)' }};
+                        }
+              alignment: end
+              uix:
+                style: |
+                  ha-card {
+                    margin-top: 1.6em
+                  }
+        - !include ../../shared/cards/camera/garage-card.yaml
+      view_layout:
+        grid-area: camera3
+    - type: custom:vertical-stack-in-card
+      cards:
+        - type: conditional
+          conditions:
+            - entity: input_boolean.room_toggle_one
+              state: "on"
+          card:
+            type: horizontal-stack
+            cards:
+              - !include ../../shared/cards/rooms/single-guest-room-card-tablet.yaml
+              - !include ../../shared/cards/rooms/multiple-guest-room-card-tablet.yaml
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: input_boolean.room_toggle_two
+              state: "on"
+          card:
+            type: horizontal-stack
+            cards:
+              - !include ../../shared/cards/rooms/laundry-card-tablet.yaml
+              - !include ../../shared/cards/rooms/attic-card-tablet.yaml
+      view_layout:
+        grid-area: room3
+    - type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: title_navigation_card
+          variables:
+            title: Road
+            navigation_path: /tablet-dashboard/camera
+            title_font_size: 20px
+        - !include ../../shared/cards/camera/road-card.yaml
+      view_layout:
+        grid-area: camera2
+    - type: custom:mod-card
+      uix: !include ../../shared/animations/mod-card-fade-in-right.yaml
+      card:
+        type: custom:vertical-stack-in-card
+        cards:
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: media_player.spotify
+                state: playing
+            card:
+              type: custom:simple-swipe-card
+              auto_hide_pagination: 0
+              auto_height: true
+              cards:
+                - type: vertical-stack
+                  cards:
+                    - type: horizontal-stack
+                      cards:
+                        - type: custom:streamline-card
+                          template: title_url_card
+                          variables:
+                            title: Music Player
+                            url_path: >-
+                              intent:#Intent;launchFlags=0x10000000;component=com.spotify.music/.MainActivity;end
+                            title_font_size: 20px
+                        - !include ../shared/alert-chips.yaml
+                    - type: custom:mediocre-massive-media-player-card
+                      entity_id: media_player.spotify
+                      use_art_colors: false
+                      mode: panel
+                      action:
+                        tap_action:
+                          action: url
+                          url_path: spotify://home
+                      options:
+                        show_volume_step_buttons: true
+                    - type: custom:streamline-card
+                      template: spacer_card
+                      variables:
+                        padding: 20px
+                - type: vertical-stack
+                  cards:
+                    - type: horizontal-stack
+                      cards:
+                        - type: custom:streamline-card
+                          template: title_navigation_card
+
+                          variables:
+                            title: Calendar
+
+                            navigation_path: /tablet-dashboard/calendar
+                            title_font_size: 20px
+                        - !include ../shared/alert-chips.yaml
+                    - entities:
+                        - entity: calendar.christina
+                          accent_color: "#ff6a6a"
+                        - entity: calendar.email
+                          accent_color: "#71c8fe"
+                        - entity: calendar.house_maintenance
+                          accent_color: "#d3f37f"
+                        - entity: calendar.new_zealand_holidays
+                          accent_color: "#f9da4e"
+                      days_to_show: 6
+                      compact_events_to_show: 6
+                      background_color: transparent
+                      vertical_line_width: 5px
+                      event_spacing: 6px
+                      first_day_of_week: monday
+                      show_week_numbers: iso
+                      week_number_color: var(--md-sys-color-primary)
+                      week_number_background_color: var(--md-sys-color-on-primary)
+                      month_separator_width: 1px
+                      month_separator_color: var(--md-sys-color-primary)
+                      today_indicator: pulse
+                      today_indicator_position: 10% 50%
+                      today_indicator_color: var(--md-sys-color-primary)
+                      weekday_font_size: 12px
+                      month_font_size: 10px
+                      show_countdown: true
+                      show_progress_bar: true
+                      progress_bar_color: var(--md-sys-color-primary)
+                      weather:
+                        position: event
+                        date:
+                          show_conditions: true
+                          show_high_temp: true
+                          show_low_temp: false
+                          icon_size: 14px
+                          font_size: 12px
+                          color: var(--primary-text-color)
+                        event:
+                          show_conditions: true
+                          show_temp: true
+                          icon_size: 14px
+                          font_size: 12px
+                          color: var(--primary-text-color)
+                        entity: weather.home
+                      tap_action:
+                        action: navigate
+                        navigation_path: /tablet-dashboard/calendar
+                      type: custom:calendar-card-pro
+                      height: 435px
+                    - type: vertical-stack
+                      cards:
+                        - type: custom:streamline-card
+                          template: title_navigation_card
+                          variables:
+                            title: Backyard
+                            navigation_path: /tablet-dashboard/camera
+                            title_font_size: 20px
+                        - !include ../../shared/cards/camera/backyard-card.yaml
+                      view_layout:
+                        grid-area: camera4
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: media_player.spotify
+                state_not: playing
+            card:
+              type: vertical-stack
+              cards:
+                - type: horizontal-stack
+                  cards:
+                    - type: custom:streamline-card
+                      template: title_navigation_card
+                      variables:
+                        title: Calendar
+                        navigation_path: /tablet-dashboard/calendar
+                        title_font_size: 20px
+                    - !include ../shared/alert-chips.yaml
+                - entities:
+                    - entity: calendar.christina
+                      accent_color: "#ff6a6a"
+                    - entity: calendar.email
+                      accent_color: "#71c8fe"
+                    - entity: calendar.house_maintenance
+                      accent_color: "#d3f37f"
+                    - entity: calendar.new_zealand_holidays
+                      accent_color: "#f9da4e"
+                  days_to_show: 6
+                  compact_events_to_show: 6
+                  background_color: transparent
+                  vertical_line_width: 5px
+                  event_spacing: 6px
+                  first_day_of_week: monday
+                  show_week_numbers: iso
+                  week_number_color: var(--md-sys-color-primary)
+                  week_number_background_color: var(--md-sys-color-on-primary)
+                  month_separator_width: 1px
+                  month_separator_color: var(--md-sys-color-primary)
+                  today_indicator: pulse
+                  today_indicator_position: 10% 50%
+                  today_indicator_color: var(--md-sys-color-primary)
+                  weekday_font_size: 12px
+                  month_font_size: 10px
+                  show_countdown: true
+                  show_progress_bar: true
+                  progress_bar_color: var(--md-sys-color-primary)
+                  weather:
+                    position: event
+                    date:
+                      show_conditions: true
+                      show_high_temp: true
+                      show_low_temp: false
+                      icon_size: 14px
+                      font_size: 12px
+                      color: var(--primary-text-color)
+                    event:
+                      show_conditions: true
+                      show_temp: true
+                      icon_size: 14px
+                      font_size: 12px
+                      color: var(--primary-text-color)
+                    entity: weather.home
+                  tap_action:
+                    action: navigate
+                    navigation_path: /tablet-dashboard/calendar
+                  type: custom:calendar-card-pro
+                  height: 430px
+                - type: vertical-stack
+                  cards:
+                    - type: custom:streamline-card
+                      template: title_navigation_card
+                      variables:
+                        title: Backyard
+                        navigation_path: /tablet-dashboard/camera
+                        title_font_size: 20px
+                    - !include ../../shared/cards/camera/backyard-card.yaml
+                  view_layout:
+                    grid-area: camera4
+      view_layout:
+        grid-area: calendar_notification
+
+        icon: m3o:home
+
+    - type: custom:bubble-card
+      card_type: pop-up
+      hash: "#weather-panel"
+      name: Weather Panel
+      icon: mdi:weather-cloudy-arrow-right
+      styles: |-
+        #root {
+                height: unset !important;
+                max-height: 100% !important;
+                transition: transform var(--md-sys-motion-expressive-spatial-default) !important;
+              }
+              .bubble-header-container {
+                --bubble-button-background-color: var(--md-sys-color-on-secondary);
+                --bubble-button-icon-background-color: var(--md-sys-color-on-secondary);
+              }
+              .bubble-pop-up-container {
+                padding-bottom: 64px !important;
+              }
+      bg_color: var(--md-sys-color-on-primary)
+      bg_opacity: "85"
+      button_type: name
+      sub_button:
+        main: []
+        bottom: []
+      slider_fill_orientation: left
+      slider_value_position: right
+      cards:
+        - !include ../../shared/cards/weather/weather-forecast-card.yaml
+      popup_style: classic
+      popup_mode: adaptive-dialog
+      
+  path: overview
+  background: !include ../shared/background.yaml

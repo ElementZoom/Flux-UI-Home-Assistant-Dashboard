@@ -1,0 +1,72 @@
+- type: sections
+  max_columns: 4
+  title: Living Area
+  path: living-area
+  icon: mdi:sofa
+  subview: true
+  sections:
+    - type: grid
+      cards:
+        - type: vertical-stack
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: back_button_card
+                  variables:
+                    navigation_path: /mobile-dashboard/rooms
+                - type: custom:streamline-card
+                  template: page_title_card
+                  variables:
+                    title: Living
+                - type: custom:streamline-card
+                  template: more-options-card
+                  variables:
+                    navigation_path: "#room-selector"
+            - type: custom:streamline-card
+              template: spacer_card
+              variables:
+                padding: 4px
+            - !include ../../shared/cards/individual-rooms/living-area/living-area-details-card.yaml
+            - !include ../../shared/cards/individual-rooms/living-area/living-area-paper-row-card.yaml
+        - type: custom:mod-card
+          uix: !include ../../shared/animations/mod-card-slide-in-right.yaml
+          card:
+            type: custom:simple-tabs
+            pre-load: false
+            active-background: var(--md-sys-color-primary)
+            active-text-color: var(--md-sys-color-on-primary)
+            text-color: var(--primary-text-color)
+            tab_position: top
+            alignment: center
+            haptic_feedback: true
+            hide_inactive_tab_titles: true
+            tabs:
+              - title: Room
+                icon: m3of:home
+                id: room
+                card: !include ../../shared/cards/individual-rooms/living-area/living-area-selection-card.yaml
+              - title: Climate
+                icon: m3of:heat-pump
+                id: climate
+                card: !include ../../shared/cards/individual-rooms/living-area/living-area-climate-card.yaml
+              - title: Security
+                icon: mdi:cctv
+                id: security
+                card: !include ../../shared/cards/individual-rooms/living-area/living-area-camera-card.yaml
+              - title: Active
+                icon: m3of:play-circle
+                id: active
+                conditions:
+                  - template: >-
+                      {{ is_state('group.windows_la', 'on') or
+                      is_state('group.doors_la', 'on')}}
+                card: !include ../../shared/cards/individual-rooms/living-area/living-area-open-entities-card.yaml
+    - type: grid
+      cards:
+        - type: custom:streamline-card
+          template: room_selector
+          variables: {}
+  background: !include ../shared/background.yaml
+  footer:
+    card: !include ../../shared/cards/individual-rooms/living-area/living-area-fab-button-card.yaml

@@ -1,0 +1,200 @@
+- type: sections
+  max_columns: 4
+  title: Camera
+  path: camera
+  icon: m3o:camera
+  sections:
+    - type: grid
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: back_button_card
+              variables:
+                navigation_path: /mobile-dashboard/overview
+            - type: custom:streamline-card
+              template: page_title_card
+              variables:
+                title: Security
+            - type: custom:streamline-card
+              template: more-options-card
+              variables:
+                navigation_path: "#security-panel"
+        - type: vertical-stack
+          cards:
+            - type: custom:stack-in-card
+              mode: vertical
+              cards:
+                - type: custom:streamline-card
+                  template: title_subtitle_card
+                  variables:
+                    title: Driveway
+                    subtitle: "{{ states ('sensor.right_driveway_camera_status') }}"
+                    animation_delay: 0.5s
+                - !include ../../shared/cards/camera/driveway-card-with-chips.yaml
+            - !include ../../shared/cards/camera/driveway-card.yaml
+            - type: custom:streamline-card
+              template: title_subtitle_card
+              variables:
+                title: Road
+                subtitle: "{{ states ('sensor.road_camera_status') }}"
+                animation_delay: 0.5s
+            - !include ../../shared/cards/camera/road-card.yaml
+            - type: custom:streamline-card
+              template: title_subtitle_card
+              variables:
+                title: Left Walkway
+                subtitle: "{{ states ('sensor.left_walkway_camera_status') }}"
+                animation_delay: 1.0s
+            - !include ../../shared/cards/camera/left-walkway-card.yaml
+            - type: custom:streamline-card
+              template: title_subtitle_card
+              variables:
+                title: Right Walkway
+                subtitle: "{{ states ('sensor.right_walkway_camera_status') }}"
+                animation_delay: 1.0s
+            - !include ../../shared/cards/camera/right-walkway-card.yaml
+            - type: custom:streamline-card
+              template: title_subtitle_card
+              variables:
+                title: Backyard
+                subtitle: "{{ states ('sensor.backyard_camera_status') }}"
+            - !include ../../shared/cards/camera/backyard-card.yaml
+            - type: custom:stack-in-card
+              mode: vertical
+              cards:
+                - type: custom:streamline-card
+                  template: title_subtitle_card
+                  variables:
+                    title: Garage
+                    subtitle: "{{ states ('sensor.garage_camera_status') }}"
+                - !include ../../shared/cards/camera/garage-card-with-chips.yaml
+            - !include ../../shared/cards/camera/garage-card.yaml
+            - type: custom:stack-in-card
+              mode: vertical
+              cards:
+                - type: custom:streamline-card
+                  template: title_subtitle_card
+                  variables:
+                    title: Living Area
+                    subtitle: "{{ states ('sensor.living_area_camera_status') }}"
+                - !include ../../shared/cards/camera/living-area-card-with-chips.yaml
+            - !include ../../shared/cards/camera/living-area-card.yaml
+    - type: grid
+      cards:
+        - type: custom:bubble-card
+          card_type: pop-up
+          hash: "#security-panel"
+          name: Security Panel
+          icon: mdi:cctv
+          styles: |-
+            #root {
+                    height: unset !important;
+                    max-height: 100% !important;
+                    transition: transform var(--md-sys-motion-expressive-spatial-default) !important;
+                  }
+                  .bubble-header-container {
+                    --bubble-button-background-color: var(--md-sys-color-on-secondary);
+                    --bubble-button-icon-background-color: var(--md-sys-color-on-secondary);
+                  }
+                  .bubble-pop-up-container {
+                    padding-bottom: 64px !important;
+                  }
+          bg_color: var(--md-sys-color-on-primary)
+          bg_opacity: "85"
+          button_type: name
+          sub_button:
+            main: []
+            bottom: []
+          slider_fill_orientation: left
+          slider_value_position: right
+          popup_style: classic
+          popup_mode: adaptive-dialog
+          cards:
+            - !include ../../shared/cards/individual-rooms/security/security-paper-row-card.yaml
+            - !include ../../shared/cards/individual-rooms/security/security-entities-card.yaml
+    - type: grid
+      cards:
+        - type: custom:navbar-card
+          mobile:
+            show_labels: true
+          haptic: true
+          desktop:
+            show_labels: true
+            position: bottom
+            min_width: 768
+          routes:
+            - url: /mobile-dashboard/overview
+              label: Home
+              icon: m3o:home
+              icon_selected: m3of:home
+            - url: /mobile-dashboard/rooms
+              label: Rooms
+              icon: m3o:chair
+              icon_selected: mdi:sofa
+            - url: /mobile-dashboard/scenes
+              label: Scenes
+              icon: m3o:layers
+              icon_selected: m3of:layers
+              popup:
+                - icon: hue:recessed-ceiling
+                  label: ""
+                  url: /mobile-dashboard/scenes
+                - icon: hue:lightstrip
+                  label: ""
+                  url: /mobile-dashboard/scenes-gradient
+              tap_action:
+                action: open-popup
+            - url: /mobile-dashboard/camera
+              label: Camera
+              icon: m3o:camera
+              icon_selected: m3of:camera
+            - icon: mdi:dots-horizontal
+              label: More
+              tap_action:
+                action: open-popup
+              popup:
+                - icon: m3of:tools-wrench
+                  url: /config/dashboard
+          styles: |
+            .navbar-card {
+              background: color-mix(in srgb, var(--md-sys-color-on-primary) 25%, transparent);
+              backdrop-filter: blur(50px);
+              -webkit-backdrop-filter: blur(20px) !important;
+              background-blend-mode: overlay;
+              border-radius: 20px;
+              box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+              margin-bottom: 15px;
+              overflow: hidden;
+              animation: slideUp 0.5s ease-out 0.6s both;
+            }
+
+            @keyframes slideUp {
+              from { 
+                opacity: 1;
+                transform: translateY(4px);
+              }
+              to { 
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+
+            .button {
+              --icon-primary-color: color-mix(in srgb, var(--md-sys-color-primary) 40%, transparent);;
+            }
+
+            .button.active {
+              background: transparent;
+            }
+
+            ha-ripple {
+              display: none !important;
+            }
+  badges: []
+  header:
+    layout: responsive
+    badges_position: top
+    badges_wrap: wrap
+  cards: []
+  background: !include ../shared/background.yaml

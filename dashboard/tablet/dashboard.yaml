@@ -1,0 +1,11 @@
+kiosk_mode:
+  user_settings:
+    - users:
+        - kiosk
+      kiosk: true
+
+streamline_templates: !include ../shared/templates/streamline.yaml
+
+button_card_templates: !include ../shared/templates/button_card.yaml
+
+views: !include_dir_merge_list views/

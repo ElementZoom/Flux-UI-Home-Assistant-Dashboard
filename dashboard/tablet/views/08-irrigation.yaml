@@ -1,0 +1,44 @@
+- type: sections
+  max_columns: 3
+  title: Irrigation
+  path: irrigation
+  icon: m3of:sprinkler
+  subview: true
+  sections:
+    - type: grid
+      cards:
+        - type: custom:mod-card
+          uix: !include ../../shared/animations/mod-card-slide-in-left.yaml
+          card: !include ../../shared/cards/individual-rooms/irrigation/driveway-card.yaml
+    - type: grid
+      cards:
+        - type: custom:mod-card
+          uix: !include ../../shared/animations/mod-card-fade-in-down.yaml
+          card: !include ../../shared/cards/individual-rooms/irrigation/right-walkway-card.yaml
+    - type: grid
+      cards:
+        - type: custom:mod-card
+          uix: !include ../../shared/animations/mod-card-slide-in-right.yaml
+          card: !include ../../shared/cards/individual-rooms/irrigation/backyard-card.yaml
+    - type: grid
+      cards: []
+  header:
+    layout: start
+    badges_position: top
+    badges_wrap: wrap
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: back_button_card
+          variables:
+            navigation_path: /tablet-dashboard/overview
+        - type: custom:streamline-card
+          template: title_card
+          variables:
+            title: Irrigation
+            title_font_size: 25px
+            animation_delay: 0s
+        - !include ../../shared/cards/individual-rooms/irrigation/irrigation-details-card.yaml
+  badges: []
+  background: !include ../shared/background.yaml

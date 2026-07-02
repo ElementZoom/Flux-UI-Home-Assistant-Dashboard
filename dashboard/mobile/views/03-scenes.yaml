@@ -1,0 +1,634 @@
+- type: sections
+  max_columns: 4
+  title: Scenes
+  path: scenes
+  icon: m3o:layers
+  sections:
+    - type: grid
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: back_button_card
+              variables:
+                navigation_path: /mobile-dashboard/overview
+            - type: custom:streamline-card
+              template: page_title_card
+              variables:
+                title: Preset
+            - type: custom:streamline-card
+              template: more-options-card
+              variables:
+                navigation_path: "#light-type-selector"
+        - type: custom:streamline-card
+          template: scene_title_card
+          variables:
+            subtitle: Refreshing
+            animation_delay: 0.6s
+        - type: custom:simple-swipe-card
+          view_mode: carousel
+          card_min_width: 400
+          card_spacing: 8
+          show_pagination: false
+          auto_hide_pagination: 0
+          auto_height: false
+
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Blossom.webp
+                    scene_value: blossom
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Crocus.webp
+                    scene_value: crocus
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Precious.webp
+                    scene_value: precious
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Narcissa.webp
+                    scene_value: narcissa
+        - type: custom:streamline-card
+          template: scene_title_card
+          variables:
+            subtitle: Peaceful
+            animation_delay: 0.8s
+        - type: custom:simple-swipe-card
+          view_mode: carousel
+          card_min_width: 400
+          card_spacing: 8
+          show_pagination: false
+          auto_hide_pagination: 0
+          auto_height: false
+
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Mountain breeze.webp
+                    scene_value: mountain_breeze
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Lake mist.webp
+                    scene_value: lake_mist
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Sunday morning.webp
+                    scene_value: sunday_morning
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Spring blossom.webp
+                    scene_value: spring_blossom
+        - type: custom:streamline-card
+          template: scene_title_card
+          variables:
+            subtitle: Cozy
+            animation_delay: 1.0s
+        - type: custom:simple-swipe-card
+          view_mode: carousel
+          card_min_width: 400
+          card_spacing: 8
+          show_pagination: false
+          auto_hide_pagination: 0
+          auto_height: false
+
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Rolling hills.webp
+                    scene_value: rolling_hills
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Dreamy dusk.webp
+                    scene_value: dreamy_dusk
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Savannah sunset.webp
+                    scene_value: savannah_sunset
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Ruby glow.webp
+                    scene_value: ruby_glow
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Golden pond.webp
+                    scene_value: golden_pond
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Tropical twilight.webp
+                    scene_value: tropical_twilight
+        - type: custom:streamline-card
+          template: scene_title_card
+          variables:
+            subtitle: Dreamy
+            animation_delay: 1.2s
+        - type: custom:simple-swipe-card
+          view_mode: carousel
+          card_min_width: 400
+          card_spacing: 8
+          show_pagination: false
+          auto_hide_pagination: 0
+          auto_height: false
+
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Still waters.webp
+                    scene_value: still_waters
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Adrift.webp
+                    scene_value: adrift
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Blue lagoon.webp
+                    scene_value: blue_lagoon
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Palm Beach.webp
+                    scene_value: palm_beach
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Majestic morning.webp
+                    scene_value: majestic_morning
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Pensive.webp
+                    scene_value: pensive
+        - type: custom:streamline-card
+          template: scene_title_card
+          variables:
+            subtitle: Pure
+            animation_delay: 1.4s
+        - type: custom:simple-swipe-card
+          view_mode: carousel
+          card_min_width: 400
+          card_spacing: 8
+          show_pagination: false
+          auto_hide_pagination: 0
+          auto_height: false
+
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Amethyst Valley.webp
+                    scene_value: amethyst_valley
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Hazy Days.webp
+                    scene_value: hazy_days
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Spring lake.webp
+                    scene_value: spring_lake
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Midwinter.webp
+                    scene_value: midwinter
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Autumn gold.webp
+                    scene_value: autumn_gold
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Misty ridge.webp
+                    scene_value: misty_ridge
+        - type: custom:streamline-card
+          template: scene_title_card
+          variables:
+            subtitle: Serenity
+            animation_delay: 1.6s
+        - type: custom:simple-swipe-card
+          view_mode: carousel
+          card_min_width: 400
+          card_spacing: 8
+          show_pagination: false
+          auto_hide_pagination: 0
+          auto_height: false
+
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Galaxy.webp
+                    scene_value: galaxy
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Arctic aurora.webp
+                    scene_value: arctic_aurora
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Moonlight.webp
+                    scene_value: moonlight
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Nebula.webp
+                    scene_value: nebula
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Starlight.webp
+                    scene_value: starlight
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Blood moon.webp
+                    scene_value: blood_moon
+        - type: custom:streamline-card
+          template: scene_title_card
+          variables:
+            subtitle: Romantic
+            animation_delay: 1.8s
+        - type: custom:simple-swipe-card
+          view_mode: carousel
+          card_min_width: 400
+          card_spacing: 8
+          show_pagination: false
+          auto_hide_pagination: 0
+          auto_height: false
+
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Ruby romance.webp
+                    scene_value: ruby_romance
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/City of love.webp
+                    scene_value: city_of_love
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Sunset allure.webp
+                    scene_value: sunset_allure
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Lovebirds.webp
+                    scene_value: lovebirds
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Smitten.webp
+                    scene_value: smitten
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Promise.webp
+                    scene_value: promise
+        - type: custom:streamline-card
+          template: scene_title_card
+          variables:
+            subtitle: Party
+            animation_delay: 2.0s
+        - type: custom:simple-swipe-card
+          view_mode: carousel
+          card_min_width: 400
+          card_spacing: 8
+          show_pagination: false
+          auto_hide_pagination: 0
+          auto_height: false
+
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Fairfax.webp
+                    scene_value: fairfax
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Tokyo.webp
+                    scene_value: tokyo
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Miami.webp
+                    scene_value: miami
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Cancun.webp
+                    scene_value: cancun
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Osaka.webp
+                    scene_value: osaka
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Motown.webp
+                    scene_value: motown
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Ibiza.webp
+                    scene_value: ibiza
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Chinatown.webp
+                    scene_value: chinatown
+        - type: custom:streamline-card
+          template: scene_title_card
+          variables:
+            subtitle: Luxurious
+            animation_delay: 2.2s
+        - type: custom:simple-swipe-card
+          view_mode: carousel
+          card_min_width: 400
+          card_spacing: 8
+          show_pagination: false
+          auto_hide_pagination: 0
+          auto_height: false
+
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Emerald flutter.webp
+                    scene_value: emerald_flutter
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Memento.webp
+                    scene_value: memento
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Resplendent.webp
+                    scene_value: resplendent
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Scarlet dream.webp
+                    scene_value: scarlet_dream
+        - type: custom:streamline-card
+          template: scene_title_card
+          variables:
+            subtitle: Race Day
+            animation_delay: 2.4s
+        - type: custom:simple-swipe-card
+          view_mode: carousel
+          card_min_width: 400
+          card_spacing: 8
+          show_pagination: false
+          auto_hide_pagination: 0
+          auto_height: false
+
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Zandvoort.webp
+                    scene_value: zandvoort
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Bahrain.webp
+                    scene_value: bahrain
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Silverstone.webp
+                    scene_value: silverstone
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Sao Paulo.webp
+                    scene_value: sao_paulo
+        - type: custom:streamline-card
+          template: scene_title_card
+          variables:
+            subtitle: Holiday
+            animation_delay: 2.6s
+        - type: custom:simple-swipe-card
+          view_mode: carousel
+          card_min_width: 400
+          card_spacing: 8
+          show_pagination: false
+          auto_hide_pagination: 0
+          auto_height: false
+
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Under The Tree.webp
+                    scene_value: under_the_tree
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Snow Sparkle.webp
+                    scene_value: snow_sparkle
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Silent Night.webp
+                    scene_value: silent_night
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Rosy Sparkle.webp
+                    scene_value: rosy_sparkle
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Color Burst.webp
+                    scene_value: color_burst
+                - type: custom:streamline-card
+                  template: scene_button_card
+                  variables:
+                    img_path: /local/hue/raw/Festive Fun.webp
+                    scene_value: festive_fun
+
+    - type: grid
+      cards:
+        - type: custom:bubble-card
+          card_type: pop-up
+          hash: "#light-type-selector"
+          name: Light Type Selector
+          icon: hue:lightstrip
+          popup_style: classic
+          styles: |-
+            #root {
+                    max-height: 100% !important;
+                    transition: transform var(--md-sys-motion-expressive-spatial-default) !important;
+                  }
+                  .bubble-header-container {
+                    --bubble-button-background-color: var(--md-sys-color-on-secondary);
+                    --bubble-button-icon-background-color: var(--md-sys-color-on-secondary);
+                  }
+                  .bubble-pop-up-container {
+                    padding-bottom: 64px !important;
+                  }
+          bg_color: var(--md-sys-color-on-primary)
+          bg_opacity: "85"
+          button_type: name
+          popup_mode: adaptive-dialog
+          slider_fill_orientation: left
+          slider_value_position: right
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: custom:mushroom-template-card
+                  icon: hue:lightstrip
+                  features_position: bottom
+                  primary: Multi Color LED
+                  color: var(--md-sys-color-primary)
+                  tap_action:
+                    action: navigate
+                    navigation_path: /mobile-dashboard/scenes-gradient
+                  vertical: true
+                  multiline_secondary: false
+                  secondary: Navigate to Multi Color LED Scene
+    - type: grid
+      cards:
+        - type: custom:bubble-card
+          card_type: pop-up
+          hash: "#room-selector"
+          name: Room Selector
+          icon: m3o:room-preferences
+          popup_style: classic
+          styles: |-
+            #root {
+                    max-height: 100% !important;
+                    transition: transform var(--md-sys-motion-expressive-spatial-default) !important;
+                  }
+                  .bubble-header-container {
+                    --bubble-button-background-color: var(--md-sys-color-on-secondary);
+                    --bubble-button-icon-background-color: var(--md-sys-color-on-secondary);
+          bg_color: var(--md-sys-color-on-primary)
+          bg_opacity: "85"
+          button_type: name
+          sub_button:
+            main: []
+            bottom: []
+          slider_fill_orientation: left
+          slider_value_position: right
+          cards:
+            - !include ../../shared/cards/scenes/room-selector-card.yaml
+  header:
+    layout: responsive
+    badges_position: top
+    badges_wrap: wrap
+  background: !include ../shared/background.yaml
+  footer:
+    card:
+      type: custom:custom-features-card
+      features:
+        - type: custom:service-call
+          entries:
+            - type: dropdown
+              options:
+                - tap_action:
+                    action: navigate
+                    navigation_path: "#room-selector"
+                  label: Room Selector
+                  icon: m3o:room-preferences
+              thumb: md3-fab-primary
+              haptics: true
+              icon: mdi:plus
+              entity_id: ""
+          styles: |-
+            .row {
+              justify-content: flex-end;
+            }
+            custom-feature-button {
+              flex: none;
+              width: fit-content;
+            }
+      transparent: true

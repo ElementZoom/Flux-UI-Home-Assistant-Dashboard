@@ -1,0 +1,58 @@
+- type: sections
+  max_columns: 4
+  title: Irrigation
+  path: irrigation
+  icon: m3of:sprinkler
+  subview: true
+  sections:
+    - type: grid
+      cards:
+        - type: vertical-stack
+          cards:
+            - type: horizontal-stack
+              cards:
+                - type: custom:streamline-card
+                  template: back_button_card
+                  variables:
+                    navigation_path: /mobile-dashboard/overview
+                - type: custom:streamline-card
+                  template: page_title_card
+                  variables:
+                    title: Irrigation
+                - type: custom:streamline-card
+                  template: spacer_card
+                  variables:
+                    padding: 4xpx
+            - !include ../../shared/cards/individual-rooms/irrigation/irrigation-details-card.yaml
+        - type: custom:mod-card
+          uix: !include ../../shared/animations/mod-card-slide-in-right.yaml
+          card:
+            type: custom:simple-tabs
+            pre-load: true
+            active-background: var(--md-sys-color-primary)
+            active-text-color: var(--md-sys-color-on-primary)
+            text-color: var(--primary-text-color)
+            tab_position: top
+            alignment: center
+            haptic_feedback: true
+            hide_inactive_tab_titles: true
+            tabs:
+              - title: Driveway
+                icon: mdi:car
+                id: driveway
+                card: !include ../../shared/cards/individual-rooms/irrigation/driveway-card.yaml
+              - title: "Right Walkway "
+                icon: mdi:walk
+                id: right-walkway
+                card: !include ../../shared/cards/individual-rooms/irrigation/right-walkway-card.yaml
+              - title: Backyard
+                icon: mdi:tree
+                id: backyard
+                card: !include ../../shared/cards/individual-rooms/irrigation/backyard-card.yaml
+  badges: []
+  header:
+    layout: responsive
+    badges_position: top
+    badges_wrap: wrap
+  background: !include ../shared/background.yaml
+  cards: []

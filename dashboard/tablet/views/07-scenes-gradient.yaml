@@ -1,0 +1,263 @@
+- type: sections
+  max_columns: 3
+  title: Scenes
+  path: scenes-gradient
+  subview: true
+  sections:
+    - type: grid
+      cards:
+        - type: custom:streamline-card
+          template: scene_title_card
+          variables:
+            subtitle: Sunset
+            animation_delay: 0.6s
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/narcissa.webp
+                scene_value: narcissa
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/sunday_morning.webp
+                scene_value: sunday_morning
+        - type: custom:streamline-card
+          template: scene_title_card
+          variables:
+            subtitle: Mountain
+            animation_delay: 0.8s
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/blossom.webp
+                scene_value: blossom
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/glitz_and_glam.webp
+                scene_value: glitz_and_glam
+        - type: custom:streamline-card
+          template: scene_title_card
+          variables:
+            subtitle: Lake
+            animation_delay: 1.2s
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/spring_blossom.webp
+                scene_value: spring_blossom
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/motown.webp
+                scene_value: motown
+        - type: custom:streamline-card
+          template: scene_title_card
+          variables:
+            subtitle: Coastal
+            animation_delay: 1.4s
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/soho.webp
+                scene_value: soho
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/blue_lagoon.webp
+                scene_value: blue_lagoon
+        - type: custom:streamline-card
+          template: scene_title_card
+          variables:
+            subtitle: Hill
+            animation_delay: 1.6s
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/emerald_isle.webp
+                scene_value: emerald_isle
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/winter_beauty.webp
+                scene_value: winter_beauty
+    - type: grid
+      cards:
+        - type: custom:streamline-card
+          template: spacer_card
+          variables:
+            padding: 28px
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/crocus.webp
+                scene_value: crocus
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/horizon.webp
+                scene_value: horizon
+        - type: custom:streamline-card
+          template: spacer_card
+          variables:
+            padding: 28px
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/crystalline.webp
+                scene_value: crystalline
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/nebula.webp
+                scene_value: nebula
+        - type: custom:streamline-card
+          template: spacer_card
+          variables:
+            padding: 28px
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/spring_lake.webp
+                scene_value: spring_lake
+            - type: custom:streamline-card
+              template: spacer_card
+              variables: {}
+        - type: custom:streamline-card
+          template: spacer_card
+          variables:
+            padding: 28px
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/ocean_dawn.webp
+                scene_value: ocean_dawn
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/palm_beach.webp
+                scene_value: palm_beach
+    - type: grid
+      cards:
+        - type: horizontal-stack
+          cards:
+            - type: custom:button-card
+              show_name: false
+              show_icon: false
+              tap_action:
+                action: none
+              styles:
+                card:
+                  - background: none
+                  - box-shadow: none
+                  - padding: 10px 145px
+                  - width: 100%
+        - type: custom:streamline-card
+          template: spacer_card
+          variables:
+            padding: 110px
+        - type: horizontal-stack
+          cards:
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/starlight.webp
+                scene_value: starlight
+            - type: custom:streamline-card
+              template: scene_button_card
+              variables:
+                img_path: /local/hue/multi_color/artic_aurora.webp
+                scene_value: artic_aurora
+    - type: grid
+      cards:
+        - type: custom:bubble-card
+          card_type: pop-up
+          hash: "#light-selector"
+          name: Light Selector
+          icon: mdi:led-strip-variant
+          styles: |-
+            #root {
+                    max-height: 100% !important;
+                    transition: transform var(--md-sys-motion-expressive-spatial-default) !important;
+                  }
+                  .bubble-header-container {
+                    --bubble-button-background-color: var(--md-sys-color-on-secondary);
+                    --bubble-button-icon-background-color: var(--md-sys-color-on-secondary);
+          bg_color: var(--md-sys-color-on-primary)
+          bg_opacity: "85"
+          button_type: name
+          sub_button:
+            main: []
+            bottom: []
+          slider_fill_orientation: left
+          slider_value_position: right
+          cards:
+            - !include ../../shared/cards/scenes/light-selector-card.yaml
+          popup_mode: adaptive-dialog
+          popup_style: classic
+  icon: mdi:layers-outline
+  cards: []
+  badges: []
+  header:
+    layout: responsive
+    badges_position: top
+    badges_wrap: wrap
+    card:
+      type: vertical-stack
+      cards:
+        - type: custom:streamline-card
+          template: back_button_card
+          variables:
+            navigation_path: /tablet-dashboard/overview
+        - type: custom:streamline-card
+          template: title_navigation_card
+          variables:
+            title: Preset
+            title_font_size: 20px
+            navigation_path: "#light-selector"
+  background: !include ../shared/background.yaml
+  footer:
+    card:
+      type: custom:custom-features-card
+      features:
+        - type: custom:service-call
+          entries:
+            - type: dropdown
+              options:
+                - tap_action:
+                    action: navigate
+                    navigation_path: "#light-selector"
+                  label: Light Selector
+                  icon: m3o:room-preferences
+              thumb: md3-fab-primary
+              haptics: true
+              icon: mdi:plus
+              entity_id: ""
+          styles: |-
+            .row {
+              justify-content: flex-end;
+            }
+            custom-feature-button {
+              flex: none;
+              width: fit-content;
+            }
+      transparent: true
+    max_width: 1600

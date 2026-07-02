@@ -1,0 +1,214 @@
+- type: custom:grid-layout
+  path: notifications
+  layout:
+    grid-template-columns: 5% 30% 30% 30% 5%
+    grid-template-rows: auto
+    grid-template-areas: |
+      ". back_button . . ."
+      ". notification active active1 ."
+  cards:
+    - type: custom:mod-card
+      uix: !include ../../shared/animations/mod-card-slide-in-left.yaml
+      card:
+        !include ../../shared/cards/notification-panel-card.yaml
+      view_layout:
+        grid-area: notification
+    - type: custom:mod-card
+      uix: !include ../../shared/animations/mod-card-slide-in-right.yaml
+      card:
+        type: vertical-stack
+        cards:
+          - type: custom:streamline-card
+            template: spacer_card
+            variables:
+              padding: 8px
+          - !include ../../shared/cards/weather/weather-forecast-card.yaml
+      view_layout:
+        grid-area: weather
+
+    - type: custom:simple-swipe-card
+      auto_hide_pagination: 0
+      auto_height: true
+      cards:
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: light.all_lights
+              state: "on"
+          card:
+            type: vertical-stack
+            cards:
+              - type: custom:streamline-card
+                template: count_active_light_card
+                variables:
+                  group_entity: light.all_lights
+                  count_entity: light.all_lights_for_count_only
+                  title: Lights
+                  icon: mdi:lightbulb-on
+                  color: "#FFBF00"
+                  card_template: light_card
+                  filter_state: "on"
+              - type: custom:streamline-card
+                template: spacer_card
+                variables:
+                  padding: 20px
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: group.all_light_switches
+              state: "on"
+          card:
+            type: vertical-stack
+            cards:
+              - type: custom:streamline-card
+                template: count_active_button_card
+                variables:
+                  group_entity: group.all_light_switches
+                  count_entity: group.all_light_switches
+                  title: Light Switches
+                  icon: m3of:switch
+                  color: var(--md-sys-color-primary)
+                  background_color: rgba(238, 220, 130, 0.5)
+                  filter_state: "on"
+              - type: custom:streamline-card
+                template: spacer_card
+                variables:
+                  padding: 20px
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: group.external_doors
+              state: "on"
+          card:
+            type: vertical-stack
+            cards:
+              - type: custom:streamline-card
+                template: count_active_button_card
+                variables:
+                  group_entity: group.external_doors
+                  count_entity: group.external_doors
+                  title: Doors
+                  icon: m3of:door-open
+                  color: "#bc000a"
+                  background_color: rgba(188, 0, 10, 0.5)
+                  filter_state: "on"
+              - type: custom:streamline-card
+                template: spacer_card
+                variables:
+                  padding: 20px
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: group.all_windows
+              state: "on"
+          card:
+            type: vertical-stack
+            cards:
+              - type: custom:streamline-card
+                template: count_active_button_card
+                variables:
+                  group_entity: group.all_windows
+                  count_entity: group.all_windows
+                  title: Windows
+                  icon: m3of:window-open
+                  color: "#ffaa00"
+                  background_color: rgba(255, 170, 0, 0.5)
+                  filter_state: "on"
+              - type: custom:streamline-card
+                template: spacer_card
+                variables:
+                  padding: 20px
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: group.all_fans
+              state: "on"
+          card:
+            type: vertical-stack
+            cards:
+              - type: custom:streamline-card
+                template: count_active_button_card
+                variables:
+                  group_entity: group.all_fans
+                  count_entity: group.all_fans
+                  title: Fans
+                  icon: mdi:fan
+                  color: "#ADD8E6"
+                  background_color: rgba(137, 207, 240, 0.5)
+                  filter_state: "on"
+              - type: custom:streamline-card
+                template: spacer_card
+                variables:
+                  padding: 20px
+        - type: conditional
+          conditions:
+            - condition: state
+              entity: group.all_curtains
+              state: "open"
+          card:
+            type: vertical-stack
+            cards:
+              - type: custom:streamline-card
+                template: count_active_entity_card
+                variables:
+                  entity: group.all_curtains
+                  title: Curtains
+                  icon: m3of:curtains
+                  color: "#702963"
+              - type: custom:auto-entities
+                card:
+                  square: false
+                  type: grid
+                  columns: 2
+                card_param: cards
+                filter:
+                  include:
+                    - group: group.all_curtains
+                      state: open
+                      options:
+                        type: custom:streamline-card
+                        template: curtain_slider_card
+                        variables:
+                          entity_id: this.entity_id
+                          icon: mdi:curtains
+              - type: custom:streamline-card
+                template: spacer_card
+                variables:
+                  padding: 20px
+          exclude: []
+          show_empty: false
+          sort:
+            method: friendly_name
+
+      view_layout:
+        grid-area: active
+
+    - type: custom:streamline-card
+      template: back_button_card
+      variables:
+        navigation_path: /tablet-dashboard/overview
+      view_layout:
+        grid-area: back_button
+
+    - type: custom:simple-tabs
+      tabs:
+        - title: Rey
+          icon: m3of:face
+          id: rey
+          card:
+            type: custom:location-timeline-card
+            entity: device_tracker.rey_s_phone
+            places_entity: sensor.rey_s_phone
+            osm_api_key: email
+        - title: Christina
+          icon: m3of:face-3
+          id: christina
+          card:
+            type: custom:location-timeline-card
+            entity: device_tracker.christina
+            places_entity: sensor.christina_s_phone
+            osm_api_key: email
+
+      view_layout:
+        grid-area: active1
+  background: !include ../shared/background.yaml
