@@ -1,0 +1,17 @@
+type: custom:streamline-card
+template: room_card
+variables:
+  name: Office
+  icon: m3of:computer
+  entity_id_temperature: sensor.office_room_temperature
+  entity_id_humidity: sensor.office_room_humidity
+  entity_id_ac_main: climate.heat_pump
+  entity_id_ac: climate.office_room
+  entity_id_lights: switch.light_switch_or
+  lights_icon: hue:recessed-ceiling
+  lights_count_sensor: sensor.lights_or_count
+  entity_id_windows: group.windows_or
+  windows_count_sensor: sensor.windows_or_count
+  entity_id_doors: binary_sensor.door_sensor_or_contact
+  doors_count_sensor: sensor.doors_or_count
+  navigation_path: /mobile-dashboard/office/

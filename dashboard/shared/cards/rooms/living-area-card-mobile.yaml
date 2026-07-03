@@ -1,0 +1,17 @@
+type: custom:streamline-card
+template: room_card
+variables:
+  name: Living Area
+  icon: mdi:sofa
+  entity_id_temperature: sensor.living_room_temperature
+  entity_id_humidity: sensor.living_area_humidity
+  entity_id_ac_main: climate.heat_pump
+  entity_id_ac: climate.living_room
+  entity_id_lights: light.lights_la
+  lights_icon: hue:recessed-ceiling
+  lights_count_sensor: sensor.lights_la_count
+  entity_id_windows: group.windows_la
+  windows_count_sensor: sensor.windows_la_count
+  entity_id_doors: group.doors_la
+  doors_count_sensor: sensor.doors_la_count
+  navigation_path: /mobile-dashboard/living-area/

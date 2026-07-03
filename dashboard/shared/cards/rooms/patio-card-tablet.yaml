@@ -1,0 +1,13 @@
+type: custom:streamline-card
+template: room_card
+variables:
+  name: Patio
+  icon: mdi:grass
+  entity_id_temperature: sensor.outdoor_temperature
+  entity_id_humidity: sensor.outdoor_humidity
+  entity_id_lights: switch.lights_patio
+  lights_count_sensor: sensor.lights_otd_count
+  lights_icon: hue:recessed-ceiling
+  entity_id_doors: group.doors_otd
+  doors_count_sensor: sensor.doors_otd_count
+  navigation_path: /tablet-dashboard/patio/

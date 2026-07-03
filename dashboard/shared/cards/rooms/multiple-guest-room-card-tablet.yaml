@@ -1,0 +1,17 @@
+type: custom:streamline-card
+template: room_card
+variables:
+  name: Multiple
+  icon: m3of:groups-2
+  entity_id_temperature: sensor.multiple_guest_room_temperature
+  entity_id_humidity: sensor.multiple_guest_room_humidity
+  entity_id_lights: light.lights_mgr_scene
+  lights_icon: hue:recessed-ceiling
+  lights_count_sensor: sensor.lights_mgr_count
+  entity_id_ac_main: climate.heat_pump
+  entity_id_ac: climate.multiple_guest_room
+  entity_id_windows: group.windows_mgr
+  windows_count_sensor: sensor.windows_mgr_count
+  entity_id_doors: binary_sensor.door_sensor_mgr_contact
+  doors_count_sensor: sensor.doors_mgr_count
+  navigation_path: /tablet-dashboard/multiple-guest-room/
