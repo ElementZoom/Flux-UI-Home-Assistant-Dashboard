@@ -138,15 +138,73 @@ dashboard/
 
 ## ⚙️ Installation
 
-This project should be treated as a **full dashboard framework**, not a pre-configured solution.
+Flux UI is designed as a modular dashboard framework, not a plug-and-play solution.
 
-You are expected to:
+It provides the structure, layouts, and reusable components, but you'll need to adapt it to your own Home Assistant installation by mapping your entities, rooms, and devices.
 
-- Map entities to your own Home Assistant setup
-- Adjust rooms, sensors, cameras, and automations
-- Modify YAML configuration to match your environment
+Prerequisites
 
-This is intentionally designed as a **modular system blueprint**, not a one-click installation.
+Before installing Flux UI, ensure that:
+
+Home Assistant is configured to use YAML dashboards.
+All required custom cards and integrations are installed. See custom-cards.md for the complete dependency list.
+You have access to your Home Assistant configuration files (VS Code, File Editor, or Samba).
+
+**Step 1 - Copy the Dashboard Files**
+
+Download or clone this repository.
+
+Copy the following folders into your Home Assistant configuration directory (/config):
+
+[dashboard/](https://github.com/ElementZoom/Flux-UI-Home-Assistant-Dashboard/tree/main/dashboard)
+[www/](https://github.com/ElementZoom/Flux-UI-Home-Assistant-Dashboard/tree/main/www)
+
+Your Home Assistant configuration should look similar to:
+
+/config
+├── dashboard
+├── www
+├── configuration.yaml
+└── ...
+
+**Step 2 - Register the Dashboards**
+
+Open configuration.yaml and add the following configuration:
+
+lovelace:
+  dashboards:
+    mobile-dashboard:
+      mode: yaml
+      filename: /config/dashboard/mobile/dashboard.yaml
+      title: Mobile
+      icon: mdi:cellphone
+      show_in_sidebar: true
+
+    tablet-dashboard:
+      mode: yaml
+      filename: /config/dashboard/tablet/dashboard.yaml
+      title: Tablet
+      icon: mdi:tablet
+      show_in_sidebar: true
+
+Restart Home Assistant (or reload the Lovelace configuration if applicable).
+
+**Step 3 - Configure Your Home**
+
+Flux UI uses placeholder entities and example configurations.
+
+To make the dashboard functional, you'll need to:
+
+- Replace entities with your own devices.
+- Update room assignments.
+- Configure cameras, media players, scenes, and automations.
+- Adjust any templates to match your environment.
+
+Think of Flux UI as a blueprint for building your own dashboard rather than a finished configuration.
+
+**Step 4 - Enjoy & Customise**
+
+Once your entities have been mapped, you can begin customising the dashboard to suit your home.
 
 ---
 
