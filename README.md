@@ -1,5 +1,192 @@
 # Flux-UI-Home-Assistant-Dashboard
-A unified YAML-powered dashboard for weather, automation, security, climate, and environmental monitoring.
 
-**Page is currently under construction**
-<img width="1400" height="820" alt="image" src="https://github.com/user-attachments/assets/6d7f62d6-6f9d-40ec-98c0-5681217924be" />
+A modular, reactive Home Assistant dashboard system built on a shared architecture for both Mobile and Tablet interfaces.
+
+This project consolidates home automation control, environmental monitoring, and real-time system awareness into a single cohesive interface inspired by Material Design 3 principles.
+
+It is designed as a **framework-style dashboard**, not a plug-and-play theme - intended to be adapted, extended, and mapped to your own Home Assistant environment.
+
+<img width="1920" height="1080" alt="Mobile_tablet" src="https://github.com/user-attachments/assets/d3a40acd-9f01-45ba-9d35-2a1736824068" />
+
+---
+
+## 🧠 Overview
+
+This dashboard is built around a **priority-driven, context-aware UI system**, where layout and content dynamically adapt based on real-time home state, sensor data, and automation events.
+
+Rather than static pages, the interface continuously evaluates system conditions and presents only the most relevant information at any given moment.
+
+---
+
+## ✨ Features
+
+### 🧠 Dynamic Context-Aware UI
+
+The dashboard reacts dynamically to changes in home state, media activity, and environmental conditions.
+
+- UI elements appear, update, or disappear based on relevance
+- Critical information is prioritised over static content
+- Layouts adjust automatically depending on system state
+
+---
+
+### 🏠 Live Home Overview Intelligence
+
+The Overview dashboard acts as a real-time representation of the home.
+
+It includes active state tracking such as:
+
+- Open windows and doors across the home
+- Active lights and illuminated zones
+- Curtain and blind positions
+- Running systems (laundry, irrigation, timers)
+- Key environmental and automation metrics
+
+This creates a living dashboard that reflects the current state of the home.
+
+---
+
+### 🚨 Contextual Notifications & Live Events
+
+Important events are surfaced directly in context:
+
+- Garage activity triggers live camera overlays with timers
+- Motion or security events highlight relevant feeds
+- System-critical updates are shown inline rather than as generic alerts
+
+---
+
+### 🎵 Media-Aware Layout Switching (Tablet)
+
+When media is active (e.g. Spotify playback):
+
+- The overview layout dynamically swaps sections to display “Now Playing”
+- When playback stops, the original layout is restored automatically
+
+---
+
+### 🌤️ Adaptive Weather Intelligence
+
+Weather components adjust based on real-time conditions:
+
+- High wind speeds prioritise wind alerts
+- Normal conditions show standard weather summary
+- Environmental data is surfaced only when relevant
+
+---
+
+### 🚨 Status-Driven Mobile Header System
+
+The Mobile dashboard header dynamically changes based on priority:
+
+- Alarm states (armed, triggered, disarmed)
+- Weather warnings or alerts
+- Critical system notifications
+
+---
+
+### 🏠 Room-Level State Awareness
+
+Each room view reflects live sensor state:
+
+- Open doors and windows are shown when detected
+- Indicators automatically disappear when closed
+- Only relevant state is displayed to reduce clutter
+
+---
+
+### 📱 Responsive Multi-Device Design
+
+- Shared core system between Mobile and Tablet dashboards (~80%)
+- Device-specific layouts for optimal screen usage
+- Unified templates, styling, and card system
+
+---
+
+## 📂 Project Structure
+
+dashboard/
+
+├── mobile/
+
+├── tablet/
+
+└── shared/
+
+
+### Shared Architecture
+
+- Centralised templates, cards, animations, and styling
+- Reusable components used across both dashboards
+- Single-source updates propagate across layouts
+
+---
+
+## 📸 Screenshots
+
+> Screenshots represent selected views of the system only and do not reflect a full installation.
+
+### 📱 Mobile Dashboard
+
+<img width="4072" height="3072" alt="Mobile Dashboard Examples" src="https://github.com/user-attachments/assets/a0f83ad1-3963-46ad-be22-2146a13a3a2f" />
+
+### 💻 Tablet Dashboard
+
+<img width="4072" height="3072" alt="Tablet Dashboard Examples" src="https://github.com/user-attachments/assets/7e129765-fb71-42bc-be94-aee28b8eb8c0" />
+
+---
+
+## ⚙️ Installation
+
+This project should be treated as a **full dashboard framework**, not a pre-configured solution.
+
+You are expected to:
+
+- Map entities to your own Home Assistant setup
+- Adjust rooms, sensors, cameras, and automations
+- Modify YAML configuration to match your environment
+
+This is intentionally designed as a **modular system blueprint**, not a one-click installation.
+
+---
+
+## 🧩 Required Dependencies
+
+This dashboard relies on multiple Home Assistant custom integrations and UI components installed via **HACS** and external repositories.
+
+👉 Full list: [`/docs/requirements/custom-cards.md`](https://github.com/ElementZoom/Flux-UI-Home-Assistant-Dashboard/blob/main/custom-cards.md)
+---
+
+## 🎨 Design Philosophy
+
+This dashboard is built around:
+
+- Material Design 3 principles
+- Consistent spacing and typography
+- Shared reusable components
+- Context-aware UI rendering
+- Minimal visual noise, high information density
+
+---
+
+## 🙏 Credits
+
+This project would not be possible without the incredible Home Assistant ecosystem and its community.
+
+Special thanks to:
+
+- The Home Assistant core developers
+- Maintainers of all custom cards and integrations used in this project
+- The broader Home Assistant community for inspiration, examples, and shared knowledge
+
+This dashboard builds on top of their work to create a unified, modular interface system.
+
+---
+
+## 💖 Support My Work
+If you want to hire me to make your personal dashboard, you can hit me up on one of these social media platforms below, or contact me through my [website](https://elementzoom.co.nz/):
+
+- Email at [reynaldi.sutrisno.rs16@gmail.com](url)
+- [Reddit](https://www.reddit.com/user/ElementZoom/)
+- [Facebook](https://www.facebook.com/elementzoom)
+Or you can support me on [Ko-fi](https://ko-fi.com/elementzoom). Your support helps me keep creating and sharing more awesome open-source tools! Thank you for being part of this journey 🚀
